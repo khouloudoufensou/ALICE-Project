@@ -6,15 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BaseController extends AbstractController
+class AdminController extends AbstractController
 {
     /**
-     * @Route("/base", name="base")
+     * @Route("/espace-admin", name="admin")
      */
     public function index(): Response
     {
-        return $this->render('base/index.html.twig', [
-           
+        return $this->render('admin/index.html.twig', [
+          
         ]);
     }
 }

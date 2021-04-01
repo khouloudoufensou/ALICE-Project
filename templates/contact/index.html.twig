@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+
+        <div class="text-center">
+            <h1>CONTACTEZ-NOUS!</h1>
+            <h2>Une réponse vous sera faite sous 48h, n'est ce pas Alexandre</h2>
+        </div>
+
+        <form class="mt-4">
+            <div class="mb-3">
+                <label for="email" class="form-label">Adresse mail</label>
+                <input type="email" class="form-control" name="email" id="email">
+            </div>
+
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Choisissez une option<option value=""></option></option>
+                <option value="1">le projet</option>
+                <option value="2">le blog</option>
+                <option value="3">les stages et formations</option>
+                <option value="4">autres</option>
+            </select>
+
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea name="message" class="form-control" id="message" rows="10">
+                </textarea>
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Envoyer</button>
+            </div>
+  
+        </form>
+    </div>
+</div>
+
+{% endblock %}
