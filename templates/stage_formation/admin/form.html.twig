@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %} 
+    {{ new? 'Nouvel formation/stage': stageFormation.titre}} 
+{% endblock %}
+{# page qui permet à l'admine d'ajouter ou modifier une formation/un stage #}
+{% block body %}
+
+    {% if new %}
+        <h1>Ajouter</h1>
+    {% else %}
+        <h1>Modifier </h1>    
+    {% endif %}
+     
+
+    <a href="{{path('list_stages_formations')}}"> <--Retour</a> <br> <br>
+
+    
+    {{form(form)}}
+
+    
+
+{% endblock %}

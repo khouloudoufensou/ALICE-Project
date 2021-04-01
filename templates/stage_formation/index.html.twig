@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StageFormationController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+    {# {{ dump(stageFormation) }} #}
+   
+    <div class="lead">Stage et formation</div>
+
+    <div class="row mt-5">
+        
+
+        {% for stageformation in stageFormations %}
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card">
+                    <a href="#">
+                        <img src="https://picsum.photos/id/{{ random(1,1000) }}/400/300" class="card-img-top w-100" alt="...">
+                    </a>          
+                    <div class="card-body">
+                        <h5 class="card-title">titre {{ stageformation.titre }}</h5>
+                        <p class="card-text">{{ stageformation.contentellipsis() }}</p>
+                        <p>Nombre de place disponible: </p>
+                        <a href="{{ path('stage_formation', { id: stageformation.id}) }}">
+                            <button type="button" class="btn btn-primary">voir detail</button>
+                        </a>
+                        <button type="button" class="btn btn-primary">prix</button>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(stageFormations) }}
+    </div>
+
+</div>
+{% endblock %}
