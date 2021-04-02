@@ -17,4 +17,13 @@ class BaseController extends AbstractController
             'controller_name' => 'BaseController',
         ]);
     }
+
+    // public function header(string $routeName): Response
+    // {
+
+    //     return $this->render('base/_header.html.twig', [
+    //         'route_name' => $routeName
+    //     ]);
+     
+    // }
 }

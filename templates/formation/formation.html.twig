@@ -8,12 +8,12 @@
         <a href="{{ path('list_stages_formations') }}" class="small text-dark text-decoration-none">&#8592; Retour</a>
     </div>
 
-    {# <img src="{{}}" alt="" class="w-100"> #}
+    <img src="{{asset(formation.imagePath)}}" alt="" class="w-100">
 
     <div class="mt-3">
         {# image #}
-        <h1>{{ stageFormation.titre }}</h1>
-        <p>{{ stageFormation.description }}</p>
+        <h1>{{ formation.title }}</h1>
+        <p>{{ formation.description }}</p>
         <p>Nombre de place disponible: </p>
 
         {# la page de paiement #}

@@ -17,21 +17,30 @@
     <div class="row mt-5">
         
 
-        {% for stageformation in stageFormations %}
+        {% for formation in formations %}
             <div class="col-md-6 col-lg-4 mb-3">
                 <div class="card">
-                    <a href="#">
-                        <img src="https://picsum.photos/id/{{ random(1,1000) }}/400/300" class="card-img-top w-100" alt="...">
-                    </a>          
+                   
+                    <a href="{{ path('formation', { id: formation.id}) }}">
+                        <img src="{{ asset(formation.imagePath) }}" class="card-img-top w-100" alt="...">
+                    </a>       
                     <div class="card-body">
-                        <h5 class="card-title">titre {{ stageformation.titre }}</h5>
-                        <p class="card-text">{{ stageformation.contentellipsis() }}</p>
+                        <h5 class="card-title">titre {{ formation.title }}</h5>
+                        <p class="card-text">{{ formation.contentellipsis() }}</p>
                         <p>Nombre de place disponible: </p>
-                        <a href="{{ path('stage_formation', { id: stageformation.id}) }}">
+                        <a href="{{ path('formation', { id: formation.id}) }}">
                             <button type="button" class="btn btn-primary">voir detail</button>
                         </a>
                         <button type="button" class="btn btn-primary">prix</button>
+
+                        <a href="{{ path('admin_update', { id: formation.id}) }}">
+                            <button type="button" class="btn btn-primary">Modifier</button>
+                        </a>
+                        <a href="{{ path('admin_remove', { id: formation.id}) }}">
+                            <button type="button" class="btn btn-primary">Suprimer</button>
+                        </a>
                     </div>
+
                 </div>
 
             </div>
@@ -41,7 +50,7 @@
 
     {# display navigation #}
     <div class="navigation">
-        {{ knp_pagination_render(stageFormations) }}
+        {{ knp_pagination_render(formations) }}
     </div>
 
 </div>
