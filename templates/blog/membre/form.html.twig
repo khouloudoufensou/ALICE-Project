@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Création des articles{% endblock %}
+
+{% block body %}
+
+<h1>Créer un nouvel article:</h1>
+
+
+
+{{ form_start(form) }}
+
+{{ form_row(form.title) }}
+<br>
+{{ form_row(form.content) }}
+
+{{ form_row(form.image) }}
+
+<br><br>
+
+{{ form_end(form) }} 
+
+
+{# {{ form_start(form) }}
+
+{{ form_row(form.title) }}
+{{ form_row(form.content) }}
+{{ form_row(form.submit, {
+    label: "Ajouter"
+}) }}
+
+{{ form_end(form) }} #}
+
+
+{% endblock %}

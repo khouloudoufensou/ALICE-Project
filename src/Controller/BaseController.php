@@ -9,12 +9,37 @@ use Symfony\Component\Routing\Annotation\Route;
 class BaseController extends AbstractController
 {
     /**
-     * @Route("/base", name="base")
+     * @Route("/", name="home")
      */
     public function index(): Response
     {
-        return $this->render('base/index.html.twig', [
+        return $this->render('base/home.html.twig', [
            
         ]);
     }
-}
+
+
+     
+    /**
+     * @Route("/a-propos", name="about")
+     */
+    public function about(): Response
+    {
+        return $this->render('base/about.html.twig');
+    }
+
+    public function header(string $routeName)
+    {
+        // $articles = [
+        //     [ 'titre' => 'Article 1' ],
+        //     [ 'titre' => 'Article 2' ],
+        //     [ 'titre' => 'Article 3' ],
+        // ];
+
+        return $this->render('base/_header.html.twig', [
+            // 'articles' => $articles,
+            'route_name' => $routeName,
+        ]);
+    }
+    
+  }

@@ -9,23 +9,45 @@
 <div class="lead">Découvrez les secrets de la nature</div>
 </div>
 
+    {# <section class="articles">
+    {% for article in articles %}
+     <div class="container">
+            <h2>{{ article.title }}</h2>
+        <div class="metadata">Ecrit le {{ article.createdAt | ('d/m/Y')}} </div>
+        <div class="content">
+        <img src="{{ article.image }}" alt="">
+        {{ article.content |raw}}
+        <a href="{{ path('blog_article') }}" class="btn btn-secondary mb-2">Lire la suite</a>
+        </div>
+     </div>
+        
+    {% endfor %}
+
+    </section> #}
+
+
+
 <div class="row mt-5">
-        {% for x in 1..12 %}
+{% for article in articles %}
             <div class="col-md-6 col-lg-4 mb-3">
                 <div class="card">
-                    <a href="{{ path('blog_article') }}">
-                        <img src="https://picsum.photos/id/{{ random(1,1000) }}/400/300" class="card-img-top w-100" alt="...">
+                    <a href="{{ path('blog_article', {id: article.id}) }}">
+                        <div class="img-ratio" style="--ratio: 60%;">
+                            <div class="img">
+                                <img src="{{ asset(article.image) }}" class="card-img-top w-100" alt="...">
+                            </div>
+                        </div>
                     </a>
                     <div class="card-body">
-                        <h5 class="card-title">Article {{ x }}</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum nostrum officiis quis.</p>
-                        <a href="" class="btn btn-secondary mb-2">Lire la suite</a>
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text">{{ article.content }}</p>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+         {% endfor %}
     </div>
 
+<footer>
     <nav aria-label="Page navigation example" class="mt-4">
         <ul class="pagination justify-content-center">
             <li class="page-item">
@@ -44,7 +66,7 @@
         </ul>
     </nav>
 
-
+</footer>
 
 
 
