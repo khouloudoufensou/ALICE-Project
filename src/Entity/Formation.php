@@ -75,6 +75,7 @@ class Formation
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank (message="Merci d'insere une photo")
      */
     private $picture;
 
