@@ -19,8 +19,7 @@ class BaseController extends AbstractController
         ]);
     }
 
-
-     
+    
     /**
      * @Route("/a-propos", name="about")
      */
@@ -43,4 +42,23 @@ class BaseController extends AbstractController
         ]);
     }
     
-  }
+    
+    /**
+     * @Route("/redirect-user", name="redirect_user")
+     */
+    public function redirectUser(): Response
+    {
+        
+        if ($this->isGranted('ROLE_ADMIN')){
+            
+            Return $this->redirectToRoute('admin_list_formations');
+
+        }elseif($this->isGranted('ROLE_MEMBER')){
+            Return $this->redirectToRoute('list_stages_formations');
+
+        }else{
+            Return $this->redirectToRoute('home');
+        }
+    }
+}
+

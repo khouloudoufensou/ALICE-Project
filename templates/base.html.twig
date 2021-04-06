@@ -22,25 +22,29 @@
     </head>
     <body class="d-flex flex-column h-100">
 
-     <body class="d-flex flex-column h-100">
+        <div class="flex-shrink-0">
+            
+            {{ render(controller('App\\Controller\\BaseController::header',
+                {'routeName' : route_name}
+            ))}}
+            
+            <div class="container">
+                {% include "base/_flash.html.twig" %}
+                {% block body %}{% endblock %}
+            </div>        
+        </div>
 
         <div class="flex-shrink-0">
-            {{ render(controller('App\\Controller\\BaseController::header', {
-                'routeName' : route_name
-            })) }}
-
-            </div>
-     
-           <div class="container">
+            {% include "base/_header.html.twig" %}
+            
+            <div class="container">
                 {% include "base/_flash.html.twig" %}
-            </div>
+                {% block body %}{% endblock %}
+            </div>        
+        </div>
+        
 
 
-            <div class="container pt-3">
-              {% block body %}  {% endblock %}
-             
-            </div>
-       
 
         {% include 'base/_footer.html.twig' %}
 
