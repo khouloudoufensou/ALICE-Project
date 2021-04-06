@@ -8,9 +8,25 @@
         <a href="{{ path('membre_blog_create') }}" class="btn btn-secondary mb-2">+ Nouvel article</a>
     </div>
 
-
-
-
-
-
+<div class="row mt-5">
+        {% for article in articles %}
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card">
+                    <div class="img-ratio" style="--ratio: 40%;">
+                        <div class="img">
+                            <img src="{{ asset(article.image) }}" class="card-img-top w-100" alt="...">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <p class="card-text">{{ article.content|slice(0,100) }}</p>
+                    </div>
+                    <div>
+                        <a href="{{ path('membre_blog_update', {id: article.id}) }}" class="btn btn-primary">Modifier l'article</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>   
+  
 {% endblock %}

@@ -1,35 +1,34 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Création des articles{% endblock %}
+{% block title %}
+    {{ new ? 'Nouvel article' : article.title }}
+{% endblock %}
 
 {% block body %}
 
-<h1>Créer un nouvel article:</h1>
+<a href="{{ path('membre_blog_list') }}"><-- Retour</a>
+
+    {# <div>
+        <img src="{{ asset(article.imagePath) }}" alt="" style="width: 200px;">
+     </div> #}
+
+{% if new %}
+     <h1>Créer un nouvel article:</h1>
+{% else %}
+     <h1>Modifier un nouvel article:</h1>
+     <div class="lead">{{ article.title }}</div>
+{% endif %}
+   
+
+{{ form(form) }}
+
+
+{% if not new %}
+        <a href="{{ path('membre_blog_remove', {id: article.id}) }}" class="btn btn-danger">Supprimer l'article</a>
+    {% endif %}
 
 
 
-{{ form_start(form) }}
-
-{{ form_row(form.title) }}
-<br>
-{{ form_row(form.content) }}
-
-{{ form_row(form.image) }}
-
-<br><br>
-
-{{ form_end(form) }} 
-
-
-{# {{ form_start(form) }}
-
-{{ form_row(form.title) }}
-{{ form_row(form.content) }}
-{{ form_row(form.submit, {
-    label: "Ajouter"
-}) }}
-
-{{ form_end(form) }} #}
 
 
 {% endblock %}

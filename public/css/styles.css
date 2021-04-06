@@ -11,9 +11,33 @@ background-color: rgb(161, 167, 150);
 }
 
 footer {
-    position: absolute; 
+     
     bottom: 0;
     background-color: green;
     height: 150px;
     width: 100%;
 }
+
+.img-ratio {
+    position: relative;
+}
+.img-ratio:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: var(--ratio);
+}
+.img-ratio > .img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+}
+.img-ratio > .img > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
