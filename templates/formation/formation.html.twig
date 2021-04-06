@@ -23,5 +23,53 @@
         
     </div>
 
+    <br><br>
+
+{# pour tout le monde #}
+
+    <h2>Avis ({{ formation.avis.count}})</h2>
+
+    {% for avis  in formation.avis %}
+        <div >
+            <b>Publié le {{ avis.creatAt|date('d/m/Y')}} par {{avis.user.Fullname}}</b>
+            <div>{{ avis.message|nl2br }}</div>
+
+
+    {# {{ dump(app.user.id) }} #}
+    {# {{ dump(avis.user.id) }} #}
+
+            {# lien vers supprimer et vers modifier si la personne est connecter et si le commentaire à ete cree par cette user 
+            il faut creer a voter#}
+
+            {# {% if (is_granted('IS_AUTHENTICATED_FULLY')and ({id: app.user.id} === {id: avis.user.id} )) %} #}
+
+            {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::EDIT'), avis) %}
+                <a href="{{ path('notice_update', { id: avis.id}) }}" class="text-body text-decoration-none btn btn-outline-secondary">Modifier</a>
+            {% endif %}
+            {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::DELETE'), avis) %}
+                <form method="POST" action="{{ path('notice_remove', { id: avis.id}) }}">
+                    {# pour securiser la suppression on genere un token #}
+                    <input type="hidden" name="_token" value="{{csrf_token("delete"~ avis.id)}}">
+                    <button onclick="return confirm('Voulez vous supprimer cet avis ?')" class="text-body text-decoration-none btn btn-outline-danger" >Supprimer</button>                          
+                </form>
+            {% endif %}
+
+                
+            
+                
+            {# {% endif %} #}
+           
+        </div>
+        
+    {% endfor %}
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}  
+        <div classe= 'lead'>
+            Laissez votre avis
+        </div>
+        {{form(form)}}
+    {% endif %}
+    
+
 
 {% endblock %}

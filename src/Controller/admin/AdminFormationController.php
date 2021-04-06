@@ -63,9 +63,9 @@ class AdminFormationController extends AbstractController
                 $formation->setPicture($fileName);
             }
                      
-            $em=$this->getDoctrine()->getManager();
-            $em->persist($formation); 
-            $em->flush();
+            $entityManager=$this->getDoctrine()->getManager();
+            $entityManager->persist($formation); 
+            $entityManager->flush();
 
             $this->addFlash('success',"la formation a bien été " . ($new ? 'créé' : 'modifié'));
         }
@@ -101,13 +101,14 @@ class AdminFormationController extends AbstractController
     /**
      * @Route("/a/admin/supprimer/{id}", name="admin_remove")
      */
-    public function membreBlogRemove(Formation $formation, Request $request): Response
+    public function adminRemove(Formation $formation, Request $request): Response
     {
         if ($this->isCsrfTokenValid("delete".$formation->getId(), $request->get("_token") )) {
             // dd("suprimer");
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($formation);
-            $em->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($formation);
+            $entityManager->flush();
+            
             $this->addFlash('success',"la formation a bien été supprimé");
         }
         

@@ -51,6 +51,7 @@ class EmailService
             }
 
             $data['to'] =$this->emailDeveloper;
+            // $data['from']=$this->emailDeveloper;
         }
         
         

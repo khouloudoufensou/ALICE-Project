@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -57,9 +59,17 @@ class User implements UserInterface
      */
     private $emailVerified= false;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $avis;
+
+   
+
     public function __construct()
     {
         $this->creatAt = new DateTime();
+        $this->avis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,6 +177,12 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getFullname(): ?string
+    {
+        return $this->lastname ." ". $this->firstname;
+    }
+
+
     public function getCreatAt(): ?\DateTimeInterface
     {
         return $this->creatAt;
@@ -190,4 +206,36 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis[] = $avi;
+            $avi->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getUser() === $this) {
+                $avi->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
 }
