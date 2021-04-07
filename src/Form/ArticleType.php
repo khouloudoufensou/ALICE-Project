@@ -21,12 +21,12 @@ class ArticleType extends AbstractType
             ->add('title' , TextType::class)
             ->add('content', TextareaType::class)
             ->add('image', FileType::class, [
-               'label' => 'Ajouter une image',
-               'mapped' => false,
-               'required' => false,
+                    'label' => 'Insérer une image',
+                    'mapped' => false,
+                    'required' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => $article->getId() ? 'Modifier' : 'Ajouter l\'article'
+                     'label' => $article->getId() ? 'Envoyer l\'article' : 'Ajouter l\'article'
             ])
         ;
     }

@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Repository\ArticleRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Service\UploadService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,16 +17,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends AbstractController
 {
 
+    private $uploadService;
+
+    public function __construct(UploadService $uploadService)
+    {
+        $this->uploadService = $uploadService;
+    }
+
     #-- Front
 
     /**
      * @Route("/blog", name="blog")
      */
-    public function index(ArticleRepository $articleRepository):Response
+    public function index(ArticleRepository $articleRepository,
+    Request $request, 
+    PaginatorInterface $paginator
+    ):Response
     {
-       $articles = $articleRepository->findBy([],['createdAt' => 'desc']);
+       $articles = $paginator->paginate(
+        $articleRepository->findBlogArticles(),
+        $request->query->getInt('page', 1),
+        3
+    );
 
-        
         return $this->render('blog/index.html.twig', [
             'articles' => $articles
          ]);
@@ -32,11 +48,26 @@ class BlogController extends AbstractController
     /**
      * @Route("/article/{id}", name="blog_article")
      */
-    public function article(Article $article)
+    public function article(Article $article, Request $request)
      {
-        
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setArticle($article);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            $this->addFlash('success', "Merci pour votre commentaire");
+            return $this->redirectToRoute('blog_article', [ 'id' => $article->getId() ]);
+        }
+
         return $this->render('blog/article.html.twig', [
-            'article' => $article
+            'article' => $article,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -71,7 +102,7 @@ class BlogController extends AbstractController
       return $this->handleform($article, $request, false);
     }
 
-    public  function handleForm(Article $article, Request $request, bool $new)
+    public  function handleForm(Article $article, Request $request, bool $new) 
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -83,10 +114,9 @@ class BlogController extends AbstractController
                 $fileName = $this->uploadService->uploadImage($image, $article);
                 $article->setImage($fileName);
             }
-            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
-            // $article->setImage($image);
             $em->flush();
 
             $this->addFlash('success', "L'article a bien été "  .  ($new ? 'crée' : 'modifié')); 

@@ -22,11 +22,11 @@ class UploadService
         $fileName = explode('-', $fileName);
         $fileName = array_slice($fileName,0,-1);
         $fileName = join('-',$fileName);
-        $fileName .= '-'.uniqId().'.'.$image->guessExtension();
+        $fileName .= '-'.uniqId().'.'.$image->getClientOriginalExtension();
 
 
         $path = $this->uploadImageDirectory.'/'.$entity->getImageDirectory();
-        $image->move($path ,$fileName);
+        $image->move($path, $fileName);
 
         return $fileName;
     }

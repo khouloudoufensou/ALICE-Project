@@ -21,9 +21,8 @@ class FormationController extends AbstractController
     */
     public function index(
         FormationRepository $FormationRepository,
-        Request $request,
-        PaginatorInterface $paginator
-    ): Response
+        Request $request, 
+        PaginatorInterface $paginator): Response
     {
         $StageFormation= $paginator->paginate(
             // nbr de place dispo il faut fair une condition (dispo ou pas)
