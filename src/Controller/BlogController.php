@@ -7,8 +7,11 @@ use App\Form\ArticleType;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
+use App\Entity;
+use App\Security\Voter\ArticleVoter;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Service\UploadService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,10 +77,15 @@ class BlogController extends AbstractController
     #-- Back
      /**
      * @Route("/mon-espace/articles", name="membre_blog_list")
+     * @IsGranted("ROLE_USER")
      */
     public function membreBlogList(ArticleRepository $articleRepository)
     {
-        $articles = $articleRepository->findRecentArticles();
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $articles = $articleRepository->findAll();
+        } else {
+        $articles = $articleRepository->findRecentArticles($this->getUser());
+        }
 
         return $this->render('blog/membre/list.html.twig', [
             'articles' => $articles
@@ -86,20 +94,24 @@ class BlogController extends AbstractController
     
     /**
      * @Route("/mon-espace/articles/nouveau", name="membre_blog_create")
+     *  @IsGranted("ROLE_MEMBER", message="Seuls les membres peuvent écrire des articles, vous devez d'abord vous inscrire.")
      */
     public function membreBlogCreate(Request $request)
     {
-        $article = new Article();
+        $article =  (new Article())->setUser($this->getUser());
         // dd($article);
         return $this->handleform($article, $request, true);
        
     }
      /**
      * @Route("/mon-espace/articles/modifier/{id}", name="membre_blog_update")
+     * @IsGranted("ROLE_USER")
      */
     public function membreBlogUpdate(Article $article, Request $request)
     {
-      return $this->handleform($article, $request, false);
+        $this->denyAccessUnlessGranted(ArticleVoter::EDIT, $article);
+
+        return $this->handleform($article, $request, false);
     }
 
     public  function handleForm(Article $article, Request $request, bool $new) 

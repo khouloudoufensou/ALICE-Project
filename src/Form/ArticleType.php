@@ -18,13 +18,20 @@ class ArticleType extends AbstractType
         $article = $options['data'];
 
         $builder
-            ->add('title' , TextType::class)
-            ->add('content', TextareaType::class)
+            ->add('title' , TextType::class, [
+                'label' => "Titre de l'article"
+            ])
+
+            ->add('content', TextareaType::class,[
+                'label' => "Contenu de l'article"
+            ])
+            
             ->add('image', FileType::class, [
                     'label' => 'Insérer une image',
                     'mapped' => false,
                     'required' => false,
             ])
+
             ->add('submit', SubmitType::class, [
                      'label' => $article->getId() ? 'Envoyer l\'article' : 'Ajouter l\'article'
             ])

@@ -34,13 +34,12 @@
             {{ form_row(form.image) }}
              {{ form_end(form) }}
            </div> #}
-    <br> 
-
-
-        {% if not new %}
+  
+    {% if not new %}
             <a href="{{ path('membre_blog_remove', {id: article.id}) }}" class="btn btn-danger">Supprimer l'article</a>
             <br><br>
-        {% endif %}
+    {% endif %}
+    
    </div>
 </div>
 

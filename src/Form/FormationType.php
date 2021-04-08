@@ -56,7 +56,6 @@ class FormationType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label'=>$Formation->getId()?'Modifier': 'Ajouter'
             ])
-
         ;
     }
 

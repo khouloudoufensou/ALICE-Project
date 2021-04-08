@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ArticleRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,17 +49,27 @@ class BaseController extends AbstractController
      */
     public function redirectUser(): Response
     {
-        
+        // dd("hello");
+
         if ($this->isGranted('ROLE_ADMIN')){
             
-            Return $this->redirectToRoute('admin_list_formations');
+            // dd("hello ADMIN");
+
+            Return $this->redirectToRoute('admin');
 
         }elseif($this->isGranted('ROLE_MEMBER')){
-            Return $this->redirectToRoute('list_stages_formations');
+
+            // dd("hello membre");
+
+            Return $this->redirectToRoute('member');
 
         }else{
+                // dd("hello Khouloud");
+            
             Return $this->redirectToRoute('home');
         }
     }
+
+    
 }
 

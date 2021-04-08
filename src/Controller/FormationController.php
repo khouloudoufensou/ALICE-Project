@@ -25,7 +25,7 @@ class FormationController extends AbstractController
         PaginatorInterface $paginator): Response
     {
         $StageFormation= $paginator->paginate(
-            // nbr de place dispo il faut fair une condition (dispo ou pas)
+            // nbr de place dispo il faut faire une condition (dispo ou pas)
             $FormationRepository->findEvent(date("Y-m-d H:i:s")),   
             $request->query->getInt('page',1),
             1 
