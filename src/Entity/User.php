@@ -64,13 +64,32 @@ class User implements UserInterface
      */
     private $avis;
 
-   
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $reservations;
+
 
     public function __construct()
     {
         $this->creatAt = new DateTime();
         $this->avis = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
+
+    // formation function
+
+    public function getFormations(){
+        $formations=[];
+        foreach ($this->getReservations() as $key => $reservation) {
+            $formations[]=$reservation->getFormation();
+        }
+
+        return $formations;
+    }
+
+
 
     public function getId(): ?int
     {
@@ -237,5 +256,38 @@ class User implements UserInterface
         return $this;
     }
 
+    
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
     
 }

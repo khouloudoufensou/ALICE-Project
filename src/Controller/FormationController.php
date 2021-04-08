@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Avis;
 use App\Entity\Formation;
-use App\Entity\User;
+use App\Entity\Reservation;
 use App\Form\AvisType;
-use App\Form\FormationType;
+use App\Form\ReservationType;
 use App\Repository\FormationRepository;
+use App\Repository\ReservationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class FormationController extends AbstractController
 {
     
-
+    // Part in common
 
     /**
     * @Route("/list-stages-formations", name="list_stages_formations")
@@ -49,7 +50,34 @@ class FormationController extends AbstractController
     {
         // dd($user);
         // dd($this->getUser());
-       
+
+        // Booking
+        $booking = new Reservation();
+        $formReservaion = $this->createForm(ReservationType::class, $booking);
+        $formReservaion->handleRequest($request);
+
+        
+        if($formReservaion->isSubmitted() && $formReservaion->isValid()){
+            // $this->isGranted('ROLE_MEMBER')
+            if ($this->isGranted('ROLE_MEMBER')) {
+                $booking->setFormation($formation);
+            $booking->setUser($this->getUser());
+    
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($booking);
+            $entityManager->flush();
+
+            $this->addFlash('success','Votre formation a bien été ajouté au panier');
+            return $this->redirectToRoute('list_stages_formations');
+            }else
+            {
+                return $this->redirectToRoute('app_login');
+            }
+            
+        }
+          
+
+        // notice
         $avis = new Avis();
         $form = $this->createForm(AvisType::class, $avis);
         $form->handleRequest($request);
@@ -70,11 +98,15 @@ class FormationController extends AbstractController
         
         return $this->render('formation/formation.html.twig', [
             'formation'=> $formation,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'formReservaion' => $formReservaion->createView()
+            
         ]);
     }  
 
 
+    // Identified person
+    // Notice part
 
     public function handelForm(Avis $avis, Request $request)
     {
@@ -100,7 +132,6 @@ class FormationController extends AbstractController
            'avis' => $avis
         ]);
     }
-
     
 
     // update
@@ -116,10 +147,7 @@ class FormationController extends AbstractController
     // delete
     /**
      * @Route("/avis/supprimer/{id}", name="notice_remove")
-     * 
      * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_MEMBER')")
-     * 
-     * 
      */
     public function noticeRemove(Avis $avis, Request $request): Response
     {
@@ -138,6 +166,31 @@ class FormationController extends AbstractController
             ]);
     }
 
+    // Bascket
+    /**
+     * @Route("/panier", name="bascket")
+     */
+    public function bascket(): Response
+    {   
+        return $this->render('formation/panier.html.twig');
+    }
 
-
+    // delete reservation
+    /**
+     * @Route("/reservation/supprimer/{id}", name="reservation_remove")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_MEMBER')")
+     */
+    public function reservationRemove(Reservation $reservation, Request $request): Response
+    {
+        if ($this->isCsrfTokenValid("delete".$reservation->getId(), $request->get("_token") )) {
+            // dd("suprimer");
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($reservation);
+            $entityManager->flush();
+            
+            $this->addFlash('success',"la réservation a bien été supprimé");
+        }
+        
+        return $this->redirectToRoute('bascket');
+    }
 }

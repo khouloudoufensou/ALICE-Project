@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+
+  
+       {# {{ dump(app.user.id) }} #}
+       {# {{ dump(app.user.reservations) }}
+       {{ dump(app.user) }}
+       {{ dump(reservations) }} #}
+  
+   
+    <h2>Vos stage(s) et formation(s)</h2>
+    <h2>Panier ({{app.user.reservations.count}})</h2>
+
+    <div class="row mt-5">
+        {# {% for testforation in formations %}
+            <div> {{testforation.reservations }}</div>
+        {% endfor %} #}
+        {% for reservation  in app.user.reservations %}
+        
+            <div>{{reservation.formation.title}}</div>
+            <a href="{{ path('formation', { id: reservation.formation.id}) }}">
+                <button type="button" class="btn btn-primary">Voir detail</button>
+            </a>
+            
+            <form method="POST" action="{{ path('reservation_remove', { id: reservation.id}) }}"> 
+                {# pour securiser la suppression on genere un token #}
+                <input type="hidden" name="_token" value="{{csrf_token("delete"~ reservation.id)}}">
+                <button onclick="return confirm('Voulez vous annuler cet reservation ?')" class="text-body text-decoration-none btn btn-outline-danger" >Annuler</button>                          
+            </form>
+                 
+        {% endfor %}
+
+
+        
+              
+    </div>
+
+    <button type="button" class="btn btn-success">Payer</button>
+
+
+</div>
+{% endblock %}

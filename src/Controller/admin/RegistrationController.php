@@ -65,12 +65,12 @@ class RegistrationController extends AbstractController
             $this->addFlash('success', "Verifiez votre mail via le lien envoyé");
             return $this->redirectToRoute('app_login');
 
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main' // firewall name in security.yaml
-            );
+            // return $guardHandler->authenticateUserAndHandleSuccess(
+            //     $user,
+            //     $request,
+            //     $authenticator,
+            //     'main' // firewall name in security.yaml
+            // );
         }
 
         return $this->render('registration/register.html.twig', [

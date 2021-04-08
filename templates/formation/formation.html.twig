@@ -14,12 +14,36 @@
         {# image #}
         <h1>{{ formation.title }}</h1>
         <p>{{ formation.description }}</p>
-        <p>Nombre de place disponible: </p>
+        {# <p>Nombre de place disponible: </p> #}
 
         {# la page de paiement #}
-        <a href="#">
+        {# <a href="#">
             <button type="button" class="btn btn-primary">Réserver</button>
-        </a>
+        </a> #}
+        {% set store = formation.seatingCapacity - formation.reservations.count %}
+        {# login pour reserver #}
+        {# {% if is_granted('IS_AUTHENTICATED_FULLY') %}    #}
+            {# {{form(formReservaion)}} #}
+        {# {% endif %} #}
+        {% if store>0  %}
+            <h2>Nombre de place disponible: ({{store}})</h2>
+            {{form(formReservaion)}}
+
+        {% else %}
+            <button type="button" class="btn btn-danger">Sold out</button>
+        {% endif %}
+
+        {# le nombre de reservation pour chaque formation => nombre de place dispo  #}
+        {# <h2>Reservations pour cette formation ({{ formation.reservations.count}})</h2> #} 
+
+        {# panier de chaque user #}
+        {# <h2>Panier de l'utilisateur ({{app.user.reservations.count}})</h2> #}
+
+        {# <h1>Liste des formations</h1>
+        {% for formation in app.user.formations %}
+            <div> {{formation.title }}</div>          
+        {% endfor %} #}
+
         
     </div>
 
@@ -35,8 +59,8 @@
             <div>{{ avis.message|nl2br }}</div>
 
 
-    {# {{ dump(app.user.id) }} #}
-    {# {{ dump(avis.user.id) }} #}
+            {# {{ dump(app.user.id) }} #}
+            {# {{ dump(avis.user.id) }} #}
 
             {# lien vers supprimer et vers modifier si la personne est connecter et si le commentaire à ete cree par cette user 
             il faut creer a voter#}
