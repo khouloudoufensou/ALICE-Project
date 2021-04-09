@@ -35,7 +35,8 @@ class FormationType extends AbstractType
                 'label' => "Ajoutez un prix"
             ] )
             ->add('startAt',DateType::class,[
-                'label' => "Ajoutez la date de debut de la formation"
+                'label' => "Ajoutez la date de debut de la formation",
+                'date_widget' => 'single_text'
             ])
             ->add('speaker',TextType::class,[
                 'label' => "Ajoutez le nom et prenom de l'intervenant"

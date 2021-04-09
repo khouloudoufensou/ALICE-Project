@@ -22,22 +22,38 @@ class RegistrationFormType extends AbstractType
         $builder
             
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom'
+                'label' => false,
+                'attr' => [
+                    'class'=>'form__field',
+                    'placeholder'=>'Prénom'
+                ]
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Nom'
+                'label' => false,
+                'attr' => [
+                    'class'=>'form__field',
+                    'placeholder'=>'Nom'
+                ]
             ])
 
             ->add('email', EmailType::class,[
-                'label' => 'Votre adresse mail'
+                'label' => false,
+                'attr' => [
+                    'class'=>'form__field',
+                    'placeholder'=>'E-mail'
+                ]
             ])
 
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'Votre mot de passe',
+                'label' => false,
+                'attr' => [
+                    'class'=>'form__field',
+                    'placeholder'=>'Mot de passe'
+                ],                
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'help' => 'Le mot de passe doit faire minimum 6 caractères',
+                
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner votre mot de passe',
@@ -64,7 +80,10 @@ class RegistrationFormType extends AbstractType
             ])
 
             ->add('submit', SubmitType::class, [
-                'label' => "Je m'inscris",
+                'label' => "Inscription",
+                'attr' => [
+                    'class'=>'form__button form__submit'
+                ], 
             ])
         ;
     }

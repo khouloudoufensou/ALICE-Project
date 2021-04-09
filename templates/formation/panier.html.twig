@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Panier{% endblock %}
+{# Bloc destiné à recevoir le CSS spécifique à la page #}
+{% block stylesheets %}
+
+{% endblock %}
+
+{# Bloc destiné à recevoir le contenu HTML de la page #}
 
 {% block body %}
 <style>
@@ -24,7 +30,10 @@
         {# {% for testforation in formations %}
             <div> {{testforation.reservations }}</div>
         {% endfor %} #}
+        {% set Total = 0 %}
+
         {% for reservation  in app.user.reservations %}
+        {% set Total = Total + reservation.formation.price %}
         
             <div>{{reservation.formation.title}}</div>
             <a href="{{ path('formation', { id: reservation.formation.id}) }}">
@@ -38,14 +47,15 @@
             </form>
                  
         {% endfor %}
-
-
-        
-              
+           
     </div>
-
-    <button type="button" class="btn btn-success">Payer</button>
-
-
 </div>
+
+<button type="button" class="btn btn-secondary">Total: {{Total}}</button>   
+<button type="button" class="btn btn-success">Payer</button>
+
+{% endblock %}
+{# Bloc destiné à recevoir le javascript spécifique à la page #}
+{% block javascripts %}
+
 {% endblock %}

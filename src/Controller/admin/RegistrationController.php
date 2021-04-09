@@ -17,103 +17,104 @@ use Nzo\UrlEncryptorBundle\Encryptor\Encryptor;
 
 class RegistrationController extends AbstractController
 {
-    /**
-     * @Route("/register", name="app_register")
-     */
-    public function register(Request $request, 
-    UserPasswordEncoderInterface $passwordEncoder, 
-    GuardAuthenticatorHandler $guardHandler, 
-    LoginFormAuthenticator $authenticator,
-    EmailService $emailService
-    ): Response
-    {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('redirect_user');
-        }
+    // /**
+    //  * @Route("/register", name="app_register")
+    //  */
+    // public function register(Request $request, 
+    // UserPasswordEncoderInterface $passwordEncoder, 
+    // GuardAuthenticatorHandler $guardHandler, 
+    // LoginFormAuthenticator $authenticator,
+    // EmailService $emailService
+    // ): Response
+    // {
+    //     if ($this->getUser()) {
+    //         return $this->redirectToRoute('redirect_user');
+    //     }
 
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+    //     $user = new User();
+    //     $form = $this->createForm(RegistrationFormType::class, $user);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_MEMBER"]);
-            // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $user->setRoles(["ROLE_MEMBER"]);
+    //         // encode the plain password
+    //         $user->setPassword(
+    //             $passwordEncoder->encodePassword(
+    //                 $user,
+    //                 $form->get('plainPassword')->getData()
+    //             )
+    //         );
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->persist($user);
+    //         $entityManager->flush();
+    //         // do anything else you need here, like send an email
 
-            // send le mail
-            $emailService->send([
-                'to' => $user->getEmail(),
-                'subject' => 'Validez votre inscription',
-                'template' => 'email\security\verify_email.html.twig',
-                'context' => [
-                    'user'=> $user
-                ] ,
+    //         // send le mail
+    //         $emailService->send([
+    //             'to' => $user->getEmail(),
+    //             'subject' => 'Validez votre inscription',
+    //             'template' => 'email\security\verify_email.html.twig',
+    //             'context' => [
+    //                 'user'=> $user
+    //             ] ,
 
-            ]);
+    //         ]);
 
-            // coupe laconnexion direct et lui rederiger ver le login
-            $this->addFlash('success', "Verifiez votre mail via le lien envoyé");
-            return $this->redirectToRoute('app_login');
+    //         // coupe laconnexion direct et lui rederiger ver le login
+    //         $this->addFlash('success', "Verifiez votre mail via le lien envoyé");
+    //         return $this->redirectToRoute('app_login');
 
-            // return $guardHandler->authenticateUserAndHandleSuccess(
-            //     $user,
-            //     $request,
-            //     $authenticator,
-            //     'main' // firewall name in security.yaml
-            // );
-        }
+    //         // return $guardHandler->authenticateUserAndHandleSuccess(
+    //         //     $user,
+    //         //     $request,
+    //         //     $authenticator,
+    //         //     'main' // firewall name in security.yaml
+    //         // );
+    //     }
 
-        return $this->render('registration/register.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
+       
+    //     return $this->render('registration/register.html.twig', [
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
 
 
-    /**
-     * @Route("/verification-email/{token}", name="verify_email")
-     */
-    // recupere le token qui est dans l'url
-    public function verifyEmail( string $token, 
-        Encryptor $encryptor,
-        UserRepository $userRepository,
-        Request $request,
-        GuardAuthenticatorHandler $guardHandler,
-        LoginFormAuthenticator $authenticator
-    )
-    {
-        $id =$encryptor->decrypt($token);
-        $user= $userRepository->find($id);
+    // /**
+    //  * @Route("/verification-email/{token}", name="verify_email")
+    //  */
+    // // recupere le token qui est dans l'url
+    // public function verifyEmail( string $token, 
+    //     Encryptor $encryptor,
+    //     UserRepository $userRepository,
+    //     Request $request,
+    //     GuardAuthenticatorHandler $guardHandler,
+    //     LoginFormAuthenticator $authenticator
+    // )
+    // {
+    //     $id =$encryptor->decrypt($token);
+    //     $user= $userRepository->find($id);
 
-        if (!$user) {
-            throw $this->createNotFoundException();
-            // throw new NotFoundHttpException("Votre compte n'a pas été trouvé");
-        }
+    //     if (!$user) {
+    //         throw $this->createNotFoundException();
+    //         // throw new NotFoundHttpException("Votre compte n'a pas été trouvé");
+    //     }
 
-        $user->setEmailVerified(true);
+    //     $user->setEmailVerified(true);
 
         
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->flush();
+    //     $entityManager = $this->getDoctrine()->getManager();
+    //     $entityManager->flush();
 
 
-        return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main' // firewall name in security.yaml
-            );
+    //     return $guardHandler->authenticateUserAndHandleSuccess(
+    //             $user,
+    //             $request,
+    //             $authenticator,
+    //             'main' // firewall name in security.yaml
+    //         );
 
 
-    }
+    // }
 }

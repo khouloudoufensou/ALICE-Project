@@ -2,6 +2,13 @@
 
 {% block title %}Une formation{% endblock %}
 
+{# Bloc destiné à recevoir le CSS spécifique à la page #}
+{% block stylesheets %}
+
+{% endblock %}
+
+{# Bloc destiné à recevoir le contenu HTML de la page #}
+
 {% block body %}
 
     <div class="mb-4">
@@ -95,5 +102,9 @@
     {% endif %}
     
 
+
+{% endblock %}
+{# Bloc destiné à recevoir le javascript spécifique à la page #}
+{% block javascripts %}
 
 {% endblock %}
