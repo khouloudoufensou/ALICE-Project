@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Blog de l'association{% endblock %}
+{% block title %}Blog de l'association SL2Alice{% endblock %}
 
 {% block body %}
 
 <div class="text-center">
-<h1>Welcome sur le blog de notre association</h1>
+<h1>Bienvenue sur le blog de l'association SL2Alice</h1>
 <div class="lead">Découvrez les secrets de la nature</div>
 </div>
 
@@ -30,17 +30,18 @@
 <div class="row mt-5">
 {% for article in articles %}
             <div class="col-md-6 col-lg-4 mb-3">
-                <div class="card">
+                <div class="card" style="width: 22rem; height: 30rem;">
                     <a href="{{ path('blog_article', {id: article.id}) }}">
                         <div class="img-ratio" style="--ratio: 60%;">
                             <div class="img">
-                                <img src="{{ asset(article.imagePath) }}" class="card-img-top w-100" alt="...">
+                                <img src="{{ asset(article.imagePath) }}" class="card-img-top w-100" style="width: 22rem; height: 15rem;" alt="card-image cap">
                             </div>
                         </div>
                     </a>
-                    <div class="card-body">
+                    <div class="card-body" style="width: 22rem; height: 15rem;">
                         <h5 class="card-title">{{ article.title }}</h5>
-                        <p class="card-text">{{ article.contentEllipsis }}</p>
+                        <p class="content">{{ article.contentEllipsis|raw }}</p>
+                        <a href="{{ path('blog_article', {id: article.id}) }}" class="btn btn-secondary mb-2">Lire la suite</a>
                     </div>
                 </div>
             </div>

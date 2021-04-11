@@ -84,7 +84,7 @@ class BlogController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
             $articles = $articleRepository->findAll();
         } else {
-        $articles = $articleRepository->findRecentArticles($this->getUser());
+        $articles = $articleRepository->findUserArticles($this->getUser());
         }
 
         return $this->render('blog/membre/list.html.twig', [
@@ -93,8 +93,8 @@ class BlogController extends AbstractController
     }
     
     /**
-     * @Route("/mon-espace/articles/nouveau", name="membre_blog_create")
-     *  @IsGranted("ROLE_USER", message="Seuls les membres peuvent écrire des articles, vous devez d'abord vous inscrire.")
+     * @Route("/mon-espace/articles", name="membre_blog_create")
+     *  @IsGranted("ROLE_USER", message="Se/nouveauuls les membres peuvent écrire des articles, vous devez d'abord vous inscrire.")
      */
     public function membreBlogCreate(Request $request)
     {
@@ -147,6 +147,7 @@ class BlogController extends AbstractController
      */
     public function membreBlogRemove(Article $article)
     {
+        $this->denyAccessUnlessGranted(ArticleVoter::DELETE, $article, "Ne supprimer pas les articles des autres!");
         $em = $this->getDoctrine()->getManager();
         $em->remove($article);
         $em->flush();

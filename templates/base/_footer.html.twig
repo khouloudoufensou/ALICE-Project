@@ -1,12 +1,29 @@
-
-{# <footer class="text-center">
+<footer class="footer mt-auto py-3 bg-light text-center">
     <div class="container">
-       &copy; Copyright 2021 by <a href="http://domain.invalid/">you</a>.
-    </div>
-</footer> #}
+        {% for locale in enabled_locales %}
+            {% set flag %}
+                <img src="{{ asset('images/flags/' ~ locale ~ '.png') }}"
+                     alt="{{ ('locale.' ~ locale)|trans }}"
+                     title="{{ ('locale.' ~ locale)|trans }}"
+                     width="32px"
+                >
+            {% endset %}
 
-{# <footer class="footer mt-auto py-3 bg-light text-center" style="backgroun-">
-    <div class="container">
-        &copy; Copyright 2021 by <a href="http://domain.invalid/">you</a>.
+            {% if locale == app.request.locale %}
+                {{ flag }}
+            {% else %}
+                <a href="{{ path('change_locale', {locale: locale}) }}"
+                   title="{{ ('locale.' ~ locale)|trans }}"
+                   class="text-decoration-none"
+                >
+                    {{ flag }}
+                </a>
+            {% endif %}
+        {% endfor %}
+        <hr>
+      <div class="container">
+        &copy; Copyright avril 2021 by <a href="http://domain.invalid/">Khouloud, Alexandre et Halima</a>.
     </div>
-</footer> #}
+    </div>
+</footer>
+

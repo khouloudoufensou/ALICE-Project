@@ -22,6 +22,11 @@ class ArticleType extends AbstractType
                 'label' => "Titre de l'article"
             ])
 
+            ->add('author' , TextType::class, [
+                'label' => "auteur de l'article"
+            ])
+
+
             ->add('content', TextareaType::class,[
                 'label' => "Contenu de l'article"
             ])

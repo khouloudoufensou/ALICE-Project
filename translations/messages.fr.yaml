@@ -1,0 +1,8 @@
+blog:
+  title: Bienvenue sur le blog de l'association SL2Alice
+  lead: Découvrez les secrets de la nature
+  hello: Bonjour %name%
+
+locale:
+  fr: Français
+  en: Anglais

@@ -78,6 +78,8 @@ class EmailService
             return true;
         } catch (Exception $e) {
             $this->logger->alert(sprintf("%s in %s at %s : %s", __FUNCTION__, __FILE__, __LINE__, $e->getMessage()));
+
+            throw $e;
         }
 
         return false ;

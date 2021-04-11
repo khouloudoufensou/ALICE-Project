@@ -1,43 +1,76 @@
 <!DOCTYPE html>
 <html>
-
     {% set route_name = app.request.attributes.get("_route") %}
-
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Projet écologique{% endblock %}</title>
+
+        <meta charset="UTF-8" />
+        <meta name="description" content="description" />
+        <meta name="keywords" content="keywords" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>{% block title %}Projet Ã©cologique{% endblock %}</title>
+
+        {% block stylesheets %}{% endblock %}
+
+        {# Bootstrap #} 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+        {# ower stylsheet #}
+        <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}">
+
+        <script src="https://kit.fontawesome.com/69b2e80e9a.js" crossorigin="anonymous"></script>
+        <!-- Chargement des WebFonts-->
+        <script>
+            WebFontConfig = {
+
+                google: {
+
+                    families: ['Nunito+Sans:300,400,500,700,900', 'Quicksand:300,400,500,700'],
+
+                }
+
+            }
+
+            function font() {
+
+                var wf = document.createElement('script')
+
+                wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js'
+                wf.type = 'text/javascript'
+                wf.async = 'true'
+
+                var s = document.getElementsByTagName('script')[0]
+
+                s.parentNode.insertBefore(wf, s)
+
+            }
+
+            font()
+        </script>
+    </head>
+    <body>
+
+            
+        {{ render(controller('App\\Controller\\BaseController::header',
+            {'routeName' : route_name}
+        ))}}
         
-        {% block stylesheets %}
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-            <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-        {% endblock %}
-
-   </head>
-
-    <body class="d-flex flex-column h-100">
-
-        <div class="flex-shrink-0">
+        <div class="container">
+            {% include "base/_flash.html.twig" %}
+            {% block body %}{% endblock %}
+        </div>        
             
-            {{ render(controller('App\\Controller\\BaseController::header',
-                {'routeName' : route_name}
-            ))}}
-            
-            <div class="container">
-                {% include "base/_flash.html.twig" %}
-                {% block body %}{% endblock %}
-            </div>        
-        </div>
+    
 
-            
-       {% include 'base/_footer.html.twig' %}
+        {# <footer >
+            {% include "base/_footer.html.twig" %}
+        </footer> #}
 
-            {% block javascripts %}
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
-            <script src="{{ asset('js/scripts.js') }}"></script>
-        {% endblock %}
 
+        {% block javascripts %}{% endblock %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="js/libs.min.js"></script>
+
+        <script src="{{ asset('js/common.js') }}"></script>
     </body>
 </html>

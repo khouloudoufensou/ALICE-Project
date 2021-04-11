@@ -1,39 +1,55 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Permaculture au potager : 115 kg de récoltes sur 50 m2 dans un jardin familial
-
-{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
 {% block body %}
 
         <div class="mb-4">
             <a href="{{ path('blog') }}" class="small text-dark text-decoration-none">&#8592; Retour</a>
         </div>    
+     
+     
+        <img src="{{ asset(article.imagePath) }}" alt="" class="w-25">
 
-         <img src="{{ asset(article.imagePath) }}" alt="" class="w-50">
+        <div class="mt-3">
+                <h1>{{ article.title }}</h1>
+                <div class="lead">Publié le {{ article.createdAt|date('d/m/Y') }} par {{ article.author }}</div>
+        </div>
 
-    <div class="mt-3">
-        <h1>{{ article.title }}</h1>
-        <div class="lead">Publié le {{ article.createdAt|date('d/m/Y') }} par l'équipe</div>
-    </div>
-
-    <div class="my-4">
-         {{ article.content|nl2br }}
-    </div>
-    
+        <div class="my-4">{{ article.content|nl2br }}</div>
+              
     <hr>
-    <h2>Commentaires ({{ article.comments.count }})</h2>
+
+    <div class="text-center">
+        <h2>Commentaires ({{ article.comments.count }})</h2>
+    </div>
 
     {% for comment in article.comments %}
-        <div class="my-3">
-            <b>Publié le {{ comment.createdAt|date('d/m/Y') }} par Nous</b>
+        <div class="my-3"><b>Publié le {{ comment.createdAt|date('d/m/Y') }} par {    { comment.Pseudo}}</b>
             <div>{{ comment.message|nl2br }}</div>
         </div>
+
         <hr>
     {% endfor %}
 
-    <div class="lead">Laissez un commentaire</div>
-             {{ form(form) }}
+    <div class="lead">Laissez nous un commentaire :</div>
+                           
+            {{ form_start(form) }}
 
-    
+            
+             <div class="mt-3">
+                {{ form_row(form.pseudo) }}
+                </div>
+            <div class="mt-3">
+                {{ form_row(form.message) }}
+            </div>
+
+            <div class="mt-3">
+                {{ form_row(form.submit) }}
+            </div>
+
+            {{ form_end(form) }}
+
+      </div>
+   
 {% endblock %}
