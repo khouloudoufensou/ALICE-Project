@@ -10,8 +10,6 @@
   <div class="bg-light border border-success margin-left:50px;">
     <a href="{{ path('membre_blog_list') }}"><-- Retour</a>
 
-
-
     <div class="container">
         <img src="{{ asset(article.imagePath) }}" alt="" style="width: 200px;">
     </div>
@@ -20,27 +18,45 @@
     {% if new %}
         <h1>Créer un nouvel article:</h1>
     {% else %}
-        <h1>Modifier un nouvel article:</h1>
+        <h1>Modifier un article:</h1>
         <div class="lead">{{ article.title }}</div>
     {% endif %}
 
-          {{ form(form) }}
+    <div class="container">     
+         {{ form_start(form) }}
+            
+             <div class="mt-3">
+                {{ form_row(form.title) }}
+            </div>
 
-          {# <div class="container">
-            {{ form_start(form) }}
-            <div class="form-group">
-            {{ form_label(form.title,'Titre de l'article') }}
-            {{ form_label(form.content, 'Contenu de l'article) }}
-            {{ form_row(form.image) }}
-             {{ form_end(form) }}
-           </div> #}
-  
+             <div class="mt-3">
+                {{ form_row(form.author) }}
+            </div>
+
+            <div class="mt-3">
+                {{ form_row(form.content) }}
+            </div>
+
+             <div class="mt-3">
+                {{ form_row(form.image) }}
+            </div>
+
+            <div class="mt-3">
+                {{ form_row(form.submit) }}
+            </div>
+
+          {{ form_end(form) }}
+    </div>
+       
+  <br>
+
+    <div class="container">  
     {% if not new %}
             <a href="{{ path('membre_blog_remove', {id: article.id}) }}" class="btn btn-danger">Supprimer l'article</a>
             <br><br>
     {% endif %}
-    
-   </div>
+     <div class="container">
+  </div>
 </div>
 
 {% endblock %}
