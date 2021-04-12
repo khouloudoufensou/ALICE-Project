@@ -55,17 +55,10 @@
             {{ render(controller('App\\Controller\\BaseController::header',
                 {'routeName' : route_name}
             ))}}
-            
-    
+                   
+                    
             {% include "base/_flash.html.twig" %}
-            {% block body %}{% endblock %}
-            
-                
-        
-        <div class="container">
-            {% include "base/_flash.html.twig" %}
-            {% block body %}{% endblock %}
-        </div>        
+            {% block body %}{% endblock %}       
             
     
 
