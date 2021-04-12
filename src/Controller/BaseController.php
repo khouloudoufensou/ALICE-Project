@@ -87,28 +87,27 @@ class BaseController extends AbstractController
       /**
      * @Route("/newsletters", name="newsletters")
      */
-//     public function article(Newsletters $newsletters, Request $request)
-//      {
-//         $newsletters = (new Newsletters());
-//         $form = $this->createForm(NewslettersType::class, $newsletters);
-//         $form->handleRequest($request);
+    public function newsletters(Newsletters $newsletters, Request $request)
+     {
+        $form = $this->createForm(NewslettersType::class, $newsletters);
+        $form->handleRequest($request);
 
-//         if ($form->isSubmitted() && $form->isValid()) {
-//             $newsletters->setNewsletters($newsletters);
+        if ($form->isSubmitted() && $form->isValid()) {
+    
 
-//             $em = $this->getDoctrine()->getManager();
-//             $em->persist($newsletters);
-//             $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newsletters);
+            $em->flush();
 
-//             $this->addFlash('success', "Merci de vous être inscrit.");
-//             return $this->redirectToRoute('home', [ 'id' => $newsletters->getId() ]);
-//         }
+            $this->addFlash('success', "Merci de vous être inscrit.");
+            return $this->redirectToRoute('home');
+        }
 
-//         return $this->render('base/newsletters.html.twig', [
-//             'newsletters' => $newsletters,
-//             'form' => $form->createView(),
-//         ]);
-//     }
+        return $this->render('base/_footer.html.twig', [
+            'newsletters' => $newsletters,
+            'form' => $form->createView(),
+        ]);
+    }
 
 
 }
