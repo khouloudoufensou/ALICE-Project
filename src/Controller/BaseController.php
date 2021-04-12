@@ -45,6 +45,21 @@ class BaseController extends AbstractController
             'route_name' => $routeName,
         ]);
     }
+
+    public function footer(string $routeName, NewslettersType $newslettersType)
+    {
+        // $articles = [
+        //     [ 'titre' => 'Article 1' ],
+        //     [ 'titre' => 'Article 2' ],
+        //     [ 'titre' => 'Article 3' ],
+        // ];
+
+        return $this->render('base/_header.html.twig', [
+            'newsletters' => $newslettersType,
+            'route_name' => $routeName,
+        ]);
+    }
+    
     
     
     /**
@@ -87,8 +102,10 @@ class BaseController extends AbstractController
       /**
      * @Route("/newsletters", name="newsletters")
      */
-    public function newsletters(Newsletters $newsletters, Request $request)
+    public function newsletters(Request $request)
      {
+        $newsletters = new Newsletters();
+
         $form = $this->createForm(NewslettersType::class, $newsletters);
         $form->handleRequest($request);
 
@@ -100,7 +117,8 @@ class BaseController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', "Merci de vous être inscrit.");
-            return $this->redirectToRoute('home');
+            $referer = $request->headers->get('referer', $this->generateUrl('home'));
+            return $this->redirect($referer);
         }
 
         return $this->render('base/_footer.html.twig', [
