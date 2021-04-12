@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BaseController extends AbstractController
 {
@@ -42,16 +43,14 @@ class BaseController extends AbstractController
         ]);
     }
 
-    public function footer(string $routeName, NewslettersType $newslettersType)
+    public function footer(string $routeName)
     {
-        // $articles = [
-        //     [ 'titre' => 'Article 1' ],
-        //     [ 'titre' => 'Article 2' ],
-        //     [ 'titre' => 'Article 3' ],
-        // ];
+        $newsletters = new Newsletters();
 
-        return $this->render('base/_header.html.twig', [
-            'newsletters' => $newslettersType,
+        $form = $this->createForm(NewslettersType::class, $newsletters);
+
+        return $this->render('base/_footer.html.twig', [
+            'form' => $form->createView(),
             'route_name' => $routeName,
         ]);
     }
@@ -95,7 +94,8 @@ class BaseController extends AbstractController
     }
 
       /**
-     * @Route("/newsletters", name="newsletters")
+     * @Route("/newsletters", name="newsletters", methods={"POST"})
+     * 
      */
     public function newsletters(Request $request)
      {
@@ -112,15 +112,40 @@ class BaseController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', "Merci de vous être inscrit.");
-            $referer = $request->headers->get('referer', $this->generateUrl('home'));
-            return $this->redirect($referer);
+            
         }
-
-        return $this->render('base/_footer.html.twig', [
-            'newsletters' => $newsletters,
-            'form' => $form->createView(),
-        ]);
+        $referer = $request->headers->get('referer', $this->generateUrl('home'));
+        return $this->redirect($referer."?news-sub=ok#footer");
+     
     }
 
+     /**
+     * @Route("/newsletter/subscribes", name="newsletters_subscribes", methods={"POST"})
+     * 
+     */
+    public function newsletterssubscribes(Request $request, ValidatorInterface $validator)
+    {
+        $email=$request->request->get("email");
+        $newsletters = new Newsletters();
+
+        $newsletters->setEmail($email);
+
+        $errors=$validator->validate($newsletters);
+        if (count($errors)===0) {
+
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($newsletters);
+            $em->flush();
+
+            return $this->json([
+                'success'=> true
+            ]);
+        }
+
+        return $this->json([
+            'success'=>false
+        ]);
+
+    }
 
 }

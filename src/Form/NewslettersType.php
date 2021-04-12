@@ -14,8 +14,9 @@ class NewslettersType extends AbstractType
     {
                     $builder
                         ->add('email', EmailType::class, [
+                            'label' => false,
                             'attr' => [
-                                'placeholder' => 'Votre email',
+                                'placeholder' => 'Votre E-mail',
                                 'class'=>'form__field'
 
                                 ]

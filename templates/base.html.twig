@@ -63,7 +63,10 @@
     
 
             <footer >
-                {% include "base/_footer.html.twig" %}
+               {{ render(controller('App\\Controller\\BaseController::footer',
+                {'routeName' : route_name}
+            ))}}
+                   
             </footer>
 
 
@@ -72,6 +75,7 @@
             <script src="js/libs.min.js"></script>
 
             <script src="{{ asset('js/common.js') }}"></script>
+            <script src="{{ asset('js/script.js') }}"></script>
         </div>
         
     </body>
