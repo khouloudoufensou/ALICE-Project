@@ -2,10 +2,35 @@
 
 {% block title %}Calendar index{% endblock %}
 
-{% block body %}
-    <h1>Calendar index</h1>
+{% block stylesheets %}
 
-    <table class="table">
+
+<style>
+    .table-margin{
+       
+        margin-bottom : 50px !important;
+        margin-top : 50px !important;
+        
+    }
+
+    .admin-button{
+        margin-bottom : 10px !important;
+    }
+    .margin{
+        margin-top : 100px !important;
+    }
+    
+</style>
+
+{% endblock %}
+
+{% block body %}
+<div class="container margin">
+
+
+    <h1>Liste</h1>
+
+    <table class="table table-margin">
         <thead>
             <tr>
                 <th>Id</th>
@@ -33,8 +58,8 @@
                 <td>{{ calendar.borderColor }}</td>
                 <td>{{ calendar.textColor }}</td>
                 <td>
-                    <a href="{{ path('calendar_show', {'id': calendar.id}) }}">show</a>
-                    <a href="{{ path('calendar_edit', {'id': calendar.id}) }}">edit</a>
+                    <a href="{{ path('calendar_show', {'id': calendar.id}) }}">Voir</a> - 
+                    <a href="{{ path('calendar_edit', {'id': calendar.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -45,5 +70,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('calendar_new') }}">Create new</a>
+    <a href="{{ path('calendar_new') }}"><button class="button button--primary admin-button" >Nouveau</button></a>
+        
+</div>
 {% endblock %}

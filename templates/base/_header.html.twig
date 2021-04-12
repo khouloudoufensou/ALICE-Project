@@ -1,1 +1,157 @@
-Header 
+<!-- menu dropdown start-->
+<div class="menu-dropdown">
+    <div class="menu-dropdown__inner" data-value="start">
+        <div class="screen screen--start">
+            <div class="screen__item screen--trigger" data-category="index.html"><span>#</span><span>
+                    <svg class="icon">
+                        <use xlink:href="#chevron"></use>
+                    </svg></span></div>
+            <div class="screen__item"><a class="screen__link" href="blog.html">#</a></div>
+            <div class="screen__item screen--trigger" data-category="shop"><span> #</span><span>
+                    <svg class="icon">
+                        <use xlink:href="#chevron"></use>
+                    </svg></span></div>
+            <div class="screen__item"><a class="screen__link" href="contact.html">#</a></div>
+            <div class="screen__item screen--trigger" data-category="elements"><span>#</span><span>
+                    <svg class="icon">
+                        <use xlink:href="#chevron"></use>
+                    </svg></span></div>
+            <div class="screen__item screen--trigger" data-category="language"><span>#</span><span>
+                    <svg class="icon">
+                        <use xlink:href="#chevron"></use>
+                    </svg></span></div>
+            <ul class="screen__socials">
+                <li><a class="item--facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                </li>
+                <li><a class="item--twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a class="item--youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                </li>
+                <li><a class="item--instagram" href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </li>
+            </ul><a class="screen__button" href="#">#</a>
+        </div>
+    </div>
+    <div class="menu-dropdown__inner" data-value="home">
+        <div class="screen screen--sub">
+            <div class="screen__heading">
+                <h6 class="screen__back">
+                    <svg class="icon">
+                        <use xlink:href="#chevron-left"></use>
+                    </svg>
+            </div>
+        </div>
+    </div>
+    <div class="menu-dropdown__inner" data-value="pages">
+        <div class="screen screen--sub">
+            <div class="screen__heading">
+                <h6 class="screen__back">
+                    <svg class="icon">
+                        <use xlink:href="#chevron-left"></use>
+                    </svg> <span>#</span>
+                </h6>
+            </div>
+            <div class="screen__item"><a class="screen__link" href="404.html">#</a></div>
+        </div>
+    </div>
+    <div class="menu-dropdown__inner" data-value="shop">
+        <div class="screen screen--sub">
+            <div class="screen__heading">
+                <h6 class="screen__back">
+                    <svg class="icon">
+                        <use xlink:href="#chevron-left"></use>
+                    </svg> <span>#</span>
+                </h6>
+            </div>
+            <div class="screen__item"><a class="screen__link" href="shop-catalog.html">#</a></div>
+        </div>
+    </div>
+    <div class="menu-dropdown__inner" data-value="elements">
+        <div class="screen screen--sub">
+            <div class="screen__heading">
+                <h6 class="screen__back">
+                    <svg class="icon">
+                        <use xlink:href="#chevron-left"></use>
+                    </svg>
+                </h6>
+            </div>
+
+        </div>
+    </div>
+    <div class="menu-dropdown__inner" data-value="language">
+        <div class="screen screen--sub">
+            <div class="screen__heading">
+                <h6 class="screen__back">
+                    <svg class="icon">
+                        <use xlink:href="#chevron-left"></use>
+                    </svg>
+                </h6>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- menu dropdown end-->
+
+<!-- header start-->
+<header class="header header-common">
+    
+
+    <div class="header__top">
+            <div class="row align-items-center">
+                <div class="col-5 col-lg-3">
+                    <a class="logo" href="index.html"><img class="logo__img" src="{{asset('/images/preview.jpg')}}" alt="logoBZH" /></a>
+                </div>
+                <div class="col-7 col-lg-9 d-flex justify-content-end align-items-center">
+                    <!-- main menu start-->
+                    <ul class="main-menu">
+                        <li class="main-menu__item  {{route_name == 'home' ? 'main-menu__item--active' }} "><a class="main-menu__link" href="{{path("home")}}"><span>Accueil</span></a>
+
+                            <li class="main-menu__item"><a class="main-menu__link" href="blog.html"><span>Blog</span></a>
+                            </li>
+
+                            <li class="main-menu__item 
+                            {{ is_granted('ROLE_ADMIN') ? 'main-menu__item--has-child' }} 
+                            {{route_name == 'list_stages_formations' ? 'main-menu__item--active' }}">
+
+                                <a class="main-menu__link " href="{{path("list_stages_formations")}}"><span>Stage et Formations</span>
+                                </a>
+                                
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <ul class="main-menu__sub-list sub-list--style-2">
+                                        <li><a href="{{path("admin_list_formations")}} "><span>Liste Admin</span></a></li>
+                                    </ul>
+                                {% endif %}
+                                
+                            </li>
+                            <li class="main-menu__item"><a class="main-menu__link" href="contacts.html"><span>Contacts</span></a></li>
+                            <li class="main-menu__item {{route_name == 'calendrier' ? 'main-menu__item--active' }}"><a class="main-menu__link " href="{{path("calendrier")}}"><span>Agenda</span></a>
+                            </li>
+                    </ul>
+                    <!-- main menu end-->
+                   
+                        
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a class="cart-trigger" href="{{path("bascket")}}">
+                                <svg class="icon">
+                                    <use xlink:href="#cart"></use>
+                                </svg>
+
+                                <span class="cart-trigger__count">
+                                    {{app.user.reservations.count}}
+                                </span>                
+                            </a>
+                                <a class="header__button " href="{{path("app_logout")}}">Déconnexion</a>
+                        {% else %}
+                            <a class="header__button" href="{{path("app_login")}}">Connexion</a>
+                        {% endif %}
+                    <!-- menu-trigger start-->
+                    <div class="hamburger d-inline-block d-lg-none">
+                        <div class="hamburger-box">
+                            <div class="hamburger-inner"></div>
+                        </div>
+                    </div>
+                    <!-- menu-trigger end-->
+                </div>
+            </div>
+        </div>
+</header>
+<!-- header end-->

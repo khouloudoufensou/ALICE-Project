@@ -12417,11 +12417,6 @@ section.section {
     border: 2px solid #fdd340
 }
 
-/* .form__field:invalid {
-    border: 2px solid #fd1717;
-    -webkit-box-shadow: none;
-    box-shadow: none
-} */
 
 .form__field:disabled {
     background: 0 0;
@@ -12818,7 +12813,7 @@ section.section {
     background: #fff;
     -webkit-box-shadow: 0 3px 10px 5px rgba(0, 0, 0, .03);
     box-shadow: 0 3px 10px 5px rgba(0, 0, 0, .03);
-    margin-bottom: 50px
+    margin-bottom: 50px;
 }
 
 @media only screen and (min-width:576px) {
@@ -17370,7 +17365,7 @@ a:hover {
 
 @media only screen and (min-width:1367px) {
     .logo__img {
-        height: 61px
+        height: 128px
     }
 }
 
@@ -18597,9 +18592,6 @@ a:hover {
     position: absolute;
     top: 50%;
     left: 0;
-    -webkit-transform: translateY(-50%) rotate(-90deg);
-    -ms-transform: translateY(-50%) rotate(-90deg);
-    transform: translateY(-50%) rotate(-90deg)
 }
 
 @media only screen and (min-width:1600px) {
@@ -18612,22 +18604,24 @@ a:hover {
     display: inline-block;
     font-size: 18px;
     font-weight: 700;
-    margin-bottom: 10px
+    margin-bottom: 10px;
+    color: #000000;
 }
 
 .promo-pannel__date {
     font-size: 14px;
     font-weight: 700;
-    color: #a2a2a2!important
+    color: #000000!important
 }
 
 .promo-pannel__details {
     display: none;
     width: 100%;
     width: 420px;
-    background: #282f34;
+    background: #fdd340;
     padding: 30px 50px;
-    color: #c9cdcf;
+    -webkit-box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 8px 5px rgba(0, 0, 0, 0);
+    box-shadow: 5px 5px 15px 5px #FF8080, -9px 5px 15px 5px #FFE488, -7px -5px 15px 5px #8CFF85, 12px -5px 15px 5px #80C7FF, 12px 10px 15px 7px #E488FF, -10px 10px 15px 7px #FF616B, -10px -7px 27px 1px #8E5CFF, 5px 5px 8px 5px rgba(0, 0, 0, 0);
     font-size: 14px
 }
 
@@ -22945,5 +22939,12 @@ section.instagram {
     100% {
         top: -10%;
         left: -10%;
+    }
+    .progressbar {
+        width: 300px;
+        padding: 2px;
+        background-color: white;
+        border: 1px solid black;
+        text-align: center
     }
 }

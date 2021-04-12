@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/calendar")
@@ -27,6 +28,7 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/new", name="calendar_new", methods={"GET","POST"})
+     * is_granted('ROLE_ADMIN')
      */
     public function new(Request $request): Response
     {
@@ -50,6 +52,7 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/{id}", name="calendar_show", methods={"GET"})
+     * is_granted('ROLE_ADMIN')
      */
     public function show(Calendar $calendar): Response
     {
@@ -60,6 +63,7 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="calendar_edit", methods={"GET","POST"})
+     * is_granted('ROLE_ADMIN')
      */
     public function edit(Request $request, Calendar $calendar): Response
     {
@@ -80,6 +84,7 @@ class CalendarController extends AbstractController
 
     /**
      * @Route("/{id}", name="calendar_delete", methods={"POST"})
+     * is_granted('ROLE_ADMIN')
      */
     public function delete(Request $request, Calendar $calendar): Response
     {

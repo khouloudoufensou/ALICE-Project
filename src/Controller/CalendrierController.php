@@ -33,7 +33,12 @@ class CalendrierController extends AbstractController
 
         $data = json_encode($rdvs);
 
-        return $this->render('calendrier/index.html.twig', compact('data'));
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->render('calendrier/admin.html.twig', compact('data'));
+        }else{
+            return $this->render('calendrier/user.html.twig', compact('data'));
+        }
+        
         
     }
 }

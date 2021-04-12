@@ -35,7 +35,7 @@ class FormationController extends AbstractController
             // nbr de place dispo il faut fair une condition (dispo ou pas)
             $FormationRepository->findEvent(date("Y-m-d H:i:s")),   
             $request->query->getInt('page',1),
-            1 
+            6 
         );
 
         return $this->render('formation/index.html.twig', [

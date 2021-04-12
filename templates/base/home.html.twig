@@ -1,0 +1,426 @@
+
+{# Fichier "template" dans lequel injecter le contenu #}
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Accueil{% endblock %}
+
+{# Bloc destiné à recevoir le CSS spécifique à la page #}
+{% block stylesheets %}
+
+{% endblock %}
+
+{# Bloc destiné à recevoir le contenu HTML de la page #}
+{% block body %}
+
+<main class="main ">
+    <!-- promo start-->
+    <section class="promo ">
+        <div class="promo-slider ">
+            <div class="promo-slider__item promo-slider__item--style-2 ">
+                <picture>
+                    <source srcset="{{asset('/images/pexels-veeterzy-38136.jpg')}} " media="(min-width: 992px) " /><img class="img--bg " src="{{asset('/images/pexels-veeterzy-38136.jpg')}} " alt="img " />
+                </picture>
+                <div class="container ">
+                    <div class="row ">
+                        <div class="col-xl-7 ">
+                            <div class="align-container ">
+                                <div class="align-container__item ">
+                                    <div class="promo-slider__wrapper-1 ">
+                                        <h2 class="promo-slider__title "><span><span
+                                                    class="color--orange">B</span>ienvenue sur SL2Alice
+
+                                            </span><br /><span>Optez pour des formations "Vertifiantes".</span>
+                                        </h2>
+                                    </div>
+                                    <div class="promo-slider__wrapper-2 ">
+                                    </div>
+                                    <div class="promo-slider__wrapper-3 "><a class="button promo-slider__button button--primary " href="# ">Découvrir</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="promo-slider__item promo-slider__item--style-2 ">
+                <picture>
+                    <source srcset="{{asset('/images/gardengarden.jpg')}}" media="(min-width: 992px) " /><img class="img--bg " src="{{asset('/images/gardengarden.jpg')}} " alt="img " />
+                </picture>
+                <div class="container ">
+                    <div class="row ">
+                        <div class="col-xl-6 offset-xl-6 ">
+                            <div class="align-container ">
+                                <div class="align-container__item ">
+                                    <div class="promo-slider__wrapper-1 ">
+                                        <h2 class="promo-slider__title "><span>Rejoignez notre
+                                                école</span><br />
+                                            <span>Des formations qualifiantes et enrichissantes.</span>
+                                        </h2>
+                                    </div>
+
+                                    <div class="promo-slider__wrapper-3 "><a class="button promo-slider__button button--primary " href="# ">Découvrir</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="promo-slider__item promo-slider__item--style-3 ">
+                <picture>
+                    <source srcset="{{asset('/images/pexels-quang-nguyen-vinh-2135677.jpg')}} " media="(min-width: 1200px) " />
+                    <img class="img--bg " src="{{asset('/images/pexels-quang-nguyen-vinh-2135677.jpg')}}" alt="img " />
+                </picture>
+                <div class="container ">
+                    <div class="row ">
+                        <div class="col-xl-8 offset-xl-2 ">
+                            <div class="align-container ">
+                                <div class="align-container__item "></div>
+                                <div class="promo-slider__wrapper-1 ">
+                                    <h2 class="promo-slider__title "><span>Vous avez un projet? Nous aussi !
+                                        </span><br />
+                                        <span class="color--orange">Un éco projet pro? Un Recyclage personnel?
+                                            Vous étes au bon endroit</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><a class="anchor promo__anchor" href="#about"><span>La Cagnotte</span></a>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- slider nav start-->
+                    <div class="promo-slider__nav"></div>
+                    <!-- slider nav end-->
+                </div>
+            </div>
+        </div>
+        <!-- promo pannel start-->
+        <!-- promo pannel start-->
+        <div class="promo-pannel">
+            <a class="video-trigger" href="{{asset('/images/inspi.webp')}}"><img class="img--bg" src="{{asset('/images/inspi.webp')}}" alt="image" /><span class="video-trigger__icon"><i class="fa fa-play"
+                        aria-hidden="true"></i><span>Nos inspirations</span></span>
+            </a>
+            <div class="promo-pannel__details"><span class="promo-pannel__subject">Rendez-vous</span>
+                <div class="row align-items-end">
+
+                    <div class="col-xl-6"><span class="promo-pannel__count color--yellow">Brunch
+                            Médicinal</span>
+                        <h6 class="promo-pannel__title color--primary"><a href="#">Atelier</a></h6>
+
+                        <p class="promo-pannel__date">1er Mai 2021</p>
+                    </div>
+                    <div class="col-xl-6"><span class="promo-pannel__count color--yellow">Éléctro-culture
+                        </span>
+                        <h6 class="promo-pannel__title color--primary"><a href="#">Stage</a></h6>
+                        <p class="promo-pannel__date">3 May 2021</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="promo-slider__nav-holder">
+            <div class="promo-slider__nav dots--style-3"></div>
+            <div class="promo-slider__count"></div>
+        </div>
+        <!-- promo pannel end-->
+    </section>
+    <section class="section front-services"><img class="section__bg t0 l0" src="{{asset('/images/front-services__bg.jpg')}}" alt="bg" />
+        <div class="container">
+            <div class="row bottom-70">
+                <div class="col-md-5 bottom-30">
+                    <div class="heading heading--primary heading--style-2"><span class="heading__pre-title">lorem</span>
+                        <h2 class="heading__title"><span>Le Projet Alice?</span><br /> <span>ou encore SL2Alice?
+                                Installez- vous confortablement on vous explique tout !</span></h2>
+                    </div><a class="button button--primary d-none d-md-inline-block" href="#">Tout ce qu'on vous
+                        propose </a>
+                </div>
+                <div class="col-md-7">
+                    <div class="app-block">
+                        <div class="app-block__icon">
+                            <svg class="icon">
+                                <use xlink:href="##"></use>
+                            </svg>
+                        </div>
+                        <h6 class="app-block__title">Nous vous proposons des formations de permaculture sur site, chez nous, sur nos lieux expérimentaux, sur ceux de nos partenaires et de nos clients. Nous vous accueillerons dans nos vies, nos lieux de travail, et vous pourrez
+                            voir les applications variées de la permaculture sur le terrain
+                        </h6>
+                        <p class="no-margin-bottom">Grâce à des intervenants spécialisés et un programme pédagogique immersif, lors de ces formations de permaculture, vous apprendrez à lire la nature différemment, à construire des systèmes durables variés : gestion de l’eau,
+                            du sol, productions nourricières ou fournissant d’autres besoins (énergie, matériaux et fibres, etc.)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row offset-margin">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="icon-item">
+                        <div class="icon-item__icon">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <h6 class="icon-item__title">Formation toute l'année</h6>
+                        <p>Formez-vous et obtenez des compétences et valoriser vos connaissances en autonomie.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="icon-item">
+                        <div class="icon-item__icon">
+                            <i class="fab fa-pagelines"></i>
+                        </div>
+                        <h6 class="icon-item__title">Manger mieux et local</h6>
+                        <p>Rendre le goût à nos aliments et participer à notre émancipation globale en commençant par la nourriture.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="icon-item">
+                        <div class="icon-item__icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <h6 class="icon-item__title">S'entourer à tout âge</h6>
+                        <p>Nous proposons des logements éco-construits pour des personnes du troisième âge apte et dépendante.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="icon-item">
+                        <div class="icon-item__icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h6 class="icon-item__title">Protection des nos terres agricoles et fôrets</h6>
+                        <p>Multiculture, Fôret Nourricière, Jardin-forêt, Permaculture.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-50 d-flex d-md-none">
+                <div class="col-12 text-center">
+                    <a class="button button--primary" href="#"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- front services end-->
+    <!-- section start-->
+    <section class="section about-front no-padding-bottom" id="about"><img class="about-front__bg t50 r0" src="{{asset('/images/about_bg.png')}}" alt="img" />
+        <div class="container">
+            <div class="row flex-column-reverse flex-lg-row">
+                <div class="col-lg-6 col-xl-5">
+                    <div class="info-box">
+                        <div class="info-box__inner"><img class="img--bg" src="{{asset('/images/SITE.jpg')}}" alt="Site-lieu" />
+                            <div class="heading heading--primary"><span class="heading__pre-title">Notre futur
+                                    lieu</span>
+                                <h2 class="heading__title color--white"><span>Soutenez-nous!</span><br />
+                                    <span>Protégez-vous et protégez là</span>
+                                </h2>
+                            </div>
+                            <p>Sans oublier la « permaculture humaine » qui nous tient particulièrement à coeur, comment prendre soin de soi pour mieux prendre soin de l’autre… La durabilité est aussi importante dans notre rapport à notre corps,
+                                notre esprit et nos émotions, et dans la relation à l’autre et à la communauté qui nous entoure au quotidien. </p><a class="info-box__link" href="https://www.okpal.com/aubergedegwendol/#/">Donation par ici
+                                !</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-6 offset-xl-1">
+                    <div class="heading heading--primary heading--style-2"><span class="heading__pre-title">Parlons écologie</span>
+                        <h2 class="heading__title"><span>Des formations? </span><br /> <span>Pourquoi est-ce si
+                                important?</span>
+                        </h2>
+                    </div>
+                    <p><strong>En suivant une formation de permaculture sur site, vous vivrez une expérience
+                            humaine intense qui changera sûrement le cours de votre vie et votre vision de
+                            celle-ci, ainsi que celle de votre environnement, comme elle a changé les nôtres et
+                            celles de nos nombreux stagiaires.</strong></p>
+                    <p class="bottom-50">Nous avons une vision nouvelle. Nous souhaitons ensuite grâce à l'acquisition de notre éco-domaine, afin de créer un éco-village intergènérationel, solide, durable et rentable. Nous visons à accompagner et d'aider à la transition
+                        du monde agricole de demain grâce à la l'agroforesterie, les systèmes alternatifs de gestion de notre biodiversité, pour nous, pour nos enfants, pour vous et vos proches.
+                    </p>
+                    <div class="row offset-30">
+                        <div class="col-6 col-sm-3">
+                            <div class="brand-item bottom-30"><img class="brand-item__img" src="{{asset('/images/preview.jpg')}}" alt="logo" /></div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="brand-item bottom-30"><img class="brand-item__img" src="{{asset('/images/preview.jpg')}}" alt="logo" /></div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="brand-item bottom-30"><img class="brand-item__img" src="{{asset('/images/preview.jpg')}}" alt="logo" /></div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="brand-item bottom-30"><img class="brand-item__img" src="{{asset('/images/preview.jpg')}}" alt="logo" /></div>
+                        </div>
+                    </div><a class="button button--primary top-50" href="https://discord.gg/Xkdm4brjf6">On se
+                        parle en direct?</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section end-->
+    <!-- gallery start-->
+    <section class="section gallery">
+        <div class="container">
+            <div class="row bottom-50 align-items-end">
+                <div class="col-12">
+                    <!-- filter panel start-->
+                    <ul class="filter-panel">
+                        <li class="filter-panel__item filter-panel__item--active" data-filter="*">
+                            <span>All</span>
+                        </li>
+                        <li class="filter-panel__item" data-filter=".category_2"><span>Autonomie</span></li>
+                        <li class="filter-panel__item" data-filter=".category_3"><span>Liberté</span></li>
+                        <li class="filter-panel__item" data-filter=".category_4"><span>Intergénération</span>
+                        </li>
+                        <li class="filter-panel__item" data-filter=".category_5"><span>Communauté</span></li>
+                        <li class="filter-panel__item" data-filter=".category_6"><span>Eco-Responsable</span>
+                        </li>
+                    </ul>
+                    <!-- filter panel end-->
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters gallery-masonry">
+            <div class="category_1 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-1" href="{{asset('/images/eolienne.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/eolienne.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Autoproduction
+                            Énergétique</span><span>Autonomie</span></div>
+                </a>
+            </div>
+            <div class="category_1 col-sm-6 col-md-6 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-2" href="{{asset('/images/kidgarden.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/kidgarden.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Filtration
+                            à taille humaine</span><span>Intergénération</span></div>
+                </a>
+            </div>
+
+            <div class="category_2 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-3" href="{{asset('/images/eolienne.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/eolienne.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Filtration
+                            à taille humaine</span><span>Autonomie</span></div>
+                </a>
+            </div>
+            <div class="category_2 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-1" href="{{asset('/images/filtration.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/filtration.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description">
+                        <span>Filtration à taille humaine</span><span>Autonomie</span>
+                    </div>
+                </a>
+            </div>
+            <div class="category_3 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-1" href="{{asset('/images/babyfree.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/babyfree.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Émancipation globale pour vous et les
+                            prochains.
+                        </span><span>Liberté</span></div>
+                </a>
+            </div>
+            <div class="category_4 col-sm-6 col-md-6 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-4" href="{{asset('/images/granygarden.webp')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/granygarden.webp')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Chaque humain
+                            compte</span><span>Intergénération</span>
+                    </div>
+                </a>
+            </div>
+            <div class="category_4 col-sm-6 col-md-6 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-2" href="{{asset('/images/familygarden.webp')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/familygarden.webp')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Allons vers
+                            l'unité</span><span>Intergénération</span></div>
+                </a>
+            </div>
+            <div class="category_4 col-sm-6 col-md-6 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-2" href="{{asset('/images/pexels-cottonbro-4507741 (1).jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/pexels-cottonbro-4507741 (1).jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Allons vers
+                            l'unité</span><span>Intergénération</span></div>
+                </a>
+            </div>
+            <div class="category_5 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-3" href="{{asset('/images/commu.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/commu.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Chaque humain
+                            compte</span><span>Communauté</span></div>
+                </a>
+            </div>
+            <div class="category_5 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-1" href="{{asset('/images/595-img_1_l.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/595-img_1_l.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Organisons-nous
+                            ensemble</span><span>Communauté</span></div>
+                </a>
+            </div>
+            <div class="category_6 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-1" href="{{asset('/images/ecores.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/ecores.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Logement
+                            Sénior</span><span>Éco-responsable</span></div>
+                </a>
+            </div>
+            <div class="category_6 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-1" href="{{asset('/images/pexels-markus-spiske-2818573.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/pexels-markus-spiske-2818573.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Agriculture
+                            Paysane</span><span>Éco-responsable</span></div>
+                </a>
+            </div>
+            <div class="category_6 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-1" href="{{asset('/images/recupération-eua-de-pluie.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/recupération-eua-de-pluie.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>Changez nos habitudes
+                            de consommation </span><span>Éco-responsable</span></div>
+                </a>
+            </div>
+            <div class="category_6 col-sm-6 col-md-3 gallery-masonry__item">
+                <a class="gallery-masonry__img gallery-masonry__item--height-1" href="{{asset('/images/pexels-binyamin-mellish-169523.jpg')}}" data-fancybox="gallery"><img class="img--bg" src="{{asset('/images/pexels-binyamin-mellish-169523.jpg')}}" alt="img" />
+                    <div class="gallery-masonry__description"><span>
+                            Retour du travail à la main</span><span>Éco-responsable</span></div>
+                </a>
+            </div>
+        </div>
+        <div class="container top-70">
+            <div class="row">
+                <div class="col-12 text-center"><a class="button button--primary" href="https://www.facebook.com/AliceProjecteverywhere/">Plus d'informations sur
+                        A.L.I.C.E</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- gallery end-->
+    <!-- section counter start-->
+    <section class="section no-padding-bottom">
+        <div class="container">
+            <div class="row align-items-end bottom-70">
+                <div class="col-xl-7">
+                    <div class="heading heading--primary heading--style-2"><span class="heading__pre-title">Qu'allons nous faire de nos invesitissements?</span>
+                        <h2 class="heading__title"><span>Nous allons développer </span> <span>un domaine de 80
+                                Hectares de terres cultivables</span></h2>
+                        <p>Quelques mots clefs? Eco-constructions, partenariat, local, agriculteurs en difficulté, ruissellement, vente en direct, multiculture, émancipation, autonomie.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-5 d-none d-xl-block">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="counter-item counter-item--front-1">
+                                <div class="counter-item__top">
+                                    <h6 class="counter-item__title">Palier 1</h6>
+                                    <h8 class="counter-item__title">Le domaine Agricole </h8>
+                                </div>
+                                <div class="counter-item__lower"><span class="js-counter">120000</span><span>€</span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="counter-item counter-item--front-1">
+                                <div class="counter-item__top">
+                                    <h6 class="counter-item__title">Palier 2</h6>
+                                    <h8 class="counter-item__title">l'éco-village tous confort </h8>
+                                </div>
+                                <div class="counter-item__lower"><span class="js-counter">200000</span><span>€</span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="counter-item counter-item--front-1">
+                                <div class="counter-item__top">
+                                    <h6 class="counter-item__title">Palier 3</h6>
+                                    <h8 class="counter-item__title">Mise en place d'un point de vente </h8>
+                                </div>
+                                <div class="counter-item__lower"><span class="js-counter">250.000</span><span>€</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+    <!-- section end-->
+</main>
+
+{% endblock %}
+
+{# Bloc destiné à recevoir le javascript spécifique à la page #}
+{% block javascripts %}
+
+{% endblock %}

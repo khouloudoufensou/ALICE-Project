@@ -51,27 +51,29 @@
     </head>
     <body>
 
-            
-        {{ render(controller('App\\Controller\\BaseController::header',
-            {'routeName' : route_name}
-        ))}}
-        
-        <div class="container">
-            {% include "base/_flash.html.twig" %}
-            {% block body %}{% endblock %}
-        </div>        
+        <div class="page-wrapper">      
+            {{ render(controller('App\\Controller\\BaseController::header',
+                {'routeName' : route_name}
+            ))}}
             
     
+            {% include "base/_flash.html.twig" %}
+            {% block body %}{% endblock %}
+            
+                
+        
 
-        {# <footer >
-            {% include "base/_footer.html.twig" %}
-        </footer> #}
+            <footer >
+                {% include "base/_footer.html.twig" %}
+            </footer>
 
 
-        {% block javascripts %}{% endblock %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="js/libs.min.js"></script>
+            {% block javascripts %}{% endblock %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+            <script src="js/libs.min.js"></script>
 
-        <script src="{{ asset('js/common.js') }}"></script>
+            <script src="{{ asset('js/common.js') }}"></script>
+        </div>
+        
     </body>
 </html>
