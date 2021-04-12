@@ -52,11 +52,8 @@ class EmailService
 
             $data['to'] =$this->emailDeveloper;
         }
-        
-        
 
-
-        $email = (new TemplatedEmail())
+             $email = (new TemplatedEmail())
             ->from($data['from'] ??  $this->emailAdmin)
             ->to($data['to'] ?? $this->emailAdmin)
             ->replyTo( $data['replyTo'] ?? $data['from'] ?? $this->emailAdmin)    
@@ -86,6 +83,23 @@ class EmailService
         
     }
 
-    
+    public function sendNewsletters(array $data): void
+    {
+        if(!isset($data['from'])){
+            $data['from']='alicewebdevonline@gmail.com';
+        }
+
+        if(!isset($data['from'])){
+            $data['from']='alicewebdevonline@gmail.com';
+        }
+        $emailNewsletters = (new Email())
+            ->from($data['from'])
+            ->to($data['to'])
+            ->replyTo( $data['replyTo'])    
+            ->subject($data['newletters']); 
+        
+        $this->mailer->send($emailNewsletters);
+
+    }
 }
 ?>

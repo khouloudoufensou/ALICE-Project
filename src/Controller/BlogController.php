@@ -93,7 +93,7 @@ class BlogController extends AbstractController
     }
     
     /**
-     * @Route("/mon-espace/articles", name="membre_blog_create")
+     * @Route("/mon-espace/articles/nouveau", name="membre_blog_create")
      *  @IsGranted("ROLE_USER", message="Se/nouveauuls les membres peuvent écrire des articles, vous devez d'abord vous inscrire.")
      */
     public function membreBlogCreate(Request $request)

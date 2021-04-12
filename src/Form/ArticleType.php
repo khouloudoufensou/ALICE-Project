@@ -32,13 +32,14 @@ class ArticleType extends AbstractType
             ])
             
             ->add('image', FileType::class, [
-                    'label' => 'Insérer une image',
+                    'label' => "Insérer une image",
                     'mapped' => false,
                     'required' => false,
             ])
 
             ->add('submit', SubmitType::class, [
-                     'label' => $article->getId() ? 'Envoyer l\'article' : 'Ajouter l\'article'
+                     'label' => $article->getId() ? 'Enregistrer les modifications' : 'Ajouter l\'article'
+                    //  'class' => "btn btn-secondary"
             ])
         ;
     }

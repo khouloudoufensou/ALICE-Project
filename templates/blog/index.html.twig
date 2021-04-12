@@ -10,19 +10,17 @@
 </div>
 
     {# <section class="articles">
-    {% for article in articles %}
-     <div class="container">
-            <h2>{{ article.title }}</h2>
-        <div class="metadata">Ecrit le {{ article.createdAt | ('d/m/Y')}} </div>
-        <div class="content">
-        <img src="{{ article.image }}" alt="">
-        {{ article.content |raw}}
-        <a href="{{ path('blog_article') }}" class="btn btn-secondary mb-2">Lire la suite</a>
+        {% for article in articles %}
+        <div class="container">
+                <h2>{{ article.title }}</h2>
+            <div class="metadata">Ecrit le {{ article.createdAt | ('d/m/Y')}} </div>
+            <div class="content">
+            <img src="{{ article.image }}" alt="">
+            {{ article.content |raw}}
+            <a href="{{ path('blog_article') }}" class="btn btn-secondary mb-2">Lire la suite</a>
+            </div>
         </div>
-     </div>
-        
-    {% endfor %}
-
+        {% endfor %}
     </section> #}
 
 
