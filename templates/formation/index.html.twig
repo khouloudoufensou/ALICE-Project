@@ -1,50 +1,198 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello StageFormationController!{% endblock %}
+{# Bloc destiné à recevoir le CSS spécifique à la page #}
+{% block stylesheets %}
+
+{% endblock %}
+
+{# Bloc destiné à recevoir le contenu HTML de la page #}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<main class="main">
+<!-- promo start-->
+<section class="promo promo--front-6">
+    <div class="promo-slider">
+        <div class="promo-slider__item promo-slider__item--style-2">
+            <picture>
+                <source srcset="{{asset('/images/bancecole.jpeg')}}" media="(min-width: 992px)" /><img class="img--bg" src="{{asset('/images/bancecole.jpeg')}}" alt="img" />
+            </picture>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 offset-lg-5 col-xl-6 offset-xl-6">
+                        <div class="align-container">
+                            <div class="align-container__item">
+                                <div class="promo-slider__wrapper-1">
+                                    <h2 class="promo-slider__title"> <span class="color--orange">Et si vous
+                                            retourniez</span><br />
+                                        <span>à l'École? </span>
+                                    </h2>
+                                </div>
 
-<div class="example-wrapper">
-
-    {# {{ dump(stageFormation) }} #}
-   
-    <div class="lead">Stage et formation</div>
-
-    <div class="row mt-5">
-        
-
-        {% for formation in formations %}
-            <div class="col-md-6 col-lg-4 mb-3">
-                <div class="card">
-                   
-                    <a href="{{ path('formation', { id: formation.id}) }}">
-                        <img src="{{ asset(formation.imagePath) }}" class="card-img-top w-100" alt="...">
-                    </a>       
-                    <div class="card-body">
-                        <h5 class="card-title">titre {{ formation.title }}</h5>
-                        <p class="card-text">{{ formation.contentellipsis() }}</p>
-                        <p>Nombre de place disponible: </p>
-                        <a href="{{ path('formation', { id: formation.id}) }}">
-                            <button type="button" class="btn btn-primary">voir detail</button>
-                        </a>
-                        <button type="button" class="btn btn-primary">prix</button>
+                                <div class="promo-slider__wrapper-3"><a class="button promo-slider__button button--primary" href="#">Voir plus</a></div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
+            </div>
+        </div>
+
+        <div class="promo-slider__item promo-slider__item--style-2 color--primary">
+            <picture>
+                <source srcset="{{asset('/images/citrouille.jpg')}}" media="(min-width: 992px)" /><img class="img--bg" src="{{asset('/images/citrouille.jpg')}}" alt="img" />
+            </picture>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-xl-7">
+                        <div class="align-container">
+                            <div class="align-container__item">
+                                <div class="promo-slider__wrapper-1">
+                                    <h2 class="promo-slider__title"> <span class="color--orange">Nous vous
+                                            proposons</span><br /><span>de la vente en directe, vendez vos
+                                            produits vous aussi !
+                                        </span></h2>
+                                </div>
+
+                                <div class="promo-slider__wrapper-3"><a class="button promo-slider__button button--primary border--white" href="#">Découvrir</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- slider nav start-->
+                <div class="promo-slider__nav"></div>
+                <!-- slider nav end-->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- promo end-->
+
+
+<!-- section start-->
+<section class="section no-padding-bottom">
+    <div class="container">
+        <div class="row bottom-50">
+            <div class="col-12">
+                <div class="heading heading--primary heading--style-2"><span class="heading__pre-title">Nos
+                        stages, formations et atelier gratuit</span>
+                    <h2 class="heading__title no-margin-bottom">
+                        <span class="color--orange">N</span>ous vous proposons des a<span class="color--orange">t</span>eliers gra<span class="color--orange">t</span>ui<span class="color--orange">t</span>s
+                        </span>
+                        </br>
+                        <span>E<span class="color--orange">n</span>vie de tes<span class="color--orange">t</span>er av<span class="color--orange">a</span>nt? Inscriv
+                        <span class="color--orange">e</span>z-vous <span class="color--orange">!</span>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- section start-->
+    <section class="section no-padding-top no-padding-bottom">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="cta-banner"><img class="img--bg" src="{{asset('/images/permacole1.jpg')}}" alt="img" />
+                    <h3 class="cta-banner__title color--white"><span class="color--orange">Création de
+                        </span> votre espace permacole
+                    </h3><a class="button button--primary button--white" href="#">Atelier</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="cta-banner"><img class="img--bg" src="{{asset('/images/pexels-quang-nguyen-vinh-2518861.jpg')}}" alt="img" />
+                    <h3 class="cta-banner__title color--white"><span class="color--orange">Votre Serre
+                            ici</span> Puis chez vous
+                    </h3><a class="button button--primary button--white" href="#">Atelier</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- section start-->
+    <section class="section">
+        <div class="container">
+            <div class="row offset-margin">
+
+                {% for formation in formations %}
+                    <div class="col-md-6 col-xl-4">
+                        <div class="events-item">
+                            <div class="events-item__img">
+                                <div class="events-item__date">
+                                    <span>{{formation.startAt|date('d')}}</span>
+                                    <span>{{formation.startAt|date('F')|format_datetime( locale='fr', pattern="MMMM")}}</span>
+                                </div>
+                                
+                                <img class="img--bg" src="{{ asset(formation.imagePath) }}" alt="img" />
+                            </div>
+                            <h6 class="events-item__title"><a class="events-item__link" href="{{ path('formation', { id: formation.id}) }}"> {{ formation.title }}</a></h6>
+                             <p class="card-text">{{ formation.contentEllipsis() }}</p>
+                        </div>
+                    </div>
+                {% endfor %}  
 
             </div>
-        {% endfor %}
-    </div>
+    </section>
+    <!-- section end-->
+    
+    
 
+    <!-- section start-->
+    <section >
+        <div class="container">
+            <div class="row bottom-50">
+                <div class="col-12">
+                    <div class="heading heading--primary heading--style-2"><span class="heading__pre-title">Nos stages, formations et atelier gratuit</span>
+                        <h2 class="heading__title no-margin-bottom"><span class="color--orange">Retrouvez
+                                nos
+                                "in-terre-venants"</span></br>
+                            <span>P<span class="color--orange">a</span>ssionnés et <span class="color--orange">i</span>nvestis dans votre ac<span class="color--orange">c</span>ompagnement v<span class="color--orange">e</span>rs <span class="color--orange">l</span>'apprentissage
+                            et l'excellence.</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- section end-->
+        <div class="row offset-margin">
+            <div class="col-sm-6 col-lg-4">
+                <div class="categorie-item"><img class="img--bg" src="{{asset('/images/focusbook.jpg')}}" alt="img" />
+                    <div class="categorie-item__details"><span class="categorie-item__pretitle"><span
+                                class="color--orange">
+                            </span></span>
+                        <h4 class="categorie-item__title"><span class="color--orange">I</span><span class="color--white">nvesti</span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="categorie-item"><img class="img--bg" src="{{asset('/images/youcando.jpg')}}" alt="img" />
+                    <div class="categorie-item__details"><span class="categorie-item__pretitle"><span
+                                class="color--orange"></span></span>
+                        <h4 class="categorie-item__title"><span class="color--orange">P</span><span class="color--white">assionné</span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="categorie-item"><img class="img--bg" src="{{asset('/images/diplomehat.jpg')}} " alt="img" />
+                    <div class="categorie-item__details"><span class="categorie-item__pretitle"><span
+                                class="color--orange"></span></span>
+                        <h4 class="categorie-item__title"><span class="color--orange">D</span><span class="color--white">iplômée</span></span>
+                        </h4>
+                    </div>
+                </div>
+    </section>
+    <!-- section end-->
+</main>
+{% endblock %}
 
-    {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(formations) }}
-    </div>
+{# Bloc destiné à recevoir le javascript spécifique à la page #}
+{% block javascripts %}
 
-</div>
 {% endblock %}

@@ -2,6 +2,13 @@
 
 {% block title %}Une formation{% endblock %}
 
+{# Bloc destiné à recevoir le CSS spécifique à la page #}
+{% block stylesheets %}
+
+{% endblock %}
+
+{# Bloc destiné à recevoir le contenu HTML de la page #}
+
 {% block body %}
 
     <div class="mb-4">
@@ -14,14 +21,90 @@
         {# image #}
         <h1>{{ formation.title }}</h1>
         <p>{{ formation.description }}</p>
-        <p>Nombre de place disponible: </p>
+        {# <p>Nombre de place disponible: </p> #}
 
         {# la page de paiement #}
-        <a href="#">
+        {# <a href="#">
             <button type="button" class="btn btn-primary">Réserver</button>
-        </a>
+        </a> #}
+        {% set store = formation.seatingCapacity - formation.reservations.count %}
+        {# login pour reserver #}
+        {# {% if is_granted('IS_AUTHENTICATED_FULLY') %}    #}
+            {# {{form(formReservaion)}} #}
+        {# {% endif %} #}
+        {% if store>0  %}
+            <h2>Nombre de place disponible: ({{store}})</h2>
+            {{form(formReservaion)}}
+
+        {% else %}
+            <button type="button" class="btn btn-danger">Sold out</button>
+        {% endif %}
+
+        {# le nombre de reservation pour chaque formation => nombre de place dispo  #}
+        {# <h2>Reservations pour cette formation ({{ formation.reservations.count}})</h2> #} 
+
+        {# panier de chaque user #}
+        {# <h2>Panier de l'utilisateur ({{app.user.reservations.count}})</h2> #}
+
+        {# <h1>Liste des formations</h1>
+        {% for formation in app.user.formations %}
+            <div> {{formation.title }}</div>          
+        {% endfor %} #}
+
         
     </div>
 
+    <br><br>
+
+{# pour tout le monde #}
+
+    <h2>Avis ({{ formation.avis.count}})</h2>
+
+    {% for avis  in formation.avis %}
+        <div >
+            <b>Publié le {{ avis.creatAt|date('d/m/Y')}} par {{avis.user.Fullname}}</b>
+            <div>{{ avis.message|nl2br }}</div>
+
+
+            {# {{ dump(app.user.id) }} #}
+            {# {{ dump(avis.user.id) }} #}
+
+            {# lien vers supprimer et vers modifier si la personne est connecter et si le commentaire à ete cree par cette user 
+            il faut creer a voter#}
+
+            {# {% if (is_granted('IS_AUTHENTICATED_FULLY')and ({id: app.user.id} === {id: avis.user.id} )) %} #}
+
+            {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::EDIT'), avis) %}
+                <a href="{{ path('notice_update', { id: avis.id}) }}" class="text-body text-decoration-none btn btn-outline-secondary">Modifier</a>
+            {% endif %}
+            {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::DELETE'), avis) %}
+                <form method="POST" action="{{ path('notice_remove', { id: avis.id}) }}">
+                    {# pour securiser la suppression on genere un token #}
+                    <input type="hidden" name="_token" value="{{csrf_token("delete"~ avis.id)}}">
+                    <button onclick="return confirm('Voulez vous supprimer cet avis ?')" class="text-body text-decoration-none btn btn-outline-danger" >Supprimer</button>                          
+                </form>
+            {% endif %}
+
+                
+            
+                
+            {# {% endif %} #}
+           
+        </div>
+        
+    {% endfor %}
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}  
+        <div classe= 'lead'>
+            Laissez votre avis
+        </div>
+        {{form(form)}}
+    {% endif %}
+    
+
+
+{% endblock %}
+{# Bloc destiné à recevoir le javascript spécifique à la page #}
+{% block javascripts %}
 
 {% endblock %}

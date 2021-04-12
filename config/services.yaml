@@ -46,3 +46,8 @@ services:
     App\Service\UploadService:
         arguments:
             $uploadImageDirectory: '%upload_image_directory%'
+    # date format extension
+    # twig.extension.intl:
+    #     class: Twig_Extensions_Extension_Intl
+    #     tags:
+    #         - { name: twig.extension }

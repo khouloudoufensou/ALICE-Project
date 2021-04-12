@@ -63,12 +63,39 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user")
      */
     private $articles;
+    
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $avis;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $reservations;
+
 
     public function __construct()
     {
         $this->creatAt = new DateTime();
         $this->articles = new ArrayCollection();
+        $this->avis = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
+
+    // formation function
+
+    public function getFormations(){
+        $formations=[];
+        foreach ($this->getReservations() as $key => $reservation) {
+            $formations[]=$reservation->getFormation();
+        }
+
+        return $formations;
+    }
+
+
 
     public function getId(): ?int
     {
@@ -175,6 +202,12 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getFullname(): ?string
+    {
+        return $this->lastname ." ". $this->firstname;
+    }
+
+
     public function getCreatAt(): ?\DateTimeInterface
     {
         return $this->creatAt;
@@ -216,6 +249,23 @@ class User implements UserInterface
 
         return $this;
     }
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis[] = $avi;
+            $avi->setUser($this);
+        }
+
+        return $this;
+    }
 
     public function removeArticle(Article $article): self
     {
@@ -228,4 +278,50 @@ class User implements UserInterface
 
         return $this;
     }
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getUser() === $this) {
+                $avi->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+    
 }

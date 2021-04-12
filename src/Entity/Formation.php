@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FormationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -79,8 +81,25 @@ class Formation
      */
     private $picture;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="formation")
+     */
+    private $avis;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="formation", orphanRemoval=true)
+     */
+    private $reservations;
+
+
+    public function __construct()
+    {
+        $this->avis = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+    }
+
      // my fonctions
-     public function contentellipsis(): string
+     public function getContentEllipsis(): string
      {
          $text = substr($this->description, 0, 100);
          $dote = strlen($this->description)> 100?'...':'';
@@ -97,8 +116,17 @@ class Formation
     {
         return 'images/formation/'.$this->picture;
     }
+        
+    // formation function
 
+    public function getParticipants(){
+        $participants=[];
+        foreach ($this->getReservations() as $key => $reservation) {
+            $participants[]=$reservation->getUser();
+        }
 
+        return $participants;
+    }
 
     public function getId(): ?int
     {
@@ -224,4 +252,67 @@ class Formation
 
         return $this;
     }
+
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis[] = $avi;
+            $avi->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getFormation() === $this) {
+                $avi->setFormation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getFormation() === $this) {
+                $reservation->setFormation(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    
 }

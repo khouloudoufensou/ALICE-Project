@@ -1,1434 +1,1505 @@
-(function ($) {
-
-	'use strict'
-
-	$(window).on('load resize', function () {
-
-		// map
-
-		function map() {
-
-			const map = $('#map')
-
-			if (map.length > 0) {
-
-				let apiKey = map.attr('data-api-key'),
-					apiURL
-
-				if (apiKey) {
-					apiURL = 'https://maps.google.com/maps/api/js?key=' + apiKey + '&sensor=false'
-				}
-
-				else {
-					apiURL = 'https://maps.google.com/maps/api/js?sensor=false'
-				}
-
-				$.getScript(apiURL, function (data, textStatus, jqxhr) {
-					map.each(function () {
-
-						const current_map = $(this),
-
-							latlng = new google.maps.LatLng(current_map.attr('data-longitude'),
-
-								current_map.attr('data-latitude')),
-
-							point = current_map.attr('data-marker'),
-
-							center = {
-								lat: 40.730610,
-								lng: -73.935242,
-							},
-
-							markerPos = {
-								lat: 40.730610,
-								lng: -73.935242,
-							},
-
-							myOptions = {
-								zoom: 13,
-								center: center,
-								disableDefaultUI: true,
-								mapTypeId: google.maps.MapTypeId.ROADMAP,
-								mapTypeControl: false,
-								scrollwheel: false,
-								draggable: true,
-								panControl: false,
-								zoomControl: false,
-								disableDefaultUI: true,
-								styles: [
-									{
-										"featureType": "administrative",
-										"elementType": "labels.text.fill",
-										"stylers": [
-											{
-												"color": "#212326",
-											}
-										]
-									},
-									{
-										"featureType": "administrative.locality",
-										"elementType": "labels.text.fill",
-										"stylers": [
-											{
-												"color": "#464646",
-											}
-										]
-									},
-									{
-										"featureType": "landscape",
-										"elementType": "all",
-										"stylers": [
-											{
-												"color": "#F8F8F9",
-											}
-										]
-									},
-									{
-										"featureType": "poi",
-										"elementType": "all",
-										"stylers": [
-											{
-												"visibility": "off",
-											}
-										]
-									},
-									{
-										"featureType": "road",
-										"elementType": "all",
-										"stylers": [
-											{
-												"saturation": -100,
-											},
-											{
-												"lightness": 45,
-											}
-										]
-									},
-									{
-										"featureType": "road",
-										"elementType": "labels",
-										"stylers": [
-											{
-												"visibility": "on",
-											}
-										]
-									},
-									{
-										"featureType": "road",
-										"elementType": "labels.icon",
-										"stylers": [
-											{
-												"visibility": "on",
-											}
-										]
-									},
-									{
-										"featureType": "transit",
-										"elementType": "all",
-										"stylers": [
-											{
-												"visibility": "on",
-											}
-										]
-									},
-									{
-										"featureType": "road.highway",
-										"elementType": "all",
-										"stylers": [
-											{
-												"visibility": "on",
-											}
-										]
-									},
-									{
-										"featureType": "road.arterial",
-										"elementType": "labels.icon",
-										"stylers": [
-											{
-												"visibility": "on",
-											}
-										]
-									},
-									{
-										"featureType": "transit",
-										"elementType": "all",
-										"stylers": [
-											{
-												"visibility": "on",
-											}
-										]
-									},
-									{
-										"featureType": "water",
-										"elementType": "all",
-										"stylers": [
-											{
-												"color": "#E2E3E7",
-											},
-											{
-												"visibility": "on",
-											}
-										]
-									}
-								]
-							}
-
-						const map = new google.maps.Map(current_map[0], myOptions)
-
-						const marker = new google.maps.Marker({
-							map: map,
-							icon: {
-								size: new google.maps.Size(59, 69),
-								origin: new google.maps.Point(0, 0),
-								anchor: new google.maps.Point(0, 69),
-								url: point,
-							},
-							position: markerPos
-						})
-
-						google.maps.event.addDomListener(window, "resize", function () {
-							const center = map.getCenter()
-							google.maps.event.trigger(map, "resize")
-							map.setCenter(center)
-						})
-					})
-				})
-			}
-		}
-
-		map()
-
-		// text box
-
-		function textBox() {
-
-			const textBox = $('.text-box')
-
-			if (!textBox.length) return
-
-			textBox.each(function () {
-
-				const $this = $(this)
-				const eachHeight = parseInt($this.find('.text-box__text').css('height'))
-				const slideBlock = $this.find('.text-box__details')
-
-				slideBlock.css({'transform':'translateY(' + eachHeight + 'px)'})
-
-			})
-
-		}
-
-		textBox()
-
-	})
-
-	$(window).on('scroll', function () {
-
-		// header front-1
-
-		function headerFrontOne () {
-
-			const header = $('.header-common')
-
-			if (!header.length) return
-
-			const lower = $('.header-common .header__lower')
-			const scroll = $(window).scrollTop()
-	
-			if (scroll >= 1) {
-				lower.addClass('header__lower--fixed')
-			}
-	
-			else {
-				lower.removeClass('header__lower--fixed')
-			}
-
-		}
-
-		headerFrontOne ()
-
-		// header front-2
-
-		function headerFrontTwo () {
+(function($) {
+
+    'use strict'
+
+    $(window).on('load resize', function() {
+
+        // map
+
+        function map() {
+
+            const map = $('#map')
+
+            if (map.length > 0) {
+
+                let apiKey = map.attr('data-api-key'),
+                    apiURL
+
+                if (apiKey) {
+                    apiURL = 'https://maps.google.com/maps/api/js?key=' + apiKey + '&sensor=false'
+                } else {
+                    apiURL = 'https://maps.google.com/maps/api/js?sensor=false'
+                }
+
+                $.getScript(apiURL, function(data, textStatus, jqxhr) {
+                    map.each(function() {
+
+                        const current_map = $(this),
+
+                            latlng = new google.maps.LatLng(current_map.attr('data-longitude'),
+
+                                current_map.attr('data-latitude')),
+
+                            point = current_map.attr('data-marker'),
+
+                            center = {
+                                lat: 40.730610,
+                                lng: -73.935242,
+                            },
+
+                            markerPos = {
+                                lat: 40.730610,
+                                lng: -73.935242,
+                            },
+
+                            myOptions = {
+                                zoom: 13,
+                                center: center,
+                                disableDefaultUI: true,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                mapTypeControl: false,
+                                scrollwheel: false,
+                                draggable: true,
+                                panControl: false,
+                                zoomControl: false,
+                                disableDefaultUI: true,
+                                styles: [{
+                                        "featureType": "administrative",
+                                        "elementType": "labels.text.fill",
+                                        "stylers": [{
+                                            "color": "#212326",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "administrative.locality",
+                                        "elementType": "labels.text.fill",
+                                        "stylers": [{
+                                            "color": "#464646",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "landscape",
+                                        "elementType": "all",
+                                        "stylers": [{
+                                            "color": "#F8F8F9",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "poi",
+                                        "elementType": "all",
+                                        "stylers": [{
+                                            "visibility": "off",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "road",
+                                        "elementType": "all",
+                                        "stylers": [{
+                                                "saturation": -100,
+                                            },
+                                            {
+                                                "lightness": 45,
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "featureType": "road",
+                                        "elementType": "labels",
+                                        "stylers": [{
+                                            "visibility": "on",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "road",
+                                        "elementType": "labels.icon",
+                                        "stylers": [{
+                                            "visibility": "on",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "transit",
+                                        "elementType": "all",
+                                        "stylers": [{
+                                            "visibility": "on",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "road.highway",
+                                        "elementType": "all",
+                                        "stylers": [{
+                                            "visibility": "on",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "road.arterial",
+                                        "elementType": "labels.icon",
+                                        "stylers": [{
+                                            "visibility": "on",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "transit",
+                                        "elementType": "all",
+                                        "stylers": [{
+                                            "visibility": "on",
+                                        }]
+                                    },
+                                    {
+                                        "featureType": "water",
+                                        "elementType": "all",
+                                        "stylers": [{
+                                                "color": "#E2E3E7",
+                                            },
+                                            {
+                                                "visibility": "on",
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+
+                        const map = new google.maps.Map(current_map[0], myOptions)
+
+                        const marker = new google.maps.Marker({
+                            map: map,
+                            icon: {
+                                size: new google.maps.Size(59, 69),
+                                origin: new google.maps.Point(0, 0),
+                                anchor: new google.maps.Point(0, 69),
+                                url: point,
+                            },
+                            position: markerPos
+                        })
+
+                        google.maps.event.addDomListener(window, "resize", function() {
+                            const center = map.getCenter()
+                            google.maps.event.trigger(map, "resize")
+                            map.setCenter(center)
+                        })
+                    })
+                })
+            }
+        }
+
+        map()
+
+        // text box
 
-			const header = $('.header-f2')
+        function textBox() {
 
-			if (!header.length) return
+            const textBox = $('.text-box')
 
-			const topSize = parseInt(header.find('.header__lower').css('height'))
-			const lower = $('.header-f2 .header__top')
-			const scroll = $(window).scrollTop()
+            if (!textBox.length) return
 
-			if (scroll >= 1) {
-				header.css({'transform':'translate(-50%, -' + topSize + 'px)'})
-				lower.addClass('lower--fixed')
-			}
+            textBox.each(function() {
 
-			else {
-				header.css({'transform':'translate(-50%, -' + 0 + 'px)'})
-				lower.removeClass('lower--fixed')
-			}
+                const $this = $(this)
+                const eachHeight = parseInt($this.find('.text-box__text').css('height'))
+                const slideBlock = $this.find('.text-box__details')
 
-		}
+                slideBlock.css({ 'transform': 'translateY(' + eachHeight + 'px)' })
 
-		headerFrontTwo()
+            })
 
-		// header front-3
+        }
 
-		function headerFrontThree () {
+        textBox()
 
-			const header = $('.header-f3')
+    })
 
-			if (!header.length) return
+    $(window).on('scroll', function() {
 
-			const topSize = parseInt(header.find('.header__lower').css('height'))
-			const lower = $('.header-f3 .header__top')
-			const scroll = $(window).scrollTop()
+        // header front-1
 
-			if (scroll >= 1) {
-				header.css({'transform':'translate(-50%, -' + topSize + 'px)'})
-				lower.addClass('lower--fixed')
-			}
+        function headerFrontOne() {
 
-			else {
-				header.css({'transform':'translate(-50%, -' + 0 + 'px)'})
-				lower.removeClass('lower--fixed')
-			}
+            const header = $('.header-common')
 
-		}
+            if (!header.length) return
 
-		headerFrontThree()
+            const lower = $('.header-common .header__lower')
+            const scroll = $(window).scrollTop()
 
-		// header intro
+            if (scroll >= 1) {
+                lower.addClass('header__lower--fixed')
+            } else {
+                lower.removeClass('header__lower--fixed')
+            }
 
-		function headerIntro () {
+        }
 
-			const header = $('.header-intro')
+        headerFrontOne()
 
-			if (!header.length) return
+        // header front-2
 
-			const scroll = $(window).scrollTop()
+        function headerFrontTwo() {
 
-			if (scroll >= 1) {
-				header.addClass('header--fixed')
-			}
+            const header = $('.header-f2')
 
-			else {
-				header.removeClass('header--fixed')
-			}
+            if (!header.length) return
 
-		}
+            const topSize = parseInt(header.find('.header__lower').css('height'))
+            const lower = $('.header-f2 .header__top')
+            const scroll = $(window).scrollTop()
 
-		headerIntro()
+            if (scroll >= 1) {
+                header.css({ 'transform': 'translate(-50%, -' + topSize + 'px)' })
+                lower.addClass('lower--fixed')
+            } else {
+                header.css({ 'transform': 'translate(-50%, -' + 0 + 'px)' })
+                lower.removeClass('lower--fixed')
+            }
 
-	})
+        }
 
-	$(document).ready(function () {
+        headerFrontTwo()
 
-		// object fit
+        // header front-3
 
-		objectFitImages()
+        function headerFrontThree() {
 
-		// menu trigger
+            const header = $('.header-f3')
 
-		function menuTrigger() {
+            if (!header.length) return
 
-			const trigger = $('.hamburger')
+            const topSize = parseInt(header.find('.header__lower').css('height'))
+            const lower = $('.header-f3 .header__top')
+            const scroll = $(window).scrollTop()
 
-			if (!trigger.length) return
+            if (scroll >= 1) {
+                header.css({ 'transform': 'translate(-50%, -' + topSize + 'px)' })
+                lower.addClass('lower--fixed')
+            } else {
+                header.css({ 'transform': 'translate(-50%, -' + 0 + 'px)' })
+                lower.removeClass('lower--fixed')
+            }
 
-			$('.hamburger').on('click', function() {
+        }
 
-				$('body').toggleClass('body--static')
-				$('.menu-dropdown').toggleClass('menu-dropdown--active')
-	
-			})
-			
-		}
+        headerFrontThree()
 
-		menuTrigger()
+        // header intro
 
-		// mobile menu
+        function headerIntro() {
 
-		function mobileMenu() {
+            const header = $('.header-intro')
 
-			$('.screen--trigger').on('click', function() {
+            if (!header.length) return
 
-				const triggerValue = $(this).data('category')
+            const scroll = $(window).scrollTop()
 
-				$('.screen--start').addClass('screen--inactive')
+            if (scroll >= 1) {
+                header.addClass('header--fixed')
+            } else {
+                header.removeClass('header--fixed')
+            }
 
-				$('.menu-dropdown__inner').each(function() {
+        }
 
-					if ($(this).data('value') === triggerValue) {
+        headerIntro()
 
-						$(this).addClass('menu-dropdown__inner--active')
+    })
 
-					}
+    $(document).ready(function() {
 
-				})
+        // object fit
 
-			})
+        objectFitImages()
 
-			$('.screen__back').on('click', function() {
+        // menu trigger
 
-				$('.menu-dropdown__inner').removeClass('menu-dropdown__inner--active')
-				$('.screen--start').removeClass('screen--inactive')
+        function menuTrigger() {
 
-			})
+            const trigger = $('.hamburger')
 
-			$('.screen__link').on('click', function () {
+            if (!trigger.length) return
 
-				$('body').removeClass('body--static')
-				$('.menu-dropdown').removeClass('menu-dropdown--active')
+            $('.hamburger').on('click', function() {
 
-			})
+                $('body').toggleClass('body--static')
+                $('.menu-dropdown').toggleClass('menu-dropdown--active')
 
-			$('.aside-menu .main-menu__item .main-menu__link').on('click', function () {
+            })
 
-				$('body').removeClass('body--static')
-				$('.menu-dropdown').removeClass('menu-dropdown--active')
+        }
 
-			})
+        menuTrigger()
 
-		}
+        // mobile menu
 
-		mobileMenu()
+        function mobileMenu() {
 
-		// scroll to id
+            $('.screen--trigger').on('click', function() {
 
-		function scrollToId() {
+                const triggerValue = $(this).data('category')
 
-			var scroll = $('a.main-menu__link--scroll')
+                $('.screen--start').addClass('screen--inactive')
 
-			if(!scroll.length) return
+                $('.menu-dropdown__inner').each(function() {
 
-			scroll.mPageScroll2id({
-				highlightClass: 'main-menu__link--highlighted',
-			})
+                    if ($(this).data('value') === triggerValue) {
 
-		}
+                        $(this).addClass('menu-dropdown__inner--active')
 
-		scrollToId()
+                    }
 
-		// header bar
+                })
 
-		$(window).on('scroll', function () {
+            })
 
-			const lower = $('.header-common .header__lower')
-			const scroll = $(window).scrollTop()
+            $('.screen__back').on('click', function() {
 
-			if (scroll >= 1) {
-				lower.addClass('header__lower--fixed')
-			}
+                $('.menu-dropdown__inner').removeClass('menu-dropdown__inner--active')
+                $('.screen--start').removeClass('screen--inactive')
 
-			else {
-				lower.removeClass('header__lower--fixed')
-			}
+            })
 
-		})
+            $('.screen__link').on('click', function() {
 
-		// alert close
+                $('body').removeClass('body--static')
+                $('.menu-dropdown').removeClass('menu-dropdown--active')
 
-		$('.alert__close').on('click', function () {
+            })
 
-			$(this).parent('.alert').fadeOut(300)
+            $('.aside-menu .main-menu__item .main-menu__link').on('click', function() {
 
-		})
+                $('body').removeClass('body--static')
+                $('.menu-dropdown').removeClass('menu-dropdown--active')
 
-		// scroll to id
+            })
 
-		function scrollTo () {
+        }
 
-			const scrollTo = $('a.anchor[href^="#"]')
+        mobileMenu()
 
-			if (!scrollTo.length) return
+        // scroll to id
 
-			scrollTo.on("click", function (e) {
+        function scrollToId() {
 
-				const anchor = $(this)
+            var scroll = $('a.main-menu__link--scroll')
 
-				$('html, body').stop().animate({
-					scrollTop: $(anchor.attr('href')).offset().top
-				}, 600)
+            if (!scroll.length) return
 
-				e.preventDefault()
-				
-			})
+            scroll.mPageScroll2id({
+                highlightClass: 'main-menu__link--highlighted',
+            })
 
-		}
+        }
 
-		scrollTo()
+        scrollToId()
 
-		// accordion
+        // header bar
 
-		function accordion() {
+        $(window).on('scroll', function() {
 
-			const accordion = $('.accordion')
+            const lower = $('.header-common .header__lower')
+            const scroll = $(window).scrollTop()
 
-			if (!accordion.length) return
+            if (scroll >= 1) {
+                lower.addClass('header__lower--fixed')
+            } else {
+                lower.removeClass('header__lower--fixed')
+            }
 
-			const close = $('.accordion .accordion__close')
+        })
 
-			close.on('click', function () {
+        // alert close
 
-				$(this).toggleClass('accordion__close--active').parents().children('.accordion__text-block').stop().slideToggle(300)
+        $('.alert__close').on('click', function() {
 
-			})
+            $(this).parent('.alert').fadeOut(300)
 
-		}
+        })
 
-		accordion()
+        // scroll to id
 
-		// counter
+        function scrollTo() {
 
-		function counter() {
+            const scrollTo = $('a.anchor[href^="#"]')
 
-			const counter = $('.js-counter')
+            if (!scrollTo.length) return
 
-			if (!counter.length) return
+            scrollTo.on("click", function(e) {
 
-			counter.counterUp({
+                const anchor = $(this)
 
-				delay: 10,
-				time: 1500,
+                $('html, body').stop().animate({
+                    scrollTop: $(anchor.attr('href')).offset().top
+                }, 600)
 
-			})
+                e.preventDefault()
 
-		}
+            })
 
-		counter()
+        }
 
-		// bar chart
+        scrollTo()
 
-		function barChart() {
+        // accordion
 
-			const barChart = $('#bar-chart')
+        function accordion() {
 
-			if (!barChart.length) return
+            const accordion = $('.accordion')
 
-			const ctx = barChart[0].getContext('2d')
-			
-			const myChart = new Chart(ctx, {
-				type: 'bar',
-				data: {
-					labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-					datasets: [{
-						label: '# of Votes',
-						data: [12, 19, 3, 5, 2, 3],
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(255, 159, 64, 0.2)',
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)',
-						],
-						borderWidth: 1
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero: true,
-							}
-						}]
-					}
-				}
-			})
+            if (!accordion.length) return
 
-		}
+            const close = $('.accordion .accordion__close')
 
-		barChart()
+            close.on('click', function() {
 
-		// line chart
+                $(this).toggleClass('accordion__close--active').parents().children('.accordion__text-block').stop().slideToggle(300)
 
-		function lineChart() {
+            })
 
-			const lineChart = $('#line-chart')
+        }
 
-			if (!lineChart.length) return
+        accordion()
 
-			const ctx = lineChart[0].getContext('2d')
+        // counter
 
-			const myChart = new Chart(ctx, {
-				type: 'line',
-				data: {
-					labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-					datasets: [{
-						label: 'Red',
-						data: [330, 250, 480, 120, 220, 130, 255],
-						backgroundColor: 'rgba(255, 99, 132, 0.2)',
-						borderColor: 'rgba(255, 99, 132, 1)',
-						borderWidth: 1,
-					}, {
-						label: 'Blue',
-						data: [230, 350, 120, 240, 360, 180, 295],
-						backgroundColor: 'rgba(105, 195, 255, 0.2)',
-						borderColor: 'rgba(105, 195, 255, 1)',
-						borderWidth: 1,
-					}, {
-						label: 'Yellow',
-						data: [450, 290, 123, 332, 439, 222, 340],
-						backgroundColor: 'rgba(255, 209, 94, 0.2)',
-						borderColor: 'rgba(255, 209, 94, 1)',
-						borderWidth: 1,
-					}, {
-						label: 'Green',
-						data: [400, 450, 380, 250, 450, 320, 210],
-						backgroundColor: 'rgba(155, 220, 220, 0.2)',
-						borderColor: 'rgba(155, 220, 220, 1)',
-						borderWidth: 1,
-					}, {
-						label: 'Purple',
-						data: [500, 220, 110, 50, 430, 310, 410],
-						backgroundColor: 'rgba(154, 104, 255, 0.2)',
-						borderColor: 'rgba(154, 104, 255, 1)',
-						borderWidth: 1,
-					}, {
-						label: 'Orange',
-						data: [0, 100, 200, 300, 400, 320, 222],
-						backgroundColor: 'rgba(255, 159, 64, 0.2)',
-						borderColor: 'rgba(255, 159, 64, 1)',
-						borderWidth: 1,
-					}]
-				}
-			})
+        function counter() {
 
-		}
+            const counter = $('.js-counter')
 
-		lineChart()
+            if (!counter.length) return
 
-		// radar chart
+            counter.counterUp({
 
-		function radarChart() {
+                delay: 10,
+                time: 1500,
 
-			const radarChart = $('#radar-chart')
+            })
 
-			if (!radarChart.length) return
+        }
 
-			const ctx = radarChart[0].getContext('2d')
+        counter()
 
-			const myChart = new Chart(ctx, {
-				type: 'radar',
-				data: {
-					labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
-					datasets: [
-						{
-							label: 'First',
-							data: [100, 44, 55, 90, 55, 80, 100],
-							backgroundColor: 'rgba(154, 104, 255, 0.2)',
-							borderColor: 'rgba(154, 104, 255, 1)',
-							borderWidth: 1,
+        // bar chart
 
-						}, {
-							label: 'Second',
-							data: [30, 80, 60, 20, 40, 100, 50],
-							backgroundColor: 'rgba(255, 99, 132, 0.2)',
-							borderColor: 'rgba(255, 99, 132, 1)',
-							borderWidth: 1,
-						}]
-				}
-			})
+        function barChart() {
 
-		}
+            const barChart = $('#bar-chart')
 
-		radarChart()
+            if (!barChart.length) return
 
-		// doughnut chart
+            const ctx = barChart[0].getContext('2d')
 
-		function doughnutChart() {
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                            }
+                        }]
+                    }
+                }
+            })
 
-			const doughnutChart = $('#doughnut-chart')
+        }
 
-			if (!doughnutChart.length) return
+        barChart()
 
-			const ctx = doughnutChart[0].getContext('2d')
+        // line chart
 
-			const myChart = new Chart(ctx, {
-				type: 'doughnut',
-				data: {
-					labels: ['Red', 'Blue', 'Yellow'],
-					datasets: [{
-						data: [70, 20, 10],
-						backgroundColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(105, 195, 255, 1)',
-							'rgba(255, 209, 94, 1)',
-						],
-					}]
-				}
-			})
+        function lineChart() {
 
-		}
+            const lineChart = $('#line-chart')
 
-		doughnutChart()
+            if (!lineChart.length) return
 
-		// tabs
+            const ctx = lineChart[0].getContext('2d')
 
-		function tabs() {
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'Red',
+                        data: [330, 250, 480, 120, 220, 130, 255],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                    }, {
+                        label: 'Blue',
+                        data: [230, 350, 120, 240, 360, 180, 295],
+                        backgroundColor: 'rgba(105, 195, 255, 0.2)',
+                        borderColor: 'rgba(105, 195, 255, 1)',
+                        borderWidth: 1,
+                    }, {
+                        label: 'Yellow',
+                        data: [450, 290, 123, 332, 439, 222, 340],
+                        backgroundColor: 'rgba(255, 209, 94, 0.2)',
+                        borderColor: 'rgba(255, 209, 94, 1)',
+                        borderWidth: 1,
+                    }, {
+                        label: 'Green',
+                        data: [400, 450, 380, 250, 450, 320, 210],
+                        backgroundColor: 'rgba(155, 220, 220, 0.2)',
+                        borderColor: 'rgba(155, 220, 220, 1)',
+                        borderWidth: 1,
+                    }, {
+                        label: 'Purple',
+                        data: [500, 220, 110, 50, 430, 310, 410],
+                        backgroundColor: 'rgba(154, 104, 255, 0.2)',
+                        borderColor: 'rgba(154, 104, 255, 1)',
+                        borderWidth: 1,
+                    }, {
+                        label: 'Orange',
+                        data: [0, 100, 200, 300, 400, 320, 222],
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 1,
+                    }]
+                }
+            })
 
-			const tabs = $('.tabs')
+        }
 
-			if (!tabs.length) return
+        lineChart()
 
-			tabs.responsiveTabs({
+        // radar chart
 
-				startCollapsed: 'false',
+        function radarChart() {
 
-			})
+            const radarChart = $('#radar-chart')
 
-		}
+            if (!radarChart.length) return
 
-		tabs()
+            const ctx = radarChart[0].getContext('2d')
 
-		// video trigger
+            const myChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
+                    datasets: [{
+                        label: 'First',
+                        data: [100, 44, 55, 90, 55, 80, 100],
+                        backgroundColor: 'rgba(154, 104, 255, 0.2)',
+                        borderColor: 'rgba(154, 104, 255, 1)',
+                        borderWidth: 1,
 
-		function videoTrigger() {
+                    }, {
+                        label: 'Second',
+                        data: [30, 80, 60, 20, 40, 100, 50],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                    }]
+                }
+            })
 
-			const trigger = $('.video-trigger')
+        }
 
-			if (!trigger.length) return
+        radarChart()
 
-			trigger.fancybox()
+        // doughnut chart
 
-		}
+        function doughnutChart() {
 
-		videoTrigger()
+            const doughnutChart = $('#doughnut-chart')
 
-		// video trigger
+            if (!doughnutChart.length) return
 
-		function photoTrigger() {
+            const ctx = doughnutChart[0].getContext('2d')
 
-			const trigger = $('.photo-trigger')
+            const myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow'],
+                    datasets: [{
+                        data: [70, 20, 10],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(105, 195, 255, 1)',
+                            'rgba(255, 209, 94, 1)',
+                        ],
+                    }]
+                }
+            })
 
-			if (!trigger.length) return
+        }
 
-			trigger.fancybox()
+        doughnutChart()
 
-		}
+        // tabs
 
-		photoTrigger()
+        function tabs() {
 
-		// masonry gallery
+            const tabs = $('.tabs')
 
-		function masonryGallery() {
+            if (!tabs.length) return
 
-			const masonryGallery = $('.gallery-masonry')
+            tabs.responsiveTabs({
 
-			if (!masonryGallery.length) return
+                startCollapsed: 'false',
 
-			masonryGallery.isotope({
-				itemSelector: '.gallery-masonry__item',
-				percentPosition: true,
-			})
+            })
 
-			const filter = $('.filter-panel__item')
+        }
 
-			filter.on('click', function () {
+        tabs()
 
-				const filterValue = $(this).attr('data-filter')
+        // video trigger
 
-				masonryGallery.isotope({ 
-					filter: filterValue ,
-				})
+        function videoTrigger() {
 
-			})
+            const trigger = $('.video-trigger')
 
-			filter.on('click', function () {
+            if (!trigger.length) return
 
-				filter.removeClass('filter-panel__item--active')
-				$(this).addClass('filter-panel__item--active')
+            trigger.fancybox()
 
-			})
+        }
 
-		}
+        videoTrigger()
 
-		masonryGallery()
+        // video trigger
 
-		// quantity
+        function photoTrigger() {
 
-		function quantity() {
+            const trigger = $('.photo-trigger')
 
-			const count = $('.cart-item__count')
+            if (!trigger.length) return
 
-			if (!count.length) return
+            trigger.fancybox()
 
-			const minus = $('.cart-item__minus')
-			const plus = $('.cart-item__plus')
+        }
 
-			minus.on('click', function () {
+        photoTrigger()
 
-				const $input = $(this).parent().find('input')
-				let count = parseInt($input.val()) - 1
-				count = count < 1 ? 1 : count
-				$input.val(count)
-				$input.change()
-				return false
+        // masonry gallery
 
-			})
+        function masonryGallery() {
 
-			plus.on('click', function () {
+            const masonryGallery = $('.gallery-masonry')
 
-				const $input = $(this).parent().find('input')
-				$input.val(parseInt($input.val()) + 1)
-				$input.change()
-				return false
+            if (!masonryGallery.length) return
 
-			})
+            masonryGallery.isotope({
+                itemSelector: '.gallery-masonry__item',
+                percentPosition: true,
+            })
 
-		}
+            const filter = $('.filter-panel__item')
 
-		quantity()
+            filter.on('click', function() {
 
-		// form quantity
+                const filterValue = $(this).attr('data-filter')
 
-		function formQuantity() {
+                masonryGallery.isotope({
+                    filter: filterValue,
+                })
 
-			const count = $('.form__count')
+            })
 
-			if (!count.length) return
+            filter.on('click', function() {
 
-			const minus = $('.form__minus')
-			const plus = $('.form__plus')
+                filter.removeClass('filter-panel__item--active')
+                $(this).addClass('filter-panel__item--active')
 
-			minus.on('click', function () {
+            })
 
-				const $input = $(this).parent().find('input')
-				let count = parseInt($input.val()) - 1
-				count = count < 1 ? 1 : count
-				$input.val(count)
-				$input.change()
-				return false
+        }
 
-			})
+        masonryGallery()
 
-			plus.on('click', function () {
+        // quantity
 
-				const $input = $(this).parent().find('input')
-				$input.val(parseInt($input.val()) + 1)
-				$input.change()
-				return false
+        function quantity() {
 
-			})
+            const count = $('.cart-item__count')
 
-		}
+            if (!count.length) return
 
-		formQuantity()
+            const minus = $('.cart-item__minus')
+            const plus = $('.cart-item__plus')
 
-		// range slider
+            minus.on('click', function() {
 
-		function rangeSlider() {
+                const $input = $(this).parent().find('input')
+                let count = parseInt($input.val()) - 1
+                count = count < 1 ? 1 : count
+                $input.val(count)
+                $input.change()
+                return false
 
-			const rangeSlider = $('.range-slider .range-slider__bar')
+            })
 
-			if (!rangeSlider.length) return
+            plus.on('click', function() {
 
-			const min = $('.range-slider__min')
-			const max = $('.range-slider__max')
+                const $input = $(this).parent().find('input')
+                $input.val(parseInt($input.val()) + 1)
+                $input.change()
+                return false
 
-			rangeSlider.ionRangeSlider({
+            })
 
-				type: 'double',
-				min: 0,
-				max: 5000,
-				from: 0,
-				to: 3000,
-				skin: 'round',
-				step: 10,
-				onChange: function (data) {
+        }
 
-					min.val(data.from)
-					max.val(data.to)
+        quantity()
 
-				},
+        // form quantity
 
-			})
+        function formQuantity() {
 
-		}
+            const count = $('.form__count')
 
-		rangeSlider()
+            if (!count.length) return
 
-		// nice select
+            const minus = $('.form__minus')
+            const plus = $('.form__plus')
 
-		function select() {
+            minus.on('click', function() {
 
-			const select = $('.form__select')
+                const $input = $(this).parent().find('input')
+                let count = parseInt($input.val()) - 1
+                count = count < 1 ? 1 : count
+                $input.val(count)
+                $input.change()
+                return false
 
-			if (!select.length) return
+            })
 
-			select.niceSelect()
+            plus.on('click', function() {
 
-		}
+                const $input = $(this).parent().find('input')
+                $input.val(parseInt($input.val()) + 1)
+                $input.change()
+                return false
 
-		select()
+            })
 
-		// aside trigger
+        }
 
-		function asideTrigger() {
+        formQuantity()
 
-			const trigger = $('.shop__aside-trigger')
+        // range slider
 
-			if (!trigger.length) return
+        function rangeSlider() {
 
-			trigger.on('click', function () {
+            const rangeSlider = $('.range-slider .range-slider__bar')
 
-				$('body').find('.aside-holder').toggleClass('aside-holder--visible')
-				$('body').find('.shop__backdrop').toggleClass('shop__backdrop--visible')
+            if (!rangeSlider.length) return
 
-			})
+            const min = $('.range-slider__min')
+            const max = $('.range-slider__max')
 
-			const close = $('.shop__aside-close')
+            rangeSlider.ionRangeSlider({
 
-			close.on('click', function () {
+                type: 'double',
+                min: 0,
+                max: 5000,
+                from: 0,
+                to: 3000,
+                skin: 'round',
+                step: 10,
+                onChange: function(data) {
 
-				$('body').find('.aside-holder').removeClass('aside-holder--visible')
-				$('body').find('.shop__backdrop').removeClass('shop__backdrop--visible')
+                    min.val(data.from)
+                    max.val(data.to)
 
-			})
+                },
 
-			const backdrop = $('.shop__backdrop')
+            })
 
-			backdrop.on('click', function () {
-				$(this).removeClass('shop__backdrop--visible')
-				$('body').find('.aside-holder').removeClass('aside-holder--visible')
-			})
+        }
 
-		}
+        rangeSlider()
 
-		asideTrigger()
+        // nice select
 
-		// SLIDERS
+        function select() {
 
-		// promo slider
+            const select = $('.form__select')
 
-		function promoSlider() {
+            if (!select.length) return
 
-			const slider = $('.promo-slider')
+            select.niceSelect()
 
-			if (!slider.length) return
+        }
 
-			const status = $('.promo-slider__count')
+        select()
 
-			$('.promo-slider--style-2').on('init afterChange', function (event, slick, currentSlide, nextSlide) {
+        // aside trigger
 
-				let i = (currentSlide ? currentSlide : 0) + 1
-				status.text(i + '/' + slick.slideCount)
+        function asideTrigger() {
 
-			})
+            const trigger = $('.shop__aside-trigger')
 
-			slider.slick({
+            if (!trigger.length) return
 
-				fade: true,
-				adaptiveHeight: true,
-				infinite: true,
-				speed: 1200,
-				arrows: false,
-				dots: true,
-				appendDots: $('.promo-slider__nav'),
+            trigger.on('click', function() {
 
-			})
+                $('body').find('.aside-holder').toggleClass('aside-holder--visible')
+                $('body').find('.shop__backdrop').toggleClass('shop__backdrop--visible')
 
-		}
+            })
 
-		promoSlider()
+            const close = $('.shop__aside-close')
 
-		// testimonials-1
+            close.on('click', function() {
 
-		function testimonialsSlider() {
+                $('body').find('.aside-holder').removeClass('aside-holder--visible')
+                $('body').find('.shop__backdrop').removeClass('shop__backdrop--visible')
 
-			const testimonials = $('.testimonials-slider')
+            })
 
-			if (!testimonials.length) return
+            const backdrop = $('.shop__backdrop')
 
-			const testimonialsOne = $('.testimonials-slider--style-1')
+            backdrop.on('click', function() {
+                $(this).removeClass('shop__backdrop--visible')
+                $('body').find('.aside-holder').removeClass('aside-holder--visible')
+            })
 
-			testimonialsOne.slick({
+        }
 
-				arrows: false,
-				dots: true,
-				appendDots: $('.testimonials--style-1__dots'),
-				adaptiveHeight: true,
+        asideTrigger()
 
-			})
+        // SLIDERS
 
-			const testimonialsTwo = $('.testimonials-slider--style-2')
+        // promo slider
 
-			testimonialsTwo.slick({
+        function promoSlider() {
 
-				arrows: false,
-				dots: true,
-				fade: true,
-				appendDots: $('.testimonials--style-2__dots'),
-				adaptiveHeight: true,
+            const slider = $('.promo-slider')
 
-			})
+            if (!slider.length) return
 
-			const testimonialsThree = $('.testimonials-slider--style-3')
+            const status = $('.promo-slider__count')
 
-			testimonialsThree.slick({
+            $('.promo-slider--style-2').on('init afterChange', function(event, slick, currentSlide, nextSlide) {
 
-				arrows: false,
-				dots: true,
-				fade: true,
-				appendDots: $('.testimonials--style-3__dots'),
-				adaptiveHeight: true,
+                let i = (currentSlide ? currentSlide : 0) + 1
+                status.text(i + '/' + slick.slideCount)
 
-			})
+            })
 
-		}
+            slider.slick({
 
-		testimonialsSlider()
+                fade: true,
+                adaptiveHeight: true,
+                infinite: true,
+                speed: 1200,
+                arrows: false,
+                dots: true,
+                appendDots: $('.promo-slider__nav'),
 
-		// logos slider
+            })
 
-		function logosSlider() {
+        }
 
-			const slider = $('.logos-slider')
+        promoSlider()
 
-			if (!slider.length) return
+        // testimonials-1
 
-			slider.slick({
+        function testimonialsSlider() {
 
-				arrows: false,
-				dots: true,
-				appendDots: $('.logos-slider__dots'),
-				slidesToShow: 5,
-				slidesToScroll: 4,
-				responsive: [{
-					breakpoint: 992,
-					settings: {
-						slidesToShow: 4,
-					}
-				},{
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 3,
-					}
-				}, {
-					breakpoint: 576,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 2,
-					}
-				}]
+            const testimonials = $('.testimonials-slider')
 
-			})
+            if (!testimonials.length) return
 
-		}
+            const testimonialsOne = $('.testimonials-slider--style-1')
 
-		logosSlider()
+            testimonialsOne.slick({
 
-		// dual slider
+                arrows: false,
+                dots: true,
+                appendDots: $('.testimonials--style-1__dots'),
+                adaptiveHeight: true,
 
-		function dualSlider() {
+            })
 
-			const slider = $('.main-slider')
+            const testimonialsTwo = $('.testimonials-slider--style-2')
 
-			if (!slider.length) return
+            testimonialsTwo.slick({
 
-			slider.slick({
+                arrows: false,
+                dots: true,
+                fade: true,
+                appendDots: $('.testimonials--style-2__dots'),
+                adaptiveHeight: true,
 
-				slidesToShow: 1,
-				slidesToScroll: 1,
-				arrows: false,
-				asNavFor: '.nav-slider',
-				fade: true,
+            })
 
-			})
+            const testimonialsThree = $('.testimonials-slider--style-3')
 
-			const navSlider = $('.nav-slider')
+            testimonialsThree.slick({
 
-			navSlider.slick({
+                arrows: false,
+                dots: true,
+                fade: true,
+                appendDots: $('.testimonials--style-3__dots'),
+                adaptiveHeight: true,
 
-				slidesToShow: 4,
-				slidesToScroll: 1,
-				asNavFor: '.main-slider',
-				focusOnSelect: true,
-				arrows: false,
+            })
 
-			})
+        }
 
-		}
+        testimonialsSlider()
 
-		dualSlider()
+        // logos slider
 
-		// related slider
+        function logosSlider() {
 
-		function relatedSlider() {
+            const slider = $('.logos-slider')
 
-			const relatedSlider = $('.related-slider')
+            if (!slider.length) return
 
-			if (!relatedSlider.length) return
+            slider.slick({
 
-			relatedSlider.slick({
+                arrows: false,
+                dots: true,
+                appendDots: $('.logos-slider__dots'),
+                slidesToShow: 5,
+                slidesToScroll: 4,
+                responsive: [{
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                }, {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                    }
+                }, {
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                    }
+                }]
 
-				slidesToShow: 4,
-				slidesToScroll: 2,
-				arrows: false,
-				dots: true,
-				appendDots: $('.related-slider__dots'),
+            })
 
-				responsive: [{
-					breakpoint: 1200,
-					settings: {
-						slidesToShow: 3,
-					}
-				}, {
-					breakpoint: 992,
-					settings: {
-						slidesToShow: 2,
-					}
-				}, {
-					breakpoint: 576,
-					settings: {
-						slidesToShow: 1,
-					}
-				}]
+        }
 
-			})
+        logosSlider()
 
-		}
+        // dual slider
 
-		relatedSlider()
+        function dualSlider() {
 
-		// tours slider
+            const slider = $('.main-slider')
 
-		function toursSlider() {
+            if (!slider.length) return
 
-			const slider = $('.tours-slider')
+            slider.slick({
 
-			if (!slider.length) return
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                asNavFor: '.nav-slider',
+                fade: true,
 
-			slider.slick({
+            })
 
-				arrows: false,
-				dots: true,
-				appendDots: $('.tours-slider__dots'),
-				slidesToShow: 3,
-				responsive: [{
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-					}
-				}, {
-					breakpoint: 480,
-					settings: {
-						slidesToShow: 1,
-					}
-				}]
+            const navSlider = $('.nav-slider')
 
-			})
+            navSlider.slick({
 
-		}
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                asNavFor: '.main-slider',
+                focusOnSelect: true,
+                arrows: false,
 
-		toursSlider()
+            })
 
-		// donations slider
+        }
 
-		function donationSlider() {
+        dualSlider()
 
-			const slider = $('.donation-slider')
+        // related slider
 
-			if (!slider.length) return
-			
-			slider.slick({
+        function relatedSlider() {
 
-				slidesToShow: 2,
-				arrows: false,
-				dots: true,
-				appendDots: $('.donation-slider__dots'),
+            const relatedSlider = $('.related-slider')
 
-				responsive: [{
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 1,
-					}
-				}]
+            if (!relatedSlider.length) return
 
-			})
+            relatedSlider.slick({
 
-		}
+                slidesToShow: 4,
+                slidesToScroll: 2,
+                arrows: false,
+                dots: true,
+                appendDots: $('.related-slider__dots'),
 
-		donationSlider()
+                responsive: [{
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                }, {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                }, {
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }]
 
-		// instagram slider
+            })
 
-		function instagramSlider() {
+        }
 
-			const slider = $('.instagram-slider')
+        relatedSlider()
 
-			if (!slider.length) return
+        // tours slider
 
-			slider.slick({
+        function toursSlider() {
 
-				arrows: false,
-				dots: false,
-				slidesToShow: 6,
-				responsive: [{
-					breakpoint: 1600,
-					settings: {
-						slidesToShow: 5,
-					}
-				}, {
-					breakpoint: 1200,
-					settings: {
-						slidesToShow: 4,
-					}
-				}, {
-					breakpoint: 992,
-					settings: {
-						slidesToShow: 3,
-					}
-				}, {
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-					}
-				}]
+            const slider = $('.tours-slider')
 
-			})
+            if (!slider.length) return
 
-		}
+            slider.slick({
 
-		instagramSlider()
+                arrows: false,
+                dots: true,
+                appendDots: $('.tours-slider__dots'),
+                slidesToShow: 3,
+                responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                }, {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }]
 
-		// destination slider
+            })
 
-		function destSlider() {
+        }
 
-			const slider = $('.destination-slider')
+        toursSlider()
 
-			if (!slider.length) return
+        // donations slider
 
-			slider.slick({
+        function donationSlider() {
 
-				arrows: false,
-				dots: true,
-				appendDots: $('.destination-slider__dots'),
-				slidesToShow: 4,
-				slidesToScroll: 2,
+            const slider = $('.donation-slider')
 
-				responsive: [{
-					breakpoint: 992,
-					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 2,
-					}
-				}, {
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 1,
-					}
-				}, {
-					breakpoint: 480,
-					settings: {
-						slidesToShow: 1,
-					}
-				}]
+            if (!slider.length) return
 
-			})
+            slider.slick({
 
-		}
+                slidesToShow: 2,
+                arrows: false,
+                dots: true,
+                appendDots: $('.donation-slider__dots'),
 
-		destSlider()
+                responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }]
 
-		// blogs slider
+            })
 
-		function blogsSlider() {
+        }
 
-			const slider = $('.blogs-slider')
+        donationSlider()
 
-			if (!slider.length) return
+        // instagram slider
 
-			slider.slick({
+        function instagramSlider() {
 
-				arrows: false,
-				dots: true,
-				appendDots: $('.blogs-slider__dots'),
-				slidesToShow: 2,
-				slidesToScroll: 1,
+            const slider = $('.instagram-slider')
 
-				responsive: [{
+            if (!slider.length) return
 
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 1,
-					}
+            slider.slick({
 
-				}]
+                arrows: false,
+                dots: false,
+                slidesToShow: 6,
+                responsive: [{
+                    breakpoint: 1600,
+                    settings: {
+                        slidesToShow: 5,
+                    }
+                }, {
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                }, {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                }, {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                }]
 
-			})
+            })
 
-		}
+        }
 
-		blogsSlider()
+        instagramSlider()
 
-		// fishes slider
+        // destination slider
 
-		function fishesSlider() {
+        function destSlider() {
 
-			const slider = $('.fishes-slider')
+            const slider = $('.destination-slider')
 
-			if (!slider.length) return
+            if (!slider.length) return
 
-			slider.slick({
+            slider.slick({
 
-				arrows: false,
-				dots: true,
-				appendDots: $('.fishes-slider__dots'),
-				slidesToShow: 5,
-				slidesToScroll: 2,
+                arrows: false,
+                dots: true,
+                appendDots: $('.destination-slider__dots'),
+                slidesToShow: 4,
+                slidesToScroll: 2,
 
-				responsive: [{
-					breakpoint: 1830,
-					settings: {
-						slidesToShow: 4,
-					}
-				}, {
-					breakpoint: 992,
-					settings: {
-						slidesToShow: 3,
-					}
-				}, {
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 2,
-					}
-				}, {
-					breakpoint: 576,
-					settings: {
-						slidesToShow: 1,
-					}
-				}]
+                responsive: [{
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 2,
+                    }
+                }, {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    }
+                }, {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }]
 
-			})
+            })
 
-		}
+        }
 
-		fishesSlider()
+        destSlider()
 
-		// pages slider
+        // blogs slider
 
-		function pagesSlider() {
+        function blogsSlider() {
 
-			const slider = $('.pages-slider')
+            const slider = $('.blogs-slider')
 
-			if (!slider.length) return
+            if (!slider.length) return
 
-			const dots  = $('.pages-slider__dots')
+            slider.slick({
 
-			slider.slick({
+                arrows: false,
+                dots: true,
+                appendDots: $('.blogs-slider__dots'),
+                slidesToShow: 2,
+                slidesToScroll: 1,
 
-				slidesToShow: 2,
-				arrows: false,
-				dots: true,
-				appendDots: dots,
-				adaptiveHeight: true,
-				responsive: [{
-					breakpoint: 992,
-					settings: {
-						slidesToShow: 2,
-					}
-				}, {
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 1,
-					}
-				}]
+                responsive: [{
 
-			})
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                    }
 
-		}
+                }]
 
-		pagesSlider()
+            })
 
-		// contact form
+        }
 
-		function form() {
+        blogsSlider()
 
-			const jsform = $('#ajax-form')
+        // fishes slider
 
-			if (!jsform.length) return
+        function fishesSlider() {
 
-			$('#ajax-form').validate({
+            const slider = $('.fishes-slider')
 
-				rules: {
-					name: {
-						required: true,
-						minlength: 2
-					},
-					email: {
-						required: true,
-						email: true
-					},
-					phone: {
-						required: true,
-					},
-					message: {
-						required: true,
-					}
-				},
+            if (!slider.length) return
 
-				messages: {
-					name: {
-						required: "Please enter your name",
-						minlength: "Your name must consist of at least 2 characters"
-					},
-					email: {
-						required: "Please enter your email"
-					},
-					phone: {
-						required: "Please enter your phone number"
-					},
-					message: {
-						required: "Please enter your message"
-					}
-				},
+            slider.slick({
 
-				submitHandler: function(form) {
+                arrows: false,
+                dots: true,
+                appendDots: $('.fishes-slider__dots'),
+                slidesToShow: 5,
+                slidesToScroll: 2,
 
-					$(form).ajaxSubmit({
+                responsive: [{
+                    breakpoint: 1830,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                }, {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 3,
+                    }
+                }, {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                }, {
+                    breakpoint: 576,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }]
 
-						type:"POST",
-						data: $(form).serialize(),
-						url:"form.php",
+            })
 
-						success: function() {
+        }
 
-							$('.alert--success').fadeIn()
-							$('#ajax-form').each(function(){
+        fishesSlider()
 
-								this.reset()
+        // pages slider
 
-							})
+        function pagesSlider() {
 
-						},
+            const slider = $('.pages-slider')
 
-						error: function() {
+            if (!slider.length) return
 
-							$('.alert--error').fadeIn()
+            const dots = $('.pages-slider__dots')
 
-						}
-					})
-				}
-			})
+            slider.slick({
 
-		}
+                slidesToShow: 2,
+                arrows: false,
+                dots: true,
+                appendDots: dots,
+                adaptiveHeight: true,
+                responsive: [{
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                }, {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }]
 
-		form()
+            })
 
-	})
+        }
+
+        pagesSlider()
+
+        // contact form
+
+        function form() {
+
+            const jsform = $('#ajax-form')
+
+            if (!jsform.length) return
+
+            $('#ajax-form').validate({
+
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 2
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phone: {
+                        required: true,
+                    },
+                    message: {
+                        required: true,
+                    }
+                },
+
+                messages: {
+                    name: {
+                        required: "Please enter your name",
+                        minlength: "Your name must consist of at least 2 characters"
+                    },
+                    email: {
+                        required: "Please enter your email"
+                    },
+                    phone: {
+                        required: "Please enter your phone number"
+                    },
+                    message: {
+                        required: "Please enter your message"
+                    }
+                },
+
+                submitHandler: function(form) {
+
+                    $(form).ajaxSubmit({
+
+                        type: "POST",
+                        data: $(form).serialize(),
+                        url: "form.php",
+
+                        success: function() {
+
+                            $('.alert--success').fadeIn()
+                            $('#ajax-form').each(function() {
+
+                                this.reset()
+
+                            })
+
+                        },
+
+                        error: function() {
+
+                            $('.alert--error').fadeIn()
+
+                        }
+                    })
+                }
+            })
+
+        }
+
+        form()
+
+    })
 
 }(jQuery))
+var LoginModalController = {
+    tabsElementName: ".logmod__tabs li",
+    tabElementName: ".logmod__tab",
+    inputElementsName: ".logmod__form .input",
+    hidePasswordName: ".hide-password",
+
+    inputElements: null,
+    tabsElement: null,
+    tabElement: null,
+    hidePassword: null,
+
+    activeTab: null,
+    tabSelection: 0, // 0 - first, 1 - second
+
+    findElements: function() {
+        var base = this;
+
+        base.tabsElement = $(base.tabsElementName);
+        base.tabElement = $(base.tabElementName);
+        base.inputElements = $(base.inputElementsName);
+        base.hidePassword = $(base.hidePasswordName);
+
+        return base;
+    },
+
+    setState: function(state) {
+        var base = this,
+            elem = null;
+
+        if (!state) {
+            state = 0;
+        }
+
+        if (base.tabsElement) {
+            elem = $(base.tabsElement[state]);
+            elem.addClass("current");
+            $("." + elem.attr("data-tabtar")).addClass("show");
+        }
+
+        return base;
+    },
+
+    getActiveTab: function() {
+        var base = this;
+
+        base.tabsElement.each(function(i, el) {
+            if ($(el).hasClass("current")) {
+                base.activeTab = $(el);
+            }
+        });
+
+        return base;
+    },
+
+    addClickEvents: function() {
+        var base = this;
+
+        base.hidePassword.on("click", function(e) {
+            var $this = $(this),
+                $pwInput = $this.prev("input");
+
+            if ($pwInput.attr("type") == "password") {
+                $pwInput.attr("type", "text");
+                $this.text("Hide");
+            } else {
+                $pwInput.attr("type", "password");
+                $this.text("Show");
+            }
+        });
+
+        base.tabsElement.on("click", function(e) {
+            var targetTab = $(this).attr("data-tabtar");
+
+            e.preventDefault();
+            base.activeTab.removeClass("current");
+            base.activeTab = $(this);
+            base.activeTab.addClass("current");
+
+            base.tabElement.each(function(i, el) {
+                el = $(el);
+                el.removeClass("show");
+                if (el.hasClass(targetTab)) {
+                    el.addClass("show");
+                }
+            });
+        });
+
+        base.inputElements.find("label").on("click", function(e) {
+            var $this = $(this),
+                $input = $this.next("input");
+
+            $input.focus();
+        });
+
+        return base;
+    },
+
+    initialize: function() {
+        var base = this;
+
+        base.findElements().setState().getActiveTab().addClickEvents();
+    }
+};
+
+$(document).ready(function() {
+    LoginModalController.initialize();
+});

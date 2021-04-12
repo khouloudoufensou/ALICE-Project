@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<main class="main">
+    <!-- promo start-->
+    <section class="promo-primary">
+        <picture>
+            <source srcset="{{asset('/images/suntree.jpg')}}" media="(min-width: 992px)" /><img class="img--bg" src="{{asset('/images/suntree.jpg')}}" alt="img" />
+        </picture>
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="align-container">
+                        <div class="align-container__item"><span class="promo-primary__pre-title"><span class="color--orange">O</span>pt<span class="color--orange">e</span>z pour une <span class="color--orange">n</span>ouve
+                            <span class="color--orange">l</span>e branche, l<span class="color--orange">a</span> VOT<span class="color--orange">R</span>E</span>
+                            <h1 class="promo-primary__title"><span>S<span class="color--orange">i</span>mp<span class="color--orange">l</span>e</span> <span><span class="color--orange">&</span> Rap<span class="color--orange">i</span>d<span class="color--orange">e</span></span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- promo end-->
+    <!-- section start-->
+    <section class="section background--gray">
+        <div class="container">
+            <div class="row offset-margin">
+                <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-0 col-xl-4 margin-bottom">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+
+                    {% endif %}
+                
+                    <form class="form account-form sign-in-form" method="post" action="{{path("app_login", {form: 'login'})}}">
+                    
+                       
+
+                        {# {% if app.user %}
+                            <div class="mb-3">
+                                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                            </div>
+                        {% endif %} #}
+
+
+                        <div class="form__fieldset">
+                            <h6 class="form__title">Connectez-vous</h6>
+                            <div class="row">
+                                <div class="col-12">                                   
+                                    <input class="form__field"  type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="E-mail" required >
+
+                                    <input type="password" name="password" id="inputPassword" class=" form__field" placeholder="Mot de passe" required >
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                    <div class="checkbox mb-3">
+                                        <label>
+                                            <input type="checkbox" name="_remember_me"> Remember me
+                                        </label>
+                                    </div>
+                                </div>
+                                </br>
+
+                                <div class="col-12 text-center"><span>Mot de passe oublié?
+                                        </br>
+                                        </br>
+                                        </br>
+                                        </br>
+
+                                        <a class="form__link" href="{{path('app_forgot_password_request')}}">Réinitialisation mot de passe
+                                        </a></span></div>
+                                <div class="col-12">
+
+                                    <button class="form__button form__submit" type="submit">
+                                        Connection
+                                    </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <img src="{{asset('/images/choice.jpg')}}" alt="choice">
+
+                <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-0 col-xl-4 margin-bottom">
+                    {% for flashError in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+                            
+
+                    {{form_start(form, {
+                        'attr': {
+                            'class':"form account-form sign-up-form"
+                        }
+                    })}}
+                        <div class="form__fieldset">
+                            
+                            <h6 class="form__title">Inscrivez-vous</h6>
+                            <div class="row">
+                                <div class="col-12">
+                                    {{form_widget(form)}}
+                                   
+                                </div>
+
+                               
+                                
+                            </div>
+                        </div>
+                    {{form_end(form)}}
+                 
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section end-->
+</main>
+{% endblock %}

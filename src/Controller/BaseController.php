@@ -34,18 +34,13 @@ class BaseController extends AbstractController
 
     public function header(string $routeName, ArticleRepository $articleRepository)
     {
-        // $articles = [
-        //     [ 'titre' => 'Article 1' ],
-        //     [ 'titre' => 'Article 2' ],
-        //     [ 'titre' => 'Article 3' ],
-        // ];
-
+        
         return $this->render('base/_header.html.twig', [
             'articles' => $articleRepository->findRecentArticles(3),
-            'route_name' => $routeName,
+            'route_name' => $routeName
+            
         ]);
     }
-    
     
     /**
      * @Route("/redirect-user", name="redirect_user")
