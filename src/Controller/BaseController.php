@@ -65,33 +65,23 @@ class BaseController extends AbstractController
 
         if ($this->isGranted('ROLE_ADMIN')){
             
-            // dd("hello ADMIN");
+            dd("hello ADMIN");
 
             Return $this->redirectToRoute('admin');
 
         }elseif($this->isGranted('ROLE_MEMBER')){
 
-            // dd("hello membre");
+            dd("hello membre");
 
             Return $this->redirectToRoute('member');
 
         }else{
-                // dd("hello Khouloud");
+                dd("hello Khouloud");
             
             Return $this->redirectToRoute('home');
         }
     }
   
-     /**
-     * @Route("/change-locale/{locale}", name="change_locale")
-     */
-    public function changeLocale(string $locale, Request $request)
-    {
-        $request->getSession()->set('_locale', $locale);
-        $pathHome = $this->generateUrl('home');
-        $referer = $request->headers->get('referer', $pathHome);
-        return $this->redirect($referer);
-    }
 
       /**
      * @Route("/newsletters", name="newsletters", methods={"POST"})

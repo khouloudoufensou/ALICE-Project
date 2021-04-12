@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Formation;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType as TypeDateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -34,7 +34,7 @@ class FormationType extends AbstractType
             ->add('price',IntegerType::class,[
                 'label' => "Ajoutez un prix"
             ] )
-            ->add('startAt',DateType::class,[
+            ->add('startAt',TypeDateTimeType::class,[
                 'label' => "Ajoutez la date de debut de la formation",
                 'date_widget' => 'single_text'
             ])
