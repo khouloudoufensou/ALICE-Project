@@ -103,9 +103,9 @@
                 <div class="col-7 col-lg-9 d-flex justify-content-end align-items-center">
                     <!-- main menu start-->
                     <ul class="main-menu">
-                        <li class="main-menu__item  {{route_name == 'home' ? 'main-menu__item--active' }} "><a class="main-menu__link" href="{{path("home")}}"><span>Accueil</span></a>
+                            <li class="main-menu__item  {{route_name == 'home' ? 'main-menu__item--active' }} "><a class="main-menu__link" href="{{path("home")}}"><span>Accueil</span></a>
 
-                            <li class="main-menu__item"><a class="main-menu__link" href="blog.html"><span>Blog</span></a>
+                            <li class="main-menu__item {{route_name == 'blog' ? 'main-menu__item--active' }}"><a class="main-menu__link" href="{{path("blog")}}"><span>Blog</span></a>
                             </li>
 
                             <li class="main-menu__item 
@@ -122,7 +122,8 @@
                                 {% endif %}
                                 
                             </li>
-                            <li class="main-menu__item"><a class="main-menu__link" href="contacts.html"><span>Contacts</span></a></li>
+                            <li class="main-menu__item {{route_name == 'contact' ? 'main-menu__item--active' }}"><a class="main-menu__link" href="{{path("contact")}}"><span>Contacts</span></a></li>
+
                             <li class="main-menu__item {{route_name == 'calendrier' ? 'main-menu__item--active' }}"><a class="main-menu__link " href="{{path("calendrier")}}"><span>Agenda</span></a>
                             </li>
                     </ul>

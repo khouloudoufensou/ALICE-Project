@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\NewslettersRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -22,6 +23,7 @@ class Newsletters
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank (message="Merci d'entrer votre email")
      */
     private $email;
 

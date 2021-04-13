@@ -4,51 +4,228 @@
 
 {% block body %}
 
-<div class="text-center">
-<h1>Bienvenue sur le blog de l'association SL2Alice</h1>
-<div class="lead">Découvrez les secrets de la nature</div>
-</div>
-
-    {# <section class="articles">
-        {% for article in articles %}
+<main class="main">
+    <!-- promo start-->
+    <section class="promo-primary">
+        <picture>
+            <source srcset=" {{asset('/images/whereareyou.jpg')}}" media="(min-width: 992px)" /><img class="img--bg" src="{{asset('/images/whereareyou.jpg')}}" alt="img" />
+        </picture>
         <div class="container">
-                <h2>{{ article.title }}</h2>
-            <div class="metadata">Ecrit le {{ article.createdAt | ('d/m/Y')}} </div>
-            <div class="content">
-            <img src="{{ article.image }}" alt="">
-            {{ article.content |raw}}
-            <a href="{{ path('blog_article') }}" class="btn btn-secondary mb-2">Lire la suite</a>
-            </div>
-        </div>
-        {% endfor %}
-    </section> #}
-
-
-
-<div class="row mt-5">
-{% for article in articles %}
-            <div class="col-md-6 col-lg-4 mb-3">
-                <div class="card" style="width: 22rem; height: 30rem;">
-                    <a href="{{ path('blog_article', {id: article.id}) }}">
-                        <div class="img-ratio" style="--ratio: 60%;">
-                            <div class="img">
-                                <img src="{{ asset(article.imagePath) }}" class="card-img-top w-100" style="width: 22rem; height: 15rem;" alt="card-image cap">
-                            </div>
+            <div class="row">
+                <div class="col-auto">
+                    <div class="align-container">
+                        <div class="align-container__item"><span class="promo-primary__pre-title"></span>
+                            <h1 class="promo-primary__title"><span>Notre</span> <span>Blog autonome</span></h1>
                         </div>
-                    </a>
-                    <div class="card-body" style="width: 22rem; height: 15rem;">
-                        <h5 class="card-title">{{ article.title }}</h5>
-                        <p class="content">{{ article.contentEllipsis|raw }}</p>
-                        <a href="{{ path('blog_article', {id: article.id}) }}" class="btn btn-secondary mb-2">Lire la suite</a>
                     </div>
                 </div>
             </div>
-         {% endfor %}
-    </div>
+        </div>
+    </section>
+    <!-- promo end-->
+    <!-- blog start-->
+    <section class="section blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-xl-9">
+                    <div class="row">
 
-    <div class="navigation">
-        {{ knp_pagination_render(articles) }}
-    </div>
+                        {% for article in articles %}
+                        <div class="col-12">
+                            <div class="blog-item">
+                                <a href="{{ path('blog_article', {id: article.id}) }}">
+                                <div class="blog-item__img"><img class="img--bg" src="{{ asset(article.imagePath) }}" alt="blog" />
+                                    
+                                </div>
+                                </a>
+                                <div class="blog-item__date">
+                                
+                                <span>{{article.createdAt|date('d')}}</span>
+                                <span>{{article.createdAt|date('F')|format_datetime( locale='fr', pattern="MMMM")}}</span>
+                                </div>
+                                <h4 class="blog-item__title"><a href="#">{{ article.title }}</a></h4>
+                                <p>{{ article.contentEllipsis|raw }} </p>
+                                
+                            </div>
+                        </div>
+                        {% endfor %}
 
 
+                            
+                        <div class="col-12 text-center">
+                            <ul class="pagination blog__pagination">
+                                <li class="pagination__item pagination__item--prev"><i class="fa fa-angle-left" aria-hidden="true"></i><span>Back</span>
+                                </li>
+                                <li class="pagination__item"><span>1</span></li>
+                                <li class="pagination__item pagination__item--active"><span>2</span></li>
+                                <li class="pagination__item"><span>3</span></li>
+                                <li class="pagination__item"><span>4</span></li>
+                                <li class="pagination__item"><span>5</span></li>
+                                <li class="pagination__item pagination__item--next"><span>Next</span><i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 offset-md-2 col-lg-4 offset-lg-0 col-xl-3">
+                    <div class="blog__inner-block bottom-50">
+                        <form class="search-form" action="javascript:void(0);">
+                            <input class="search-form__input" type="search" name="search" placeholder="Search Here" />
+                            <button class="search-form__submit" type="submit">
+                                <svg class="icon">
+                                    <use xlink:href="#search"></use>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="blog__inner-block bottom-50">
+                        <h5 class="blog__title">Les dernières actu'</h5>
+                        <div class="latest-item">
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <div class="latest-item__img"><img class="img--bg" src="{{asset ('images/semis.jpg')}}" alt="img" /></div>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="latest-item__title"><a href="#">Des semis même en hiver</a></h6>
+                                    <div class="latest-item__details">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="latest-item__date">Mars 2021</div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="latest-item__comments">
+                                                    <svg class="icon">
+                                                    <use xlink:href="#comment"></use>
+                                                </svg><span>145</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="latest-item">
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <div class="latest-item__img"><img class="img--bg" src="{{asset ('images/paillage.jpg')}} " alt="img" /></div>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="latest-item__title"><a href="#">Paillage</a></h6>
+                                    <div class="latest-item__details">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="latest-item__date">Juillet 2020</div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="latest-item__comments">
+                                                    <svg class="icon">
+                                                            <use xlink:href="#comment"></use>
+                                                    </svg><span>47</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="latest-item">
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <div class="latest-item__img"><img class="img--bg" src="{{asset ('images/veggies.jpg')}} " alt="img" /></div>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="latest-item__title"><a href="#">Le potager lunaire</a></h6>
+                                    <div class="latest-item__details">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="latest-item__date">11 nov 2018</div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="latest-item__comments">
+                                                    <svg class="icon">
+                                                        <use xlink:href="#comment"></use>
+                                                    </svg><span>78</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="latest-item">
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <div class="latest-item__img"><img class="img--bg" src="{{asset ('images/strawhand.jpg')}} " alt="img" /></div>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="latest-item__title"><a href="#">Les gariguettes des caraibes</a></h6>
+                                    <div class="latest-item__details">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="latest-item__date">11 nov 2018</div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="latest-item__comments">
+                                                    <svg class="icon">
+                                                            <use xlink:href="#comment"></use>
+                                                        </svg><span>28</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="latest-item">
+                            <div class="row align-items-center">
+                                <div class="col-4">
+                                    <div class="latest-item__img"><img class="img--bg" src="{{asset ('images/finger.jpg')}} " alt="img" /></div>
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="latest-item__title"><a href="#">Des semis d'ailleurs contre celle d'ici</a></h6>
+                                    <div class="latest-item__details">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <div class="latest-item__date">11 nov 2018</div>
+                                            </div>
+                                            <div class="col-5">
+                                                <div class="latest-item__comments">
+                                                    <svg class="icon">
+                                                            <use xlink:href="#comment"></use>
+                                                        </svg><span>284</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="blog__inner-block bottom-50">
+                        <h5 class="blog__title">Archive</h5>
+                        <ul class="categories-list">
+                            <li class="categories-list__item categories-list__item--active"><span class="categories-list__name">Avril</span><span class="categories-list__count">2021</span></li>
+                            <li class="categories-list__item"><span class="categories-list__name">Février</span><span class="categories-list__count">2021</span></li>
+                            <li class="categories-list__item"><span class="categories-list__name">Novembre</span><span class="categories-list__count">2020</span></li>
+                            <li class="categories-list__item"><span class="categories-list__name">Août</span><span class="categories-list__count">2020</span></li>
+                            <li class="categories-list__item"><span class="categories-list__name">Avril</span><span class="categories-list__count">2020</span></li>
+                            <li class="categories-list__item"><span class="categories-list__name">Janvier</span><span class="categories-list__count">2020</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="blog__inner-block bottom-50">
+                        <h5 class="blog__title">Tags</h5>
+                        <div class="tags tags--style-2"><a class="tags__item" href="#">Permaculture</a><a class="tags__item" href="#">Culture paysanne</a><a class="tags__item" href="#">Logement sénior</a><a class="tags__item" href="#">Kids</a><a class="tags__item" href="#">Éco-construction</a>
+                            <a class="tags__item" href="#">Pédagogie montessori</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- blog end-->
+</main>                                   
 {% endblock %}

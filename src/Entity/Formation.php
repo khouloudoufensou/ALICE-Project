@@ -59,7 +59,7 @@ class Formation
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank (message="Merci d'indiquer la presentation de l'intervenant")
+     * @Assert\NotBlank (message="Merci d'indiquer la présentation de l'intervenant")
      */
     private $presSpeaker;
 

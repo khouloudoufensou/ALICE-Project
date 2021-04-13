@@ -129,6 +129,7 @@
             {{ avis.message|nl2br }}
         </div>
         <div class="row">
+            
             <b>Publié le {{ avis.creatAt|date('d/m/Y')}} par {{avis.user.Fullname}}</b>
             
             {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::EDIT'), avis) %} 
@@ -155,7 +156,9 @@
                 Laissez votre avis
             </div>
             <div class="row">
-            {{form(form)}}
+                <div class="col-xl-6">
+                    {{form(form)}}
+                 </div>   
             </div>
         {% endif %}
     <br>

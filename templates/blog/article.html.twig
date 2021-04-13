@@ -3,52 +3,88 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block body %}
+<main class="main">
+ <!-- blog post start-->
+        <section class="section blog-post">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 offset-xl-2">
+                        <div class="blog-post__top">
+                            <div class="blog-post__img"><img class="img--bg" src="{{ asset(article.imagePath) }}" alt="img" /></div>
+                            <div class="blog-post__description">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <div class="blog-post__author"><span class="blog-post__author-img"><img class="img--bg" src="img/id3.jpg" alt="author"/></span><span class="blog-post__author-name">{{ article.author }}</span></div>
+                                    </div>
+                                    <div class="col-6 text-right"><span class="blog-post__date">{{ article.createdAt|date('d/m/Y') }}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5>{{ article.title }}</h5>
+                        <p>{{ article.content|nl2br }}</p>
 
-        <div class="mb-4">
-            <a href="{{ path('blog') }}" class="small text-dark text-decoration-none">&#8592; Retour</a>
-        </div>    
-     
-     
-        <img src="{{ asset(article.imagePath) }}" alt="" class="w-50">
+                        <div class="blog-post__details">
+                            <div class="row align-items-center">
+                                <div class="col-md-4 text-center text-md-left">
 
-        <div class="mt-3">
-                <h1>{{ article.title }}</h1>
-                <div class="lead">Publié le {{ article.createdAt|date('d/m/Y') }} par {{ article.author }}</div>
-        </div>
+                                </div>
+                                <div class="col-md-4 text-center d-flex align-items-center justify-content-center">
+                                    <div class="blog-post__comments-count">
+                                        <svg class="icon">
+													<use xlink:href="#comment"></use>
+												</svg><span>LES COMMENTAIRES:</span>
+                                    </div>
+                                </div>
 
-        <div class="my-4">{{ article.content|nl2br }}</div>
-              
-    <hr>
+                            </div>
+                        </div>
+                        <h6 class="comments__trigger">{{ article.comments.count }} commentaires:</h6>
+                        <div class="comments">
+                            {% for comment in article.comments %}
+                                <div class="comments__item">
+                                    <div class="comments__item-description">
+                                        <div class="row align-items-center">
+                                            <div class="col-12 col-sm-4 col-md-3"><span class="comments__item-name">{{ comment.pseudo }}</span></div>
+                                            <div class="col-10 col-md-7"><span class="comments__item-date">{{ comment.createdAt|date('d/m/Y') }}</span></div>
+                                            <div class="col-2 text-right"><span class="comments__item-action">
+                                                        <svg class="icon">
+                                                            <use xlink:href="#previous"></use>
+                                                        </svg></span></div>
+                                            <div class="col-12">
+                                                <div class="comments__item-text">
+                                                    <p>{{ comment.message|nl2br }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-    <div class="text-center">
-        <h2>Commentaires ({{ article.comments.count }})</h2>
-    </div>
+                            {% endfor %}
+                                
+                        </div>
 
-    {% for comment in article.comments %}
-        <div class="my-3"><b>Publié le {{ comment.createdAt|date('d/m/Y') }} par 
-        {{ comment.Pseudo }}</b>
-            <div>{{ comment.message|nl2br }}</div>
-        </div>
+                        <h6 class="blog-post__title bottom-30">Commenter</h6>
+                                {{ form_start(form) }} 
+                                <div class="row"> 
+                                    <div class="col-12">
+                                        {{ form_row(form.message,{ 'label':false, 'attr': {'class': 'form__field form__message', 'placeholder': 'Text'} }) }}
+                                    </div>
 
-        <hr>
-    {% endfor %}
+                                    <div class="col-md-6">
+                                        {{ form_row(form.pseudo,{ 'label':false ,'attr': {'class': 'form__field','placeholder': 'Pseudo'} }) }}
+                                    </div>
+                                   
 
-    <div class="lead">Laissez nous un commentaire :</div>
-                           
-            {{ form_start(form) }}
-
-            
-             <div class="mt-3">
-                {{ form_row(form.pseudo) }}
+                                    <div class="col-12">
+                                        {{ form_widget(form.submit, { 'attr': {'class': 'form__submit'} }) }}
+                                    </div>
+                                </div>      
+                                {{ form_end(form) }}  
+       
+                    </div>
+                </div>
             </div>
-            <div class="mt-3">
-                {{ form_row(form.message) }}
-            </div>
-
-            <div class="mt-3">
-                {{ form_widget(form.submit, { 'attr': {'class': 'btn btn-warning'} }) }}
-            </div>
-
-            {{ form_end(form) }}
-        
+        </section>
+        <!-- blog post end-->
+</main>     
 {% endblock %}

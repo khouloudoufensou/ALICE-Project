@@ -67,18 +67,18 @@ class BaseController extends AbstractController
             
             // dd("hello ADMIN");
 
-            Return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('admin');
 
         }elseif($this->isGranted('ROLE_MEMBER')){
 
             // dd("hello membre");
 
-            Return $this->redirectToRoute('member');
+            return $this->redirectToRoute('member');
 
         }else{
             // dd("hello Khouloud");
             
-            Return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
         }
     }
   

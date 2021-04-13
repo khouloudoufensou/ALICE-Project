@@ -18,7 +18,7 @@ class AvisType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'rows' => 5,
-                    'class'=>'form__field'
+                    'class'=>'form__field form__message'
                 ]
             ])
             
