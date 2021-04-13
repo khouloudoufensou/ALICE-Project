@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Service\EmailService;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,43 +13,57 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
 {
-    /**
+   
+    // public function index(Request $request, EmailService $emailService): Response
+    // {
+
+    // }
+
+     /**
      * @Route("/contact", name="contact")
      */
-    public function index(Request $request, EmailService $emailService): Response
+    public function contact(Request $request, EmailService $emailService): Response
     {
-        if ($request->isMethod('POST')) {
-            $email = $request->request->get('email');
-            $message = $request->request->get('message');
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
 
-            if ($email && $message) {
-                
-                // dd($email && $message);
-                
-                $sent = $emailService->send([
-                    'replyTo' => $email,
-                    'subject' => "CONTACT DU SITE",
-                    'template' => 'email/contact.html.twig',
-                    'context' => [
-                        'mail' => $email,
-                        'message' => $message,
-                    ]
-                ]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact->setSentAt(new DateTime());
 
-                if ($sent) {
-                    $this->addFlash('success', "<b>Merci !</b> Nous avons bien reçu votre message.");
-                    return $this->redirectToRoute('contact');
-                } else {
-                    $this->addFlash('danger', "Le mail n'a malheureusement pas pu être envoyé :(");
-                }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
 
+
+            $sentToAdmin = $emailService->send([
+                'replyTo' => $contact->getEmail(),
+                'subject' => '[CONTACT] - ' . $contact->getSujet(),
+                'template' => 'email/contact1.html.twig',
+                'context' => [ 'contact' => $contact],
+            ]);
+
+            // Accusé de réception
+            $sentToContact = $emailService->send([
+                'to' => $contact->getEmail(),
+                'subject' => "Merci de nous avoir contacté.",
+                'template' => 'email/contact_confirmation.html.twig',
+                'context' => [ 'contact' => $contact ],
+            ]);
+
+            if ($sentToAdmin && $sentToContact) {
+                $this->addFlash('success', "Merci de nous avoir contacté");
+                return $this->redirectToRoute('contact');
             } else {
-                $this->addFlash('danger', "Le formulaire contient des erreurs");
+                $this->addFlash('danger',"Une erreur est survenue pendant l'envoi d'email");
             }
         }
 
         return $this->render('contact/index.html.twig', [
-
+            'form' => $form->createView(),
+            'contact'=> $contact,
         ]);
     }
 }
+    
+

@@ -1,0 +1,14 @@
+{% extends "email/base.html.twig" %}
+
+{% block body %}
+
+    Bonjour ! <br>
+    Merci pour votre message, nous y répondrons rapidement !
+
+    <br><br>
+
+    Email : {{ contact.email }} <br>
+    Sujet : {{ contact.sujet }} <br>
+    Message : {{ contact.message|nl2br }} <br>
+   
+{% endblock %}

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\NewslettersRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=NewslettersRepository::class)
@@ -19,6 +21,7 @@ class Newsletters
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank (message="Merci d'entrer votre email")
      */
     private $email;
 

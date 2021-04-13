@@ -54,7 +54,7 @@ class BaseController extends AbstractController
         //     [ 'titre' => 'Article 3' ],
         // ];
 
-        return $this->render('base/_header.html.twig', [
+        return $this->render('base/_footer.html.twig', [
             'newsletters' => $newslettersType,
             'route_name' => $routeName,
         ]);
@@ -73,18 +73,18 @@ class BaseController extends AbstractController
             
             // dd("hello ADMIN");
 
-            Return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('admin');
 
         }elseif($this->isGranted('ROLE_MEMBER')){
 
             // dd("hello membre");
 
-            Return $this->redirectToRoute('member');
+            return $this->redirectToRoute('member');
 
         }else{
                 // dd("hello Khouloud");
             
-            Return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
         }
     }
   

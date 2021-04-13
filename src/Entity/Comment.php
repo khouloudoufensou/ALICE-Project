@@ -21,6 +21,7 @@ class Comment
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank (message="Merci d'indiquer votre commentaire")
      */
     private $message;
 
@@ -37,7 +38,7 @@ class Comment
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank
+     * @Assert\NotBlank (message="Veuillez renseigner ce champs")
      */
     private $Pseudo;
 

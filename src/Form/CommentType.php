@@ -25,7 +25,7 @@ class CommentType extends AbstractType
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                        'label' => "Ajouter votre commentaire",
+                        'label' => "Envoyer",
             ])
         ;
                               

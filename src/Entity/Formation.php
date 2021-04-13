@@ -57,7 +57,7 @@ class Formation
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank (message="Merci d'indiquer la presentation de l'intervenant")
+     * @Assert\NotBlank (message="Merci d'indiquer la présentation de l'intervenant")
      */
     private $presSpeaker;
 
@@ -75,7 +75,7 @@ class Formation
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank (message="Merci d'insere une photo")
+     * @Assert\NotBlank (message="Merci d'insérer une photo")
      */
     private $picture;
 

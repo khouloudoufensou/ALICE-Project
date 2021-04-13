@@ -10,8 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MemberController extends AbstractController
 {
     /**
-     * @Route("/", name="member")
-     * @IsGranted("ROLE_MEMBER")
+     * @Route("/espace-membre", name="member")
      */
     public function index(): Response
     {

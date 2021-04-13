@@ -1,44 +1,176 @@
-{% extends 'base.html.twig' %}
+    {% extends 'base.html.twig' %}
 
-{% block title %}Contact{% endblock %}
+    {% block title %}Contact{% endblock %}
 
-{% block body %}
+    {% block body %}
+                     
+        <!-- section start-->
+        <section class="section">
+            <div class="container">
+                <div class="row bottom-50">
+                    <div class="col-12">
+                        <div class="heading heading--primary heading--center">
+                            <h2 class="heading__title no-margin-bottom"><span>Gar<span class="color--orange">d</span>ons le <span class="color--orange">c</span>ontact</span>
+                                <span>ense<span class="color--orange">m</span>ble</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
 
+                        
+                                {{ form_start(form) }}
 
-<div class="row" style="padding-top: 200px;">
-    <div class="col-lg-8 mx-auto">
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        {{ form_row(form.email) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.sujet) }}
+                                    </div>
+                                </div>
 
-        <div class="text-center">
-            <h4>CONTACTEZ-NOUS</h4>
-            <h5>Une réponse vous sera faite sous 48h.</h5>
-        </div>
+                                <div class="mt-3">
+                                    {{ form_row(form.message) }}
+                                </div>
+                                
+                                <br>
 
-        <form class="mt-4" method="POST">
-            <div class="mb-3">
-                <label for="email" class="form-label" >Email</label>
-                <input type="email" placeholder="jdupont@gmailcom" class="form-control" name="email" id="email">
+                                <div class="col-12 text-center">
+                                    <input class="form__submit" type="submit" value="Envoyer votre message" />
+                                </div>
+
+                                {{ form_end(form) }}
+
+                           
+                     </div>
+                </div>
             </div>
-
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Choisissez un thème</option></option>
-                <option value="1">l'association</option>
-                <option value="2">le blog</option>
-                <option value="3">les stages et formations</option>
-                <option value="4">autres</option>
-            </select>
-          
-            <div class="mb-3">
-                <label for="message" class="form-label" >Message</label>
-                <textarea name="message" class="form-control" id="message" rows="10">
-                </textarea>
+        </section>
+        <!-- section end-->
+        <!-- section start-->
+        <section class="section elements no-padding-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-10">
+                        <h4 class="elements__title">Toute l'équipe est à votre écoute</h4>
+                    </div>
+                </div>
+                <div class="row offset-margin">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="team-item team-item--style-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="team-item__img"><img class="img--bg" src="img/id5.webp" alt="img" /></div>
+                                </div>
+                                <div class="col-lg-6 text-center text-lg-left">
+                                    <div class="team-item__name">Khouloud Oufensou</div>
+                                    <div class="team-item__position">Formatrice "Amendement et préparation des sols"</div>
+                                    <ul class="team-item__socials">
+                                        <li><a class="link--facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="team-item team-item--style-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="team-item__img"><img class="img--bg" src="img/id4.jpg" alt="img" /></div>
+                                </div>
+                                <div class="col-lg-6 text-center text-lg-left">
+                                    <div class="team-item__name">Halima Khatyr</div>
+                                    <div class="team-item__position">Formatrice "Architecture permacole et Biologie des sols"</div>
+                                    <ul class="team-item__socials">
+                                        <li><a class="link--facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="team-item team-item--style-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="team-item__img"><img class="img--bg" src="img/id6.jpg" alt="img" /></div>
+                                </div>
+                                <div class="col-lg-6 text-center text-lg-left">
+                                    <div class="team-item__name">Pezet Alexandre</div>
+                                    <div class="team-item__position">[Co-Fondateur du projet Alice] Formateur "design permacole"</div>
+                                    <ul class="team-item__socials">
+                                        <li><a class="link--facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="team-item team-item--style-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="team-item__img"><img class="img--bg" src="img/sylche.jpg" alt="img" /></div>
+                                </div>
+                                <div class="col-lg-6 text-center text-lg-left">
+                                    <div class="team-item__name">Sylvain Chevolleau</div>
+                                    <div class="team-item__position">[Fondateur du projet Alice], Maraîcher Bio, Cultivateur-paysant conscient.</div>
+                                    <ul class="team-item__socials">
+                                        <li><a class="link--facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="team-item team-item--style-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="team-item__img"><img class="img--bg" src="img/steph.jpg" alt="img" /></div>
+                                </div>
+                                <div class="col-lg-6 text-center text-lg-left">
+                                    <div class="team-item__name">Stéphane Le Borgne</div>
+                                    <div class="team-item__position">[Responsable Artistique Alice] Photographe, Réalisateur </div>
+                                    <ul class="team-item__socials">
+                                        <li><a class="link--facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="team-item team-item--style-3">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="team-item__img"><img class="img--bg" src="img/julie.jpg" alt="img" /></div>
+                                </div>
+                                <div class="col-lg-6 text-center text-lg-left">
+                                    <div class="team-item__name">Julie Rannard</div>
+                                    <div class="team-item__position">[In-Terre-venante] Alice, Double diplôme en Agroécologie et AgroForesterie</div>
+                                    <ul class="team-item__socials">
+                                        <li><a class="link--facebook" href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--twitter" href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a class="link--youtube" href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </section>
+        <!-- section end-->
 
-            <div class="mb-3">
-                <button type="submit" class="btn btn-warning">Envoyer</button>
-            </div>
-  
-        </form>
-    </div>
-</div>
+        {% endblock %} 
 
-{% endblock %}
+       
