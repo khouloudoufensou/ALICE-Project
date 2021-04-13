@@ -115,28 +115,78 @@
     </section>
 
     <!-- section start-->
-    <section class="section">
+    {# <section class="section">
         <div class="container">
-            <div class="row offset-margin">
+            <div class="row offset-margin"> #}
+    <section class="section tours">
+        <div class="container">
+            <div class="row align-items-center bottom-30">
+                <div class="col-12">
+                </div>
+            </div>
+            <div class="row">
 
-                {% for formation in formations %}
-                    <div class="col-md-6 col-xl-4">
-                        <div class="events-item">
-                            <div class="events-item__img">
-                                <div class="events-item__date">
-                                    <span>{{formation.startAt|date('d')}}</span>
-                                    <span>{{formation.startAt|date('F')|format_datetime( locale='fr', pattern="MMMM")}}</span>
-                                </div>
-                                
-                                <img class="img--bg" src="{{ asset(formation.imagePath) }}" alt="img" />
-                            </div>
-                            <h6 class="events-item__title"><a class="events-item__link" href="{{ path('formation', { id: formation.id}) }}"> {{ formation.title }}</a></h6>
-                             <p class="card-text">{{ formation.contentEllipsis() }}</p>
+            {% for formation in formations %}
+             {% set store = formation.seatingCapacity - formation.reservations.count %}
+                <div class="col-sm-6 col-xl-4 bottom-30">
+                    <div class="tours-item">
+                        <div class="tours-item__img">
+                            <img class="img--bg" src="{{ asset(formation.imagePath) }}" alt="img" />
+                        </div>
+                        <div class="tours-item__details">
+                            <h4 class="tours-item__title"> <br/>
+                                <span< /span>
+                            </h4>
+                            <div class="tours-item__price">{{ formation.price }} €</div>
+                            <div class="tours-item__edition">Formation de {{ formation.period }}</div>
+                            <a class="tours-item__link" href="{{ path('formation', { id: formation.id}) }}">En savoir plus</a>
                         </div>
                     </div>
-                {% endfor %}  
+                    <center>
+                        <p>
+                            <h6>{{ formation.title }}</h6>
+
+                        </p>
+                        {% if store>0  %}
+                            <div class="col-4">
+                                <div class="col-12">
+                                    <p>Places disponible: {{store}}</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                
+                                <strong></strong> <a href="{{ path('formation', { id: formation.id}) }}" class="myButton">Réserver</a>
+
+                                <ul class="rating-list">
+                                    <li class="rating-list__item"><i class="fa fa-star" aria-hidden="true"></i>
+                                    </li>
+
+                                    <li class="rating-list__item"><i class="fa fa-star" aria-hidden="true"></i>
+                                    </li>
+
+                                    <li class="rating-list__item"><i class="fa fa-star" aria-hidden="true"></i>
+                                    </li>
+
+                                    <li class="rating-list__item"><i class="fa fa-star" aria-hidden="true"></i>
+                                    </li>
+
+                                    <li class="rating-list__item rating-list__item--disabled">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                        {% else %}
+                            <img src="{{ asset('/images/sold-out.png')}}" alt="out of stock" />
+                            
+                        {% endif %}
+                        
+                    </center>
+                </div>
+            {% endfor %}  
 
             </div>
+        </div>
     </section>
     <!-- section end-->
     

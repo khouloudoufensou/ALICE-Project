@@ -15,14 +15,18 @@ class AvisType extends AbstractType
     {
         $builder
             ->add('message', TextareaType::class, [
-                'label' => "Votre avis",
+                'label' => false,
                 'attr' => [
-                    'rows' => 5
+                    'rows' => 5,
+                    'class'=>'form__field'
                 ]
             ])
             
             ->add('submit',SubmitType::class,[
-                'label'=> 'Ajouter'
+                'label'=> 'Ajouter',
+                'attr' => [
+                    'class' => "myButton"
+                ]
             ])
             
         ;

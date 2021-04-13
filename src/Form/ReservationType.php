@@ -14,7 +14,10 @@ class ReservationType extends AbstractType
     {
         $builder
             ->add('submit', SubmitType::class, [
-                'label' => "Réserver",
+                'label' => "Ajouter au panier",
+                'attr' => [
+                    'class'=>'form__button form__submit',
+                ]
             ])
         ;
     }

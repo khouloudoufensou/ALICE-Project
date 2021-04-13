@@ -65,18 +65,18 @@ class BaseController extends AbstractController
 
         if ($this->isGranted('ROLE_ADMIN')){
             
-            dd("hello ADMIN");
+            // dd("hello ADMIN");
 
             Return $this->redirectToRoute('admin');
 
         }elseif($this->isGranted('ROLE_MEMBER')){
 
-            dd("hello membre");
+            // dd("hello membre");
 
             Return $this->redirectToRoute('member');
 
         }else{
-                dd("hello Khouloud");
+            // dd("hello Khouloud");
             
             Return $this->redirectToRoute('home');
         }
@@ -136,6 +136,15 @@ class BaseController extends AbstractController
             'success'=>false
         ]);
 
+    }
+
+    
+    /**
+     * @Route("/faq", name="faq")
+     */
+    public function faq(): Response
+    {
+        return $this->render('security/Faq.html.twig');
     }
 
 }

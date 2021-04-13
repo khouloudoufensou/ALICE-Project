@@ -10,96 +10,159 @@
 {# Bloc destiné à recevoir le contenu HTML de la page #}
 
 {% block body %}
+<main class="main">
+<!-- promo start-->
+    <section class="promo-primary">
+        <picture>
+            <source srcset="{{asset('/images/ecoleenfant.jpg')}}" media="(min-width: 992px)" /><img class="img--bg" src="{{asset('/images/ecoleenfant.jpg')}}" alt="img" />
+        </picture>
+        <div class="container">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="align-container">
+                        <div class="align-container__item"><span class="promo-primary__pre-title">Reconvertissez
+                                vous vers l'avenir</span>
+                            <h1 class="promo-primary__title"><span>La Boutique</span> <span>Alice</span></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- promo end-->
+    <!-- shop product start-->
+    <section class="section shop-product background--brown">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-0">
+                    <!-- dual slider start-->
+                    <div class="dual-slider">
+                        <div class="main-slider">
+                            <div class="main-slider__item">
+                                <div class="main-slider__img"><img class="img--contain" src="{{asset(formation.imagePath)}}" alt="single" /></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dual slider end-->
+                </div>
+                <div class="col-lg-6 col-xl-5 offset-xl-1">
+                    <div class="shop-product__top">
+                        <h4 class="shop-product__name">{{ formation.title }}</h4>
+                        <s class="shop-product__old-price">{{ (formation.price+((formation.price*50)/100)|round(1, 'floor'))}}€</s>
+                        <h4 class="shop-product__price">{{ formation.price }}€</h4>
+                    </div>
+                    {% set store = formation.seatingCapacity - formation.reservations.count %}
+                    <div class="shop-product__description">
+                        <ul class="shop-product__list">
+                            <li>Logement sur place: Oui </li>
+                            <li>Durée: {{ formation.period }}</li>
+                            {% if store>0  %}
+                            <li>Places disponible: {{store}}</li>                                         
+                            {% endif %}
+                            <li>Lieu: Domaine de Pont-Éven</li>
+                        </ul>
+                        <p>
+                            {{ formation.contentEllipsis() }}
+                        </p>
+                        <div class="shop-product__rating">
+                            <h6 class="shop-product__title">Avis</h6>
+                            <ul class="rating-list">
+                                <li class="rating-list__item"><i class="fa fa-star" aria-hidden="true"></i>
+                                </li>
+                                <li class="rating-list__item"><i class="fa fa-star" aria-hidden="true"></i>
+                                </li>
+                                <li class="rating-list__item"><i class="fa fa-star" aria-hidden="true"></i>
+                                </li>
+                                <li class="rating-list__item"><i class="fa fa-star" aria-hidden="true"></i>
+                                </li>
+                                <li class="rating-list__item rating-list__item--disabled">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </li>
+                            </ul><span class="shop-product__reviews-count">({{ formation.avis.count}} avis)</span>
+                        </div>
+                    </div>
+                    {# <form class="form product-form" action="javascript:void(0);" autocomplete="off">
+                        <div class="form__wrapper">
+                            <div class="form__count"><span class="form__minus"></span>
+                                <input class="form__field" type="number" value="1" /><span class="form__plus"></span>
+                                <a class="shop-item__add" href="#">
+                                    <svg class="icon">
+                                        <use xlink:href="#bag"></use>
+                                    </svg><span>Ajouter au panier</span></a>
+                            </div>
+                        </div>
+                    </form> #}
+                    {% if store>0  %}   
+                        <div class="form__wrapper">
+                            <div class="form__count"> 
+                                {{form(formReservaion)}}
+                            </div>
+                        </div>
 
-    <div class="mb-4">
-        <a href="{{ path('list_stages_formations') }}" class="small text-dark text-decoration-none">&#8592; Retour</a>
-    </div>
+                    {% else %}
+                        Sold out
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <h5> Description de la formation</h5>
+        {{ formation.description|nl2br }}
+        <br> 
+        <h5> L'intervenant</h5>
+        {{ formation.speaker }}
+        <br> 
+        <h5> Description de l'intervenant</h5>
+        {{ formation.presSpeaker }}
+        <br> 
+        <br>
+        <br>
+    </section>
+<!-- shop product end-->
+    
 
-    <img src="{{asset(formation.imagePath)}}" alt="" class="w-100">
-
-    <div class="mt-3">
-        {# image #}
-        <h1>{{ formation.title }}</h1>
-        <p>{{ formation.description }}</p>
-        {# <p>Nombre de place disponible: </p> #}
-
-        {# la page de paiement #}
-        {# <a href="#">
-            <button type="button" class="btn btn-primary">Réserver</button>
-        </a> #}
-        {% set store = formation.seatingCapacity - formation.reservations.count %}
-        {# login pour reserver #}
-        {# {% if is_granted('IS_AUTHENTICATED_FULLY') %}    #}
-            {# {{form(formReservaion)}} #}
-        {# {% endif %} #}
-        {% if store>0  %}
-            <h2>Nombre de place disponible: ({{store}})</h2>
-            {{form(formReservaion)}}
-
-        {% else %}
-            <button type="button" class="btn btn-danger">Sold out</button>
-        {% endif %}
-
-        {# le nombre de reservation pour chaque formation => nombre de place dispo  #}
-        {# <h2>Reservations pour cette formation ({{ formation.reservations.count}})</h2> #} 
-
-        {# panier de chaque user #}
-        {# <h2>Panier de l'utilisateur ({{app.user.reservations.count}})</h2> #}
-
-        {# <h1>Liste des formations</h1>
-        {% for formation in app.user.formations %}
-            <div> {{formation.title }}</div>          
-        {% endfor %} #}
-
-        
-    </div>
-
-    <br><br>
-
-{# pour tout le monde #}
-
-    <h2>Avis ({{ formation.avis.count}})</h2>
-
-    {% for avis  in formation.avis %}
-        <div >
+    <section class="container">
+        <h5>Avis </h5>
+        {% for avis  in formation.avis %}
+        <div class="row">
+            {{ avis.message|nl2br }}
+        </div>
+        <div class="row">
             <b>Publié le {{ avis.creatAt|date('d/m/Y')}} par {{avis.user.Fullname}}</b>
-            <div>{{ avis.message|nl2br }}</div>
-
-
-            {# {{ dump(app.user.id) }} #}
-            {# {{ dump(avis.user.id) }} #}
-
-            {# lien vers supprimer et vers modifier si la personne est connecter et si le commentaire à ete cree par cette user 
-            il faut creer a voter#}
-
-            {# {% if (is_granted('IS_AUTHENTICATED_FULLY')and ({id: app.user.id} === {id: avis.user.id} )) %} #}
-
-            {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::EDIT'), avis) %}
+            
+            {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::EDIT'), avis) %} 
+                &ensp;
                 <a href="{{ path('notice_update', { id: avis.id}) }}" class="text-body text-decoration-none btn btn-outline-secondary">Modifier</a>
             {% endif %}
-            {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::DELETE'), avis) %}
+            
+            {% if is_granted(constant('App\\Security\\Voter\\AvisVoter::DELETE'), avis) %} 
+                &ensp;
                 <form method="POST" action="{{ path('notice_remove', { id: avis.id}) }}">
                     {# pour securiser la suppression on genere un token #}
                     <input type="hidden" name="_token" value="{{csrf_token("delete"~ avis.id)}}">
-                    <button onclick="return confirm('Voulez vous supprimer cet avis ?')" class="text-body text-decoration-none btn btn-outline-danger" >Supprimer</button>                          
+                    <button onclick="return confirm('Voulez vous supprimer cet avis ?')" class="myButton" >Supprimer</button>                          
                 </form>
             {% endif %}
-
-                
-            
-                
-            {# {% endif %} #}
            
         </div>
         
-    {% endfor %}
+        
+        {% endfor %}
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}  
-        <div classe= 'lead'>
-            Laissez votre avis
-        </div>
-        {{form(form)}}
-    {% endif %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}  
+            <div classe= 'lead'>
+                Laissez votre avis
+            </div>
+            <div class="row">
+            {{form(form)}}
+            </div>
+        {% endif %}
+    <br>
+    <br>
+    </section>
+
+</main>
     
 
 

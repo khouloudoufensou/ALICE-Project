@@ -131,9 +131,8 @@
                         
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <a class="cart-trigger" href="{{path("bascket")}}">
-                                <svg class="icon">
-                                    <use xlink:href="#cart"></use>
-                                </svg>
+                                {# <a href="{{asset('/images/icone-panier-15e.gif')}}"></a><img src="{{asset('/images/icone-panier-15e.gif')}}" alt="Mon panier" /></a> #}
+                                Mon panier  &ensp;
 
                                 <span class="cart-trigger__count">
                                     {{app.user.reservations.count}}

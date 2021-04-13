@@ -58,7 +58,7 @@ class FormationController extends AbstractController
         
         if($formReservaion->isSubmitted() && $formReservaion->isValid()){
             // $this->isGranted('ROLE_MEMBER')
-            if ($this->isGranted('ROLE_MEMBER')) {
+            if ($this->isGranted('ROLE_USER')) {
                 $booking->setFormation($formation);
             $booking->setUser($this->getUser());
     
@@ -172,6 +172,14 @@ class FormationController extends AbstractController
     public function bascket(): Response
     {   
         return $this->render('formation/panier.html.twig');
+    }
+
+    /**
+     * @Route("/checkout", name="checkout")
+     */
+    public function checkout(): Response
+    {
+        return $this->render('formation/checkout.html.twig');
     }
 
     // delete reservation
