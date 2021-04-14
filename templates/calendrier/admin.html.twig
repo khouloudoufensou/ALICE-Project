@@ -32,20 +32,14 @@
 {% block body %}
     <div class="container">
         <a href="{{ path('calendar_index')}}"><button class="button button--primary admin-button" >Gestion</button></a>
-    </div>
-    
-    
+    </div>  
     <div id="calendrier">
-     
+    
     </div>
-
 {% endblock %}
-
-
 
 {% block javascripts %}
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
-
 <script>
     window.onload = () => {
         let calendarElt = document.querySelector("#calendrier")

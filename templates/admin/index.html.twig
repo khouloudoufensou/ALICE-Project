@@ -3,13 +3,20 @@
 {% block title %}ADMINISTRATEURS{% endblock %}
 
 {% block body %}
-
-<h1>Espace administrateur</h1>
+<div class='container'>
+<h1>Welcome chère Admin</h1>
 
  <ul>
     <li>
         <a href="{{ path('membre_blog_list') }}">Gestion du blog</a>
     </li>
+
+    <li>
+        <a href="{{path("admin_list_formations")}}">Gestion des formations et des stages</a>
+    </li>
  </ul>
+
+</div>
+
 
 {% endblock %}

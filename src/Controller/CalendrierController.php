@@ -16,7 +16,6 @@ class CalendrierController extends AbstractController
     {
         $events=$calendar->findAll();
         // dd($events);
-
         foreach($events as $event){
             $rdvs[] = [
                 'id' => $event->getId(),
@@ -30,15 +29,15 @@ class CalendrierController extends AbstractController
                 'allDay' => $event->getAllDay(),
             ];
         }
-
         $data = json_encode($rdvs);
-
         if ($this->isGranted('ROLE_ADMIN')) {
             return $this->render('calendrier/admin.html.twig', compact('data'));
         }else{
             return $this->render('calendrier/user.html.twig', compact('data'));
-        }
-        
-        
+        }  
     }
 }
+
+
+
+
